@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .footer-titles {
+    @apply text-2xl font-bold leading-8 pb-5;
+  }
+}
