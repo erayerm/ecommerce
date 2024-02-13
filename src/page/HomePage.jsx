@@ -1,18 +1,19 @@
 import BestSellerProducts from "../components/BestsellerProducts"
+import CarouselComponent from "../components/Carousel"
 import EditorsPick from "../components/EditorsPick"
 import PartOfTheNeuralUniverse from "../components/PartOfTheNeuralUniverse"
-
+import { firstCarouselContent, secondCarouselContent } from "../mock/carouselContentsData"
 
 export default function HomePage() {
 
     return (
-        <div>
-            {/*Carousel Will be Added Later*/}
+        <>
+            <CarouselComponent items={firstCarouselContent} />
             <EditorsPick />
             <BestSellerProducts />
+            <CarouselComponent items={secondCarouselContent} />
             <PartOfTheNeuralUniverse />
-            {/*Carousel Will be Added Later*/}
-        </div>
+        </>
     )
 }
 
