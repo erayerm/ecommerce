@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faCartShopping, faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faUser, faHeart, faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { faInstagram, faYoutube, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 
 export default function Header() {
@@ -29,12 +30,12 @@ export default function Header() {
                     <div className='flex items-center justify-between w-[50%]'>
                         <p className='font-bold text-2xl leading-8' >Bandage</p>
                         <nav className='flex gap-3 text-sm leading-6 '>
-                            <a href="">Home</a>
-                            <a href="">Shop</a>
-                            <a href="">About</a>
-                            <a href="">Blog</a>
-                            <a href="">Contact</a>
-                            <a href="">Pages</a>
+                            <Link to="/">Home</Link>
+                            <Link to="/shop">Shop</Link>
+                            <Link to="/">About</Link>
+                            <Link to="/">Blog</Link>
+                            <Link to="/">Contact</Link>
+                            <Link to="/">Pages</Link>
                         </nav>
                     </div>
                     <div className='flex gap-5 text-sm leading-6 text-[#23A6F0]'>
