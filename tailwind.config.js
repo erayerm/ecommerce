@@ -5,6 +5,11 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    "w-[240px]",
+    "h-[427px]",
+    "h-[300px]"
+  ],
   theme: {
     extend: {
       fontFamily: {

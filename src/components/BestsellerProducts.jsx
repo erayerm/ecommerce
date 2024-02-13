@@ -1,5 +1,5 @@
 import { bestseller } from "../mock/bestSellerData"
-import BestSellerCard from "./BestSellerCard"
+import ProductCard from "./ProductCard"
 
 export default function BestSellerProducts() {
 
@@ -13,7 +13,7 @@ export default function BestSellerProducts() {
                 </div>
                 <div className="flex flex-wrap gap-x-7 gap-y-20 justify-center">
                     {bestseller.map((item, index) => {
-                        return <BestSellerCard key={index} data={item} />
+                        return <ProductCard key={index} data={item} size={[240, 427]} />
                     })}
                 </div>
             </div>
