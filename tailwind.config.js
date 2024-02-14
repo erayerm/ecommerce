@@ -1,11 +1,21 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    "w-[240px]",
+    "h-[427px]",
+    "h-[300px]"
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'montserrat': ['"Montserrat"'],
+      },
+    },
   },
   plugins: [],
 }
