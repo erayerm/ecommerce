@@ -20,13 +20,3 @@ export default function TeamMemberCard({ data }) {
         </div>
     )
 }
-
-/*
-
-{
-        img: "./img/team-1-user-1.svg",
-        username: "Username",
-        profession: "Profession",
-    },
-
-*/

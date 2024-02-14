@@ -8,7 +8,10 @@ export default {
   safelist: [
     "w-[240px]",
     "h-[427px]",
-    "h-[300px]"
+    "h-[300px]",
+    "bg-[#252B42]",
+    "text-[#FFFFFF]",
+    "text-[#252B42]"
   ],
   theme: {
     extend: {
