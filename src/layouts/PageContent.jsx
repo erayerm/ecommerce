@@ -2,6 +2,7 @@ import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import HomePage from "../page/HomePage";
 import ProductList from "../page/ProductList";
 import AboutUs from "../page/AboutUs";
+import Team from "../page/Team";
 
 export default function PageContent() {
 
@@ -12,6 +13,9 @@ export default function PageContent() {
             </Route>
             <Route path="/about">
                 <AboutUs />
+            </Route>
+            <Route path="/team">
+                <Team />
             </Route>
             <Route exact path="/">
                 <HomePage />
