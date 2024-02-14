@@ -1,4 +1,3 @@
-import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
@@ -13,9 +12,9 @@ export default function TeamMemberCard({ data }) {
                 <p className="text-[#252B42] font-bold leading-6 ">{data.username}</p>
                 <p className="text-sm text-[#252B42 leading-6]">{data.profession}</p>
                 <div className="flex gap-5 text-[#23A6F0] text-[24px]">
-                    <FontAwesomeIcon icon={faFacebook} />
-                    <FontAwesomeIcon icon={faInstagram} />
-                    <FontAwesomeIcon icon={faTwitter} />
+                    <FontAwesomeIcon icon="fa-brands fa-facebook" />
+                    <FontAwesomeIcon icon="fa-brands fa-instagram" />
+                    <FontAwesomeIcon icon="fa-brands fa-twitter" />
                 </div>
             </div>
         </div>

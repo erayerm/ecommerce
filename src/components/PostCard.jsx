@@ -1,6 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock } from '@fortawesome/free-regular-svg-icons'
-import { faChartSimple } from '@fortawesome/free-solid-svg-icons'
 
 export default function PostCard({ data }) {
 
@@ -19,11 +17,11 @@ export default function PostCard({ data }) {
                 <p className='text-sm text-[#737373] leading-5'>{data.info}</p>
                 <div className="py-2.5 flex w-full justify-between">
                     <div className='flex gap-1.5 items-center'>
-                        <FontAwesomeIcon icon={faClock} className='text-[#23A6F0]' />
+                        <FontAwesomeIcon icon="fa-regular fa-clock" className='text-[#23A6F0]' />
                         <p className='text-xs leading-4 text-[#737373]'>{data.date}</p>
                     </div>
                     <div className='flex gap-1.5 items-center'>
-                        <FontAwesomeIcon icon={faChartSimple} className='text-[#23856D]' />
+                        <FontAwesomeIcon icon="fa-solid fa-chart-simple" className='text-[#23856D]' />
                         <p className='text-xs leading-4 text-[#737373]'>{data.commentCount} comments</p>
                     </div>
                 </div>

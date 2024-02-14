@@ -1,6 +1,5 @@
 import { memberDataBig } from "../mock/memberData";
 import TeamMemberCard from "../components/TeamMemberCard";
-import { faInstagram, faFacebook, faTwitter, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
@@ -53,10 +52,10 @@ export default function Team() {
 
                     </div>
                     <div className="p-2.5 flex gap-[34px]">
-                        <FontAwesomeIcon className="text-[30px] text-[#55ACEE]" icon={faTwitter} />
-                        <FontAwesomeIcon className="text-[30px] text-[#395185]" icon={faFacebook} />
-                        <FontAwesomeIcon className="text-[30px] text-black" icon={faInstagram} />
-                        <FontAwesomeIcon className="text-[30px] text-[#0A66C2]" icon={faLinkedin} />
+                        <FontAwesomeIcon className="text-[30px] text-[#55ACEE]" icon="fa-brands fa-twitter" />
+                        <FontAwesomeIcon className="text-[30px] text-[#395185]" icon="fa-brands fa-facebook" />
+                        <FontAwesomeIcon className="text-[30px] text-black" icon="fa-brands fa-instagram" />
+                        <FontAwesomeIcon className="text-[30px] text-[#0A66C2]" icon="fa-brands fa-linkedin" />
                     </div>
                 </div>
             </section>

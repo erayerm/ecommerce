@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 
 export default function Footer() {
@@ -10,9 +9,9 @@ export default function Footer() {
                     <h3 className='footer-titles'>Get In Touch</h3>
                     <p className='text-[#8EC2F2]'>The quick fox jumps over the lazy dog</p>
                     <div className='flex gap-5 pt-5 text-[24px]'>
-                        <FontAwesomeIcon icon={faFacebook} />
-                        <FontAwesomeIcon icon={faInstagram} />
-                        <FontAwesomeIcon icon={faTwitter} />
+                        <FontAwesomeIcon icon="fa-brands fa-facebook" />
+                        <FontAwesomeIcon icon="fa-brands fa-instagram" />
+                        <FontAwesomeIcon icon="fa-brands fa-twitter" />
                     </div>
                 </div>
                 <div className="w-[250px]">
