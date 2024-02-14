@@ -32,7 +32,7 @@ export default function Header() {
                         <nav className='flex gap-3 text-sm leading-6 '>
                             <Link to="/">Home</Link>
                             <Link to="/shop">Shop</Link>
-                            <Link to="/">About</Link>
+                            <Link to="/about">About</Link>
                             <Link to="/">Blog</Link>
                             <Link to="/">Contact</Link>
                             <Link to="/">Pages</Link>
