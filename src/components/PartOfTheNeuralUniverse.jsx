@@ -2,17 +2,17 @@ export default function PartOfTheNeuralUniverse() {
 
     return (
         <section className="w-screen">
-            <div className="my-0 mx-auto max-w-[1050px] flex justify-between items-center gap-20">
+            <div className="my-0 mx-auto max-w-page-content flex justify-between items-center gap-20">
                 <div>
                     <img src="img/main-section-3-item.png" />
                 </div>
                 <div className="flex flex-col gap-7 max-w-[396px]">
-                    <h5 className="font-bold leading-6 text-[#BDBDBD]">SUMMER 2020</h5>
+                    <h5 className="font-bold leading-6 text-muted-text-color">SUMMER 2020</h5>
                     <h2 className="font-bold text-[40px] leading-[50px]">Part of the Neural Universe</h2>
-                    <p className="text-xl leading-[30px]">We know how large objects will act, but things on a small scale.</p>
+                    <p className="text-xl leading-7.5">We know how large objects will act, but things on a small scale.</p>
                     <div className="font-bold text-sm leading-[22px] flex gap-2.5">
-                        <button className="bg-[#2DC071] text-white px-10 py-4 rounded-md border-2 border-[#2DC071] border-solid">BUY NOW</button>
-                        <button className="bg-transparent text-[#2DC071] px-10 py-4 rounded-md border-2 border-[#2DC071] border-solid">READ MORE</button>
+                        <button className="bg-success-green text-white px-10 py-4 rounded-md border-2 border-success-green border-solid">BUY NOW</button>
+                        <button className="bg-transparent text-success-green px-10 py-4 rounded-md border-2 border-success-green border-solid">READ MORE</button>
                     </div>
                 </div>
             </div>

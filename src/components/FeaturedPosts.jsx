@@ -28,9 +28,9 @@ export default function FeaturedPosts() {
 
     return (
         <section className="w-screen ">
-            <div className="flex flex-col max-w-[1050px] my-0 mx-auto items-center">
+            <div className="flex flex-col max-w-page-content my-0 mx-auto items-center">
                 <div className="pt-[112px] flex flex-col items-center gap-2.5">
-                    <h4 className="text-blue text-sm font-bold leading-6">Practice Advice</h4>
+                    <h4 className="text-primary-blue text-sm font-bold leading-6">Practice Advice</h4>
                     <h2 className="font-bold text-4xl leading-[50px]">Featured Posts</h2>
                     <p className="text-center text-gray text-sm leading-5">
                         Problems trying to resolve the conflict between

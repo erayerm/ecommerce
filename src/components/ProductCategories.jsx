@@ -11,8 +11,8 @@ export default function ProductCategories() {
                     <h1 className="font-bold text-2xl leading-8 text-main">Shop</h1>
                     <div className="flex items-center gap-3.5 font-bold text-sm leading-6">
                         <Link to="/" className="text-main">Home</Link>
-                        <p className="text-[#BDBDBD] font-thin text-4xl">{">"}</p>
-                        <p className="text-[#BDBDBD]">Shop</p>
+                        <p className="text-muted-text-color font-thin text-4xl">{">"}</p>
+                        <p className="text-muted-text-color">Shop</p>
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-3.5 items-center justify-center pb-12">

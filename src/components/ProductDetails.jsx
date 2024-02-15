@@ -9,18 +9,18 @@ export default function ProductDetails() {
 
     return (
         <section className="w-screen">
-            <div className="mx-auto max-w-[1050px] flex flex-col">
+            <div className="mx-auto max-w-page-content flex flex-col">
                 <div className="flex justify-center">
-                    <NavLink exact to="/productPage" className={isActive => "p-6 text-sm font-bold leading-6 " + (!isActive ? "text-gray" : "text-blue")}>
-                        <NavLink to="/productPage/description/" className={isActive => "p-6 text-sm font-bold leading-6 " + (!isActive ? "" : "text-blue")}>
+                    <NavLink exact to="/productPage" className={isActive => "p-6 text-sm font-bold leading-6 " + (!isActive ? "text-gray" : "text-primary-blue")}>
+                        <NavLink to="/productPage/description/" className={isActive => "p-6 text-sm font-bold leading-6 " + (!isActive ? "" : "text-primary-blue")}>
                             Description
                         </NavLink>
                     </NavLink>
 
-                    <NavLink to="/productPage/additionalInformation" className={isActive => "p-6 text-sm font-bold leading-6 " + (!isActive ? "text-gray" : "text-blue")}>
+                    <NavLink to="/productPage/additionalInformation" className={isActive => "p-6 text-sm font-bold leading-6 " + (!isActive ? "text-gray" : "text-primary-blue")}>
                         Additional Information
                     </NavLink>
-                    <NavLink to="/productPage/reviews" className={isActive => "p-6 text-sm font-bold leading-6 " + (!isActive ? "text-gray" : "text-blue")}>
+                    <NavLink to="/productPage/reviews" className={isActive => "p-6 text-sm font-bold leading-6 " + (!isActive ? "text-gray" : "text-primary-blue")}>
                         Reviews
                     </NavLink>
                 </div>

@@ -35,7 +35,7 @@ export default function Header() {
                             <Link to="/">Pages</Link>
                         </nav>
                     </div>
-                    <div className='flex gap-5 text-sm leading-6 text-blue'>
+                    <div className='flex gap-5 text-sm leading-6 text-primary-blue'>
                         <a><FontAwesomeIcon icon="fa-regular fa-user" /> Login / Register</a>
                         <div><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></div>
                         <div><FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> 1</div>

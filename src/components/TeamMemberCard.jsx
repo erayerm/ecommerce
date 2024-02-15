@@ -10,8 +10,8 @@ export default function TeamMemberCard({ data }) {
             </div>
             <div className="flex flex-col gap-2.5 py-[30px] text-center">
                 <p className="text-main font-bold leading-6 ">{data.username}</p>
-                <p className="text-sm text-[#252B42 leading-6]">{data.profession}</p>
-                <div className="flex gap-5 text-blue text-[24px]">
+                <p className="text-sm text-main leading-6]">{data.profession}</p>
+                <div className="flex gap-5 text-primary-blue text-[24px]">
                     <FontAwesomeIcon icon="fa-brands fa-facebook" />
                     <FontAwesomeIcon icon="fa-brands fa-instagram" />
                     <FontAwesomeIcon icon="fa-brands fa-twitter" />

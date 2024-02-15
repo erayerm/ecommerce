@@ -9,7 +9,7 @@ export default function PostCard({ data }) {
             </div>
             <div className='px-6 gap-2.5 flex flex-col'>
                 <div className="flex gap-2.5 pt-2.5 text-xs leading-4 text-gray">
-                    <a href="" className='text-[#8EC2F2]'>Google</a>
+                    <a href="" className='text-light-blue'>Google</a>
                     <a href="">Trending</a>
                     <a href="">New</a>
                 </div>
@@ -17,17 +17,17 @@ export default function PostCard({ data }) {
                 <p className='text-sm text-gray leading-5'>{data.info}</p>
                 <div className="py-2.5 flex w-full justify-between">
                     <div className='flex gap-1.5 items-center'>
-                        <FontAwesomeIcon icon="fa-regular fa-clock" className='text-blue' />
+                        <FontAwesomeIcon icon="fa-regular fa-clock" className='text-primary-blue' />
                         <p className='text-xs leading-4 text-gray'>{data.date}</p>
                     </div>
                     <div className='flex gap-1.5 items-center'>
-                        <FontAwesomeIcon icon="fa-solid fa-chart-simple" className='text-[#23856D]' />
+                        <FontAwesomeIcon icon="fa-solid fa-chart-simple" className='text-dark-green' />
                         <p className='text-xs leading-4 text-gray'>{data.commentCount} comments</p>
                     </div>
                 </div>
                 <div className='flex items-center gap-2 pb-9'>
                     <a href=''><p className='font-bold text-sm leading-4 text-gray'>Learn More</p></a>
-                    <a href=''><span className='text-4xl text-blue'>{">"}</span></a>
+                    <a href=''><span className='text-4xl text-primary-blue'>{">"}</span></a>
                 </div>
             </div>
 

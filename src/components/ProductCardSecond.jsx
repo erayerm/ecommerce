@@ -9,7 +9,7 @@ export default function ProductCardSecond({ data }) {
                 <p className="text-gray text-sm font-bold leading-6">{data.secondTitle}</p>
                 <div className="flex gap-1.5">
                     <p className="text-gray text-base font-bold leading-6">${data.priceDefault}</p>
-                    <p className="text-[#23856D] text-base font-bold leading-6">${data.priceDiscounted}</p>
+                    <p className="text-dark-green text-base font-bold leading-6">${data.priceDiscounted}</p>
                 </div>
             </div>
 
