@@ -6,7 +6,7 @@ import {
     CarouselIndicators,
     CarouselCaption
 } from 'reactstrap';
-
+import { imageBasePath } from '../../public/imgBasePath';
 
 class CarouselComponent extends Component {
 
@@ -30,13 +30,13 @@ class CarouselComponent extends Component {
 
     next() {
         if (this.animating) return;
-        const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
+        const nextIndex = this.state.activeIndex === this.props.items.length - 1 ? 0 : this.state.activeIndex + 1;
         this.setState({ activeIndex: nextIndex });
     }
 
     previous() {
         if (this.animating) return;
-        const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
+        const nextIndex = this.state.activeIndex === 0 ? this.props.items.length - 1 : this.state.activeIndex - 1;
         this.setState({ activeIndex: nextIndex });
     }
 
@@ -49,17 +49,15 @@ class CarouselComponent extends Component {
         const { activeIndex } = this.state;
         const { items } = this.props;
 
-        const slides = items.map((item) => {
+        const slides = items.map((item, index) => {
             return (
                 <CarouselItem
                     onExiting={this.onExiting}
                     onExited={this.onExited}
-                    key={item.src}
-                    className='w-full mx-auto my-0'
+                    key={index}
 
                 >
-                    <img className='w-full max-h-[720px] object-cover' src={item.src} alt={item.altText} />
-                    <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+                    <img className='w-full max-h-[720px] object-cover' src={imageBasePath + item.src} alt={item.altText} />
                 </CarouselItem>
             );
         });
