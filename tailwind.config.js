@@ -11,7 +11,12 @@ export default {
     "h-[300px]",
     "bg-[#252B42]",
     "text-[#FFFFFF]",
-    "text-[#252B42]"
+    "text-[#252B42]",
+    "bg-[#23A6F0]",
+    "bg-[#2DC071]",
+    "bg-[#E77C40]",
+    "bg-[#252B42]",
+    "text-red-500"
   ],
   theme: {
     extend: {
@@ -19,6 +24,12 @@ export default {
         'montserrat': ['"Montserrat"'],
       },
     },
+    colors: {
+      main: "#252B42",
+      gray: "#737373",
+      blue: "#23A6F0"
+    }
   },
   plugins: [],
 }
+
