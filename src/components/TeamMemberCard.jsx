@@ -9,9 +9,9 @@ export default function TeamMemberCard({ data }) {
                 <img src={data.img} />
             </div>
             <div className="flex flex-col gap-2.5 py-[30px] text-center">
-                <p className="text-[#252B42] font-bold leading-6 ">{data.username}</p>
+                <p className="text-main font-bold leading-6 ">{data.username}</p>
                 <p className="text-sm text-[#252B42 leading-6]">{data.profession}</p>
-                <div className="flex gap-5 text-[#23A6F0] text-[24px]">
+                <div className="flex gap-5 text-blue text-[24px]">
                     <FontAwesomeIcon icon="fa-brands fa-facebook" />
                     <FontAwesomeIcon icon="fa-brands fa-instagram" />
                     <FontAwesomeIcon icon="fa-brands fa-twitter" />

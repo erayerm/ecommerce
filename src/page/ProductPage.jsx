@@ -22,7 +22,7 @@ export default function ProductPage() {
             <section className="width-screen bg-[#FAFAFA]">
                 <div className="max-w-[1050px] mx-auto py-6">
                     <div className="flex items-center gap-3.5 font-bold text-sm leading-6">
-                        <Link to="/" className="text-[#252B42]">Home</Link>
+                        <Link to="/" className="text-main">Home</Link>
                         <p className="text-[#BDBDBD] font-thin text-4xl">{">"}</p>
                         <p className="text-[#BDBDBD]">Shop</p>
                     </div>

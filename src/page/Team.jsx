@@ -8,12 +8,12 @@ export default function Team() {
     return (
         <>
             <section className="w-screen flex flex-col items-center py-[50px] gap-4">
-                <p className="font-bold leading-6 text-[#737373]">WHAT WE DO</p>
-                <h2 className="font-bold leading-[80px] text-[58px] text-[#252B42]">Innovation tailored for you</h2>
+                <p className="font-bold leading-6 text-gray">WHAT WE DO</p>
+                <h2 className="font-bold leading-[80px] text-[58px] text-main">Innovation tailored for you</h2>
                 <div className="flex items-center gap-4">
-                    <p className="text-sm text-[#252B42]">Home</p>
-                    <p className="text-[#737373] font-thin text-4xl">{">"}</p>
-                    <p className="text-sm text-[#737373]">Team</p>
+                    <p className="text-sm text-main">Home</p>
+                    <p className="text-gray font-thin text-4xl">{">"}</p>
+                    <p className="text-sm text-gray">Team</p>
                 </div>
             </section>
 
@@ -43,11 +43,11 @@ export default function Team() {
 
             <section className="w-screen py-[80px]">
                 <div className="max-w-[1050px] mx-auto flex flex-col gap-[30px] items-center">
-                    <h4 className="text-[#252B42] text-[40px] leading-[50px]">Start your 14 days free trial</h4>
-                    <p className="text-[#737373] text-sm leading-5 text-center w-[406px]">Met minim Mollie non desert Alamo est sit cliquey dolor
+                    <h4 className="text-main text-[40px] leading-[50px]">Start your 14 days free trial</h4>
+                    <p className="text-gray text-sm leading-5 text-center w-[406px]">Met minim Mollie non desert Alamo est sit cliquey dolor
                         do met sent. RELIT official consequent.</p>
                     <div>
-                        <button className="px-10 py-4 bg-[#23A6F0] rounded text-white">Try it free now</button>
+                        <button className="px-10 py-4 bg-blue rounded text-white">Try it free now</button>
 
                     </div>
                     <div className="p-2.5 flex gap-[34px]">

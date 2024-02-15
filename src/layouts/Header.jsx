@@ -6,7 +6,7 @@ export default function Header() {
 
     return (
         <>
-            <div className='w-screen h-[60px] bg-[#252B42] text-white px-5'>
+            <div className='w-screen h-[60px] bg-main text-white px-5'>
                 <div className='max-w-[1500px] flex justify-between my-0 mx-auto h-full items-center text-sm font-bold leading-6'>
                     <div className='flex items-center gap-5 '>
                         <div className='flex items-center gap-1'><FontAwesomeIcon icon="fa-solid fa-phone" /> <p>(225) 555-0118</p></div>
@@ -35,7 +35,7 @@ export default function Header() {
                             <Link to="/">Pages</Link>
                         </nav>
                     </div>
-                    <div className='flex gap-5 text-sm leading-6 text-[#23A6F0]'>
+                    <div className='flex gap-5 text-sm leading-6 text-blue'>
                         <a><FontAwesomeIcon icon="fa-regular fa-user" /> Login / Register</a>
                         <div><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></div>
                         <div><FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> 1</div>

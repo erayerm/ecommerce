@@ -9,13 +9,13 @@ export default {
     "w-[240px]",
     "h-[427px]",
     "h-[300px]",
-    "bg-[#252B42]",
+    "bg-main",
     "text-[#FFFFFF]",
-    "text-[#252B42]",
-    "bg-[#23A6F0]",
+    "text-main",
+    "bg-blue",
     "bg-[#2DC071]",
     "bg-[#E77C40]",
-    "bg-[#252B42]",
+    "bg-main",
     "text-red-500"
   ],
   theme: {

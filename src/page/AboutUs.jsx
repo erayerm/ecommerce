@@ -13,10 +13,10 @@ export default function AboutUs() {
                 <div className="max-w-[1050px] flex justify-between items-center mx-auto my-0 gap-[60px] py-6">
                     <div className="flex flex-col gap-6 max-w-[400px] py-6">
                         <h4 className="text-[#E74040] text-sm leading-5">Problems trying</h4>
-                        <p className="text-[#252B42] font-bold text-2xl leading-8">Met minim Mollie non desert Alamo est sit cliquey dolor do met sent.</p>
+                        <p className="text-main font-bold text-2xl leading-8">Met minim Mollie non desert Alamo est sit cliquey dolor do met sent.</p>
                     </div>
                     <div>
-                        <p className="text-[#737373] text-sm leading-5">Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics </p>
+                        <p className="text-gray text-sm leading-5">Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics </p>
                     </div>
                 </div>
             </section>
@@ -24,20 +24,20 @@ export default function AboutUs() {
             <section className="w-screen">
                 <div className="max-w-[1050px] flex justify-around mx-auto my-0 gap-[30px] py-[80px]">
                     <div className="font-bold flex flex-col items-center">
-                        <p className="text-[#252B42] text-[58px] leading-[80px]">15K</p>
-                        <p className="text-[#737373] leading-6">Happy Customers</p>
+                        <p className="text-main text-[58px] leading-[80px]">15K</p>
+                        <p className="text-gray leading-6">Happy Customers</p>
                     </div>
                     <div className="font-bold flex flex-col items-center">
-                        <p className="text-[#252B42] text-[58px] leading-[80px]">150K</p>
-                        <p className="text-[#737373] leading-6">Monthly Visitors</p>
+                        <p className="text-main text-[58px] leading-[80px]">150K</p>
+                        <p className="text-gray leading-6">Monthly Visitors</p>
                     </div>
                     <div className="font-bold flex flex-col items-center">
-                        <p className="text-[#252B42] text-[58px] leading-[80px]">15</p>
-                        <p className="text-[#737373] leading-6">Countries Worldwide</p>
+                        <p className="text-main text-[58px] leading-[80px]">15</p>
+                        <p className="text-gray leading-6">Countries Worldwide</p>
                     </div>
                     <div className="font-bold flex flex-col items-center">
-                        <p className="text-[#252B42] text-[58px] leading-[80px]">100+</p>
-                        <p className="text-[#737373] leading-6">Top Partners</p>
+                        <p className="text-main text-[58px] leading-[80px]">100+</p>
+                        <p className="text-gray leading-6">Top Partners</p>
                     </div>
                 </div>
             </section>
@@ -45,8 +45,8 @@ export default function AboutUs() {
             <section className="w-screen">
                 <div className="max-w-[1050px] mx-auto my-0 flex flex-col items-center py-[112px] gap-[112px]">
                     <div className="flex flex-col gap-2.5">
-                        <h3 className="text-center text-[40px] text-[#252B42] font-bold leading-[50px]">Meet Our Team</h3>
-                        <p className="text-center text-sm text-[#737373] leading-[20px]">
+                        <h3 className="text-center text-[40px] text-main font-bold leading-[50px]">Meet Our Team</h3>
+                        <p className="text-center text-sm text-gray leading-[20px]">
                             Problems trying to resolve the conflict between <br />
                             the two major realms of Classical physics: Newtonian mechanics
                         </p>
@@ -75,8 +75,8 @@ export default function AboutUs() {
             <section className="w-screen bg-[#FAFAFA] pb-20">
                 <div className="max-w-[1050px] flex flex-col pt-20 mx-auto my-0">
                     <div className="flex flex-col gap-[30px] pb-6 text-center">
-                        <h2 className="text-[#252B42] font-bold text-[40px] leading-[50px]">Big Companies Are Here</h2>
-                        <p className="text-[#737373] text-sm leading-5">Problems trying to resolve the conflict between<br />
+                        <h2 className="text-main font-bold text-[40px] leading-[50px]">Big Companies Are Here</h2>
+                        <p className="text-gray text-sm leading-5">Problems trying to resolve the conflict between<br />
                             the two major realms of Classical physics: Newtonian mechanics </p>
                     </div>
 
