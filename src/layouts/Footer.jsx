@@ -1,23 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 
 export default function Footer() {
     return (
         <div className="w-screen bg-[#2A7CC7] text-white h-[414px]">
-            <div className="max-w-[1050px] h-[338px] flex justify-between mx-auto my-0 pt-20">
+            <div className="max-w-page-content h-[338px] flex justify-between mx-auto my-0 pt-20">
                 <div className="w-[250px] ">
                     <h3 className='footer-titles'>Get In Touch</h3>
-                    <p className='text-[#8EC2F2]'>The quick fox jumps over the lazy dog</p>
+                    <p className='text-light-blue'>The quick fox jumps over the lazy dog</p>
                     <div className='flex gap-5 pt-5 text-[24px]'>
-                        <FontAwesomeIcon icon={faFacebook} />
-                        <FontAwesomeIcon icon={faInstagram} />
-                        <FontAwesomeIcon icon={faTwitter} />
+                        <FontAwesomeIcon icon="fa-brands fa-facebook" />
+                        <FontAwesomeIcon icon="fa-brands fa-instagram" />
+                        <FontAwesomeIcon icon="fa-brands fa-twitter" />
                     </div>
                 </div>
                 <div className="w-[250px]">
                     <h3 className='footer-titles'>Company info</h3>
-                    <ul className='flex flex-col gap-2 text-[#8EC2F2]'>
+                    <ul className='flex flex-col gap-2 text-light-blue'>
                         <li>About Us</li>
                         <li>Carrier</li>
                         <li>We are hiring</li>
@@ -26,7 +25,7 @@ export default function Footer() {
                 </div>
                 <div className="w-[250px]">
                     <h3 className='footer-titles'>Features</h3>
-                    <ul className='flex flex-col gap-2 text-[#8EC2F2]'>
+                    <ul className='flex flex-col gap-2 text-light-blue'>
                         <li>Bussiness Marketing</li>
                         <li>User Analytic</li>
                         <li>Live Chat</li>
