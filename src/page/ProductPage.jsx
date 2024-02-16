@@ -4,13 +4,13 @@ import { useState } from "react";
 import Rating from '@mui/material/Rating';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductDetails from "../components/ProductDetails";
-import CarouselComponent from "../components/Carousel";
+import Carousel from "../components/Carousel";
 import { imageBasePath } from "../../public/imgBasePath";
 import { bestseller } from "../mock/bestSellerData";
 import ProductCardSecond from "../components/ProductCardSecond";
 import Clients from "../components/Clients";
 
-const colors = ["23A6F0", "2DC071", "E77C40", "252B42"];
+const colors = ["[#23A6F0]", "success-green", "[#E77C40]", "[#252B42]"];
 
 
 
@@ -30,11 +30,11 @@ export default function ProductPage() {
                 <div className="max-w-page-content mx-auto flex gap-[30px] pb-12">
                     <div>
                         <div className="w-[506px] h-[450px]">
-                            <CarouselComponent items={thirdCarouselContent} setCurrIndex={setCurrIndex} currIndex={currIndex} />
+                            <Carousel slides={thirdCarouselContent} setCurrIndex={setCurrIndex} />
                         </div>
                         <div className="flex gap-[19px] pt-5">
-                            {thirdCarouselContent.slice(currIndex, currIndex + 2).map((item, index) => {
-                                return <img className="w-[100px] h-[75px] object-cover" key={index} src={imageBasePath + item.src} />
+                            {thirdCarouselContent.slice(currIndex, currIndex + 5).map((item, index) => {
+                                return <img className="w-[100px] h-[75px] object-cover" key={index} src={imageBasePath + item} />
                             })}
                         </div>
                     </div>
@@ -54,7 +54,7 @@ export default function ProductPage() {
                         <hr />
                         <div className="flex gap-2.5">
                             {colors.map((item, index) => {
-                                return <div key={index} className={`bg-[#${item}] w-[30px] h-[30px] rounded-full`}></div>
+                                return <div key={index} className={`bg-${item} w-[30px] h-[30px] rounded-full`}></div>
                             })}
                         </div>
                         <div className="flex flex-wrap gap-2.5">
