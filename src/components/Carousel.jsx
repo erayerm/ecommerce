@@ -66,7 +66,7 @@ export default function Carousel({ slides, setCurrIndex = () => { return 0 }, ha
                 })}
 
                 {slides.map((s, index) => {
-                    return <img key={index} src={imageBasePath + s} className="object-cover" />
+                    return <img key={index} src={s} className="object-cover" />
                 })}
             </div>
             <button className="absolute top-[50%] left-0 z-50 text-white px-10 text-3xl" onClick={previousSlide}>

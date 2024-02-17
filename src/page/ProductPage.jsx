@@ -66,7 +66,7 @@ export default function ProductPage() {
                         <div className="flex gap-[19px] pt-5">
                             {/* when the redux or useContext implemented I'm gonna add onClick on images*/}
                             {shownImages.map((item, index) => {
-                                return <img className={"w-[100px] h-[75px] object-cover" + (carouselIndex !== index ? " opacity-60" : "")} key={index} src={imageBasePath + item} />
+                                return <img className={"w-[100px] h-[75px] object-cover" + (carouselIndex !== index ? " opacity-60" : "")} key={index} src={item} />
                             })}
                         </div>
                     </div>
