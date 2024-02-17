@@ -6,4 +6,7 @@
   .footer-titles {
     @apply text-2xl font-bold leading-8 pb-5;
   }
+  .product-tabs {
+    @apply text-gray text-sm leading-6 font-semibold cursor-pointer p-6;
+  }
 }
