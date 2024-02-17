@@ -1,21 +1,52 @@
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { thirdCarouselContent } from "../mock/carouselContentsData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Rating from '@mui/material/Rating';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductDetails from "../components/ProductDetails";
-import CarouselComponent from "../components/Carousel";
+import Carousel from "../components/Carousel";
 import { imageBasePath } from "../../public/imgBasePath";
 import { bestseller } from "../mock/bestSellerData";
 import ProductCardSecond from "../components/ProductCardSecond";
 import Clients from "../components/Clients";
 
-const colors = ["23A6F0", "2DC071", "E77C40", "252B42"];
+const colors = ["[#23A6F0]", "success-green", "[#E77C40]", "[#252B42]"];
 
 
 
 export default function ProductPage() {
     const [currIndex, setCurrIndex] = useState(0);
+    const [shownImages, setShownImages] = useState([]);
+    const [carouselIndex, setCarouselIndex] = useState(0);
+    useEffect(() => {
+        //change later
+        if (currIndex === 0) {
+            setShownImages(
+                thirdCarouselContent.slice(currIndex, currIndex + 5)
+            );
+            setCarouselIndex(0);
+        } else if (currIndex === thirdCarouselContent.length - 1) {
+            setShownImages(
+                thirdCarouselContent.slice(currIndex - 4, currIndex + 1)
+            );
+            setCarouselIndex(4);
+        } else if (currIndex === thirdCarouselContent.length - 2) {
+            setShownImages(
+                thirdCarouselContent.slice(currIndex - 3, currIndex + 2)
+            );
+            setCarouselIndex(3);
+        } else if (currIndex === thirdCarouselContent.length - 3) {
+            setShownImages(
+                thirdCarouselContent.slice(currIndex - 2, currIndex + 3)
+            );
+            setCarouselIndex(2);
+        } else {
+            setShownImages(
+                thirdCarouselContent.slice(currIndex - 1, currIndex + 4)
+            );
+            setCarouselIndex(1)
+        }
+    }, [currIndex]);
 
     return (
         <>
@@ -30,15 +61,15 @@ export default function ProductPage() {
                 <div className="max-w-page-content mx-auto flex gap-[30px] pb-12">
                     <div>
                         <div className="w-[506px] h-[450px]">
-                            <CarouselComponent items={thirdCarouselContent} setCurrIndex={setCurrIndex} currIndex={currIndex} />
+                            <Carousel slides={thirdCarouselContent} setCurrIndex={setCurrIndex} haveText={false} />
                         </div>
                         <div className="flex gap-[19px] pt-5">
-                            {thirdCarouselContent.slice(currIndex, currIndex + 2).map((item, index) => {
-                                return <img className="w-[100px] h-[75px] object-cover" key={index} src={imageBasePath + item.src} />
+                            {/* when the redux or useContext implemented I'm gonna add onClick on images*/}
+                            {shownImages.map((item, index) => {
+                                return <img className={"w-[100px] h-[75px] object-cover" + (carouselIndex !== index ? " opacity-60" : "")} key={index} src={imageBasePath + item} />
                             })}
                         </div>
                     </div>
-
                     <div className="flex flex-col gap-4 pt-4 px-6">
                         <p className="leading-7.5 text-xl text-main">Floating Phone</p>
                         <div className="flex gap-2">
@@ -54,7 +85,7 @@ export default function ProductPage() {
                         <hr />
                         <div className="flex gap-2.5">
                             {colors.map((item, index) => {
-                                return <div key={index} className={`bg-[#${item}] w-[30px] h-[30px] rounded-full`}></div>
+                                return <div key={index} className={`bg-${item} w-[30px] h-[30px] rounded-full`}></div>
                             })}
                         </div>
                         <div className="flex flex-wrap gap-2.5">
