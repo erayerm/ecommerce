@@ -5,7 +5,6 @@ import Rating from '@mui/material/Rating';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductDetails from "../components/ProductDetails";
 import Carousel from "../components/Carousel";
-import { imageBasePath } from "../../public/imgBasePath";
 import { bestseller } from "../mock/bestSellerData";
 import ProductCardSecond from "../components/ProductCardSecond";
 import Clients from "../components/Clients";

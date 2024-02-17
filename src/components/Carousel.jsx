@@ -3,7 +3,6 @@ import {
     BsFillArrowRightCircleFill,
     BsFillArrowLeftCircleFill,
 } from "react-icons/bs";
-import { imageBasePath } from "../../public/imgBasePath";
 
 export default function Carousel({ slides, setCurrIndex = () => { return 0 }, haveText = true }) {
     const ref = useRef(null);

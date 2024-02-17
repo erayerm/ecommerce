@@ -1,5 +1,3 @@
-import { imageBasePath } from "../../public/imgBasePath";
-
 export default function Clients() {
 
     return (
