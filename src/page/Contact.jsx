@@ -35,7 +35,7 @@ export default function Contact() {
                 <div className='max-w-page-content mx-auto flex flex-col items-center py-[112px] gap-20'>
                     <div className='text-main text-center flex flex-col gap-2.5 '>
                         <h3 className='text-sm leading-5'>VISIT OUR OFFICE</h3>
-                        <h2 className='font-bold text-[40px] leading-[50px] max-w-[555px]'>We help small businesses
+                        <h2 className='font-bold text-4.5xl leading-[50px] max-w-[555px]'>We help small businesses
                             with big ideas</h2>
                     </div>
                     <div className='flex'>

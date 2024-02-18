@@ -58,7 +58,7 @@ export default function AboutUs() {
             <section className="w-screen">
                 <div className="max-w-page-content mx-auto my-0 flex flex-col items-center py-[112px] gap-[112px]">
                     <div className="flex flex-col gap-2.5">
-                        <h3 className="text-center text-[40px] text-main font-bold leading-[50px]">Meet Our Team</h3>
+                        <h3 className="text-center text-4.5xl text-main font-bold leading-[50px]">Meet Our Team</h3>
                         <p className="text-center text-sm text-gray leading-[20px]">
                             Problems trying to resolve the conflict between <br />
                             the two major realms of Classical physics: Newtonian mechanics
@@ -74,7 +74,7 @@ export default function AboutUs() {
             <section className="w-screen bg-light-gray-1 pb-20">
                 <div className="max-w-page-content flex flex-col pt-20 mx-auto my-0">
                     <div className="flex flex-col gap-[30px] pb-6 text-center">
-                        <h2 className="text-main font-bold text-[40px] leading-[50px]">Big Companies Are Here</h2>
+                        <h2 className="text-main font-bold text-4.5xl leading-[50px]">Big Companies Are Here</h2>
                         <p className="text-gray text-sm leading-5">Problems trying to resolve the conflict between<br />
                             the two major realms of Classical physics: Newtonian mechanics </p>
                     </div>
@@ -86,7 +86,7 @@ export default function AboutUs() {
             <section className="w-screen bg-[#2A7CC7] h-[637px] flex justify-between items-center pl-[195px]">
                 <div className=" text-white flex flex-col gap-6 ">
                     <p className="font-bold leading-6">WORK WITH US</p>
-                    <h3 className="font-bold leading-[50px] text-[40px]">Now Let’s grow Yours</h3>
+                    <h3 className="font-bold leading-[50px] text-4.5xl">Now Let’s grow Yours</h3>
                     <p className="text-sm leading-5 max-w-[450px]">The gradual accumulation of information about atomic and small-scale behavior during the first quarter of the 20th </p>
                     <div>
                         <button className="px-[38px] py-[14px] border border-white rounded">Button</button>

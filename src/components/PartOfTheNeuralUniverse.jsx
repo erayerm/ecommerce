@@ -8,7 +8,7 @@ export default function PartOfTheNeuralUniverse() {
                 </div>
                 <div className="flex flex-col gap-7 max-w-[396px]">
                     <h5 className="font-bold leading-6 text-muted-text-color">SUMMER 2020</h5>
-                    <h2 className="font-bold text-[40px] leading-[50px]">Part of the Neural Universe</h2>
+                    <h2 className="font-bold text-4.5xl leading-[50px]">Part of the Neural Universe</h2>
                     <p className="text-xl leading-7.5">We know how large objects will act, but things on a small scale.</p>
                     <div className="font-bold text-sm leading-[22px] flex gap-2.5">
                         <button className="bg-success-green text-white px-10 py-4 rounded-md border-2 border-success-green border-solid">BUY NOW</button>

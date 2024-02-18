@@ -55,10 +55,10 @@ export default function Carousel({ slides, setCurrIndex = () => { return 0 }, ha
                         }}>
                         <div className="text-white flex flex-col gap-4">
                             <p className="text-sm">SUMMER 2020 - {index + 1}. Slide</p>
-                            <p className="text-[56px] leading-[80px] font-bold w-[5000px]">NEW COLLECTION</p>
-                            <p className="text-[18px] max-w-[350px]">We know how large objects will act, but things on a small scale.</p>
+                            <p className="text-6xl leading-[80px] font-bold w-[5000px]">NEW COLLECTION</p>
+                            <p className="text-lg max-w-[350px]">We know how large objects will act, but things on a small scale.</p>
                             <div>
-                                <button className="px-3 py-2 bg-success-green rounded text-[24px] relative">SHOP NOW</button>
+                                <button className="px-3 py-2 bg-success-green rounded text-2xl relative">SHOP NOW</button>
                             </div>
                         </div>
                     </div>;

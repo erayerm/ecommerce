@@ -36,7 +36,7 @@ export default function Team() {
             <section className="w-screen">
                 <div className="max-w-page-content mx-auto flex flex-col pb-[112px]">
                     <div className="py-[112px] text-center">
-                        <h2 className="font-bold text-[40px] leading-[50px]">Meet Our Team</h2>
+                        <h2 className="font-bold text-4.5xl leading-[50px]">Meet Our Team</h2>
                     </div>
                     <div className="flex flex-wrap gap-x-[30px] gap-y-[112px]">
                         {memberDataBig.map((item, index) => {
@@ -48,7 +48,7 @@ export default function Team() {
 
             <section className="w-screen py-[80px]">
                 <div className="max-w-page-content mx-auto flex flex-col gap-[30px] items-center">
-                    <h4 className="text-main text-[40px] leading-[50px]">Start your 14 days free trial</h4>
+                    <h4 className="text-main text-4.5xl leading-[50px]">Start your 14 days free trial</h4>
                     <p className="text-gray text-sm leading-5 text-center w-[406px]">Met minim Mollie non desert Alamo est sit cliquey dolor
                         do met sent. RELIT official consequent.</p>
                     <div>
