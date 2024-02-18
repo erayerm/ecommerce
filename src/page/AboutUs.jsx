@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import AboutUsHero from "../components/AboutUsHero";
 import Clients from "../components/Clients";
 import TeamMemberCard from "../components/TeamMemberCard";
@@ -5,7 +6,12 @@ import { memberDataSmall } from "../mock/memberData";
 
 
 export default function AboutUs() {
-
+    const videoRef = useRef();
+    const [playButtonShown, setPlayButtonShown] = useState(true);
+    const handleVideo = () => {
+        playButtonShown ? videoRef.current.play() : videoRef.current.pause();
+        setPlayButtonShown(!playButtonShown)
+    }
     return (
         <>
             <AboutUsHero />
@@ -41,6 +47,13 @@ export default function AboutUs() {
                     </div>
                 </div>
             </section>
+            <div className="relative max-w-[1000px] my-[115px] max-h-[540px] mx-auto cursor-pointer" onClick={handleVideo}>
+                <video ref={videoRef} className="relative z-10 rounded-3xl" poster="./img/video-thumb.png">
+                    <source src="about-us-video.mp4" type="video/mp4" />
+                </video>
+                <button className={"top-[40%] left-[45%] w-[92px] h-[92px] absolute z-20 bg-[url('./img/video-start-button.svg')] " + (playButtonShown ? "block" : "hidden")}></button>
+            </div>
+
 
             <section className="w-screen">
                 <div className="max-w-page-content mx-auto my-0 flex flex-col items-center py-[112px] gap-[112px]">
@@ -71,6 +84,7 @@ export default function AboutUs() {
                     <img src="./img/about-us-1.svg" className="h-full" />
                 </div>
             </section>
+
 
             <section className="w-screen bg-light-gray-1 pb-20">
                 <div className="max-w-page-content flex flex-col pt-20 mx-auto my-0">
