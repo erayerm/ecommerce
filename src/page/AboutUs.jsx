@@ -71,21 +71,6 @@ export default function AboutUs() {
                     </div>
                 </div>
             </section>
-            <section className="w-screen bg-[#2A7CC7] h-[637px] flex justify-between items-center pl-[195px]">
-                <div className=" text-white flex flex-col gap-6 ">
-                    <p className="font-bold leading-6">WORK WITH US</p>
-                    <h3 className="font-bold leading-[50px] text-[40px]">Now Let’s grow Yours</h3>
-                    <p className="text-sm leading-5 max-w-[450px]">The gradual accumulation of information about atomic and small-scale behavior during the first quarter of the 20th </p>
-                    <div>
-                        <button className="px-[38px] py-[14px] border border-white rounded">Button</button>
-                    </div>
-                </div>
-                <div className="h-full">
-                    <img src="./img/about-us-1.svg" className="h-full" />
-                </div>
-            </section>
-
-
             <section className="w-screen bg-light-gray-1 pb-20">
                 <div className="max-w-page-content flex flex-col pt-20 mx-auto my-0">
                     <div className="flex flex-col gap-[30px] pb-6 text-center">
@@ -97,6 +82,23 @@ export default function AboutUs() {
                 </div>
                 <Clients />
             </section>
+
+            <section className="w-screen bg-[#2A7CC7] h-[637px] flex justify-between items-center pl-[195px]">
+                <div className=" text-white flex flex-col gap-6 ">
+                    <p className="font-bold leading-6">WORK WITH US</p>
+                    <h3 className="font-bold leading-[50px] text-[40px]">Now Let’s grow Yours</h3>
+                    <p className="text-sm leading-5 max-w-[450px]">The gradual accumulation of information about atomic and small-scale behavior during the first quarter of the 20th </p>
+                    <div>
+                        <button className="px-[38px] py-[14px] border border-white rounded">Button</button>
+                    </div>
+                </div>
+                <div className="h-full">
+                    <img src="./img/about-us-1.svg" className="h-full object-cover" />
+                </div>
+            </section>
+
+
+
 
 
         </>

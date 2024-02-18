@@ -17,17 +17,22 @@ export default function Team() {
                 </div>
             </section>
 
-            <section className="w-screen gap-2.5">
-                <div className="mx-auto max-w-[1440px]">
-                    <div className="grid grid-cols-[2fr_repeat(2,_1fr)] grid-rows-[repeat(2,_1fr)] max-h-[530px] gap-y-2.5 gap-x-[9px]">
-                        <img src="./img/team-3.svg" className="row-start-1 row-end-3 col-start-1 col-end-2" />
-                        <img src="./img/team-1.svg" className="row-start-1 row-end-2 col-start-2 col-end-3" />
-                        <img src="./img/team-2.svg" className="row-start-2 row-end-3 col-start-2 col-end-3" />
-                        <img src="./img/team-4.svg" className="row-start-1 row-end-2 col-start-3 col-end-4" />
-                        <img src="./img/team-5.svg" className="row-start-2 row-end-3 col-start-3 col-end-4" />
+            <section className="w-screen">
+                <div className="mx-auto max-w-[1440px] flex flex-wrap gap-3">
+                    <div className="flex-[2]">
+                        <img src="./img/team-3.svg" className="h-full w-full object-cover" />
+                    </div>
+                    <div className="flex-1 flex justify-between flex-wrap gap-3">
+                        <img src="./img/team-1.svg" className="object-cover flex-1" />
+                        <img src="./img/team-4.svg" className="object-cover flex-1" />
+                    </div>
+                    <div className="flex-1 flex justify-between flex-wrap gap-3">
+                        <img src="./img/team-2.svg" className="object-cover flex-1" />
+                        <img src="./img/team-5.svg" className="object-cover flex-1" />
                     </div>
                 </div>
             </section>
+
             <section className="w-screen">
                 <div className="max-w-page-content mx-auto flex flex-col pb-[112px]">
                     <div className="py-[112px] text-center">

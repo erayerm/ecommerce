@@ -1,9 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'
 
+const navShopItems = [["Tab1", "tab1"], ["Tab2", "tab2"], ["Tab3", "tab3"]]
 
 export default function Header() {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
+    const handleToggle = () => setDropdownOpen(!dropdownOpen);
+    const handleHoverIn = () => setDropdownOpen(true);
+    const handleHoverOut = () => setDropdownOpen(false);
     return (
         <>
             <div className='w-screen h-[60px] bg-main text-white px-5'>
@@ -22,15 +29,23 @@ export default function Header() {
                     </div>
                 </div>
             </div>
-            <div className='w-screen h-[90px] px-5'>
+            <div className='w-screen h-[90px] px-5 text-gray'>
                 <div className='max-w-[1500px] flex justify-between my-0 mx-auto h-full items-center '>
                     <div className='flex items-center justify-between w-[50%]'>
                         <p className='font-bold text-2xl leading-8' >Bandage</p>
-                        <nav className='flex gap-3 text-sm leading-6 '>
+                        <nav className='flex gap-3 text-sm leading-6 items-center'>
                             <Link to="/">Home</Link>
-                            <Link to="/shop">Shop</Link>
+                            <Dropdown onMouseEnter={handleHoverIn} onMouseLeave={handleHoverOut} isOpen={dropdownOpen} toggle={handleToggle} className="text-sm text-secondary mr-[-8px]">
+                                <DropdownToggle className="text-sm leading-6 border-0 text-gray flex items-center justify-between gap-2"><Link to="/shop">Shop</Link> <FontAwesomeIcon icon="fa-solid fa-angle-down" /></DropdownToggle>
+                                <DropdownMenu className="min-w-[200px]">
+                                    <DropdownItem header>Shop</DropdownItem>
+                                    {navShopItems.map((item, index) => {
+                                        return <Link to={"/shop/" + item[1]} key={index}><DropdownItem name={item[1]}>{item[0]}</DropdownItem></Link>
+                                    })}
+                                </DropdownMenu>
+                            </Dropdown>
                             <Link to="/about">About</Link>
-                            <Link to="/">Blog</Link>
+                            <Link to="/team">Team</Link>
                             <Link to="/contact">Contact</Link>
                             <Link to="/">Pages</Link>
                         </nav>
