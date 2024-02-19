@@ -31,14 +31,14 @@ export default function FeaturedPosts() {
             <div className="flex flex-col max-w-page-content my-0 mx-auto items-center">
                 <div className="pt-[112px] flex flex-col items-center gap-2.5">
                     <h4 className="text-primary-blue text-sm font-bold leading-6">Practice Advice</h4>
-                    <h2 className="font-bold text-4xl leading-[50px]">Featured Posts</h2>
+                    <h2 className="font-bold text-4xl leading-12.5">Featured Posts</h2>
                     <p className="text-center text-gray text-sm leading-5">
                         Problems trying to resolve the conflict between
                         <br />
                         the two major realms of Classical physics: Newtonian mechanics
                     </p>
                 </div>
-                <div className="pt-20 flex gap-2.5 flex-wrap pb-[110px]">
+                <div className="pt-20 flex justify-center gap-2.5 flex-wrap pb-[110px]">
                     {cardData.map((item, index) => {
                         return <PostCard key={index} data={item} />
                     })}

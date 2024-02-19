@@ -41,8 +41,10 @@ export default {
         'montserrat': ['"Montserrat"'],
       },
       lineHeight: {
+        '5.5': "1.375rem",  //22px
         '7.5': '1.875rem',  //30px
         '8': '1.5rem',      //24px
+        '12.5': '3.125rem', //50px
         '20': '5rem',       //80px
       },
       maxWidth: {

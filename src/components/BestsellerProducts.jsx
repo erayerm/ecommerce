@@ -11,7 +11,7 @@ export default function BestSellerProducts() {
                     <h3 className="text-main text-2xl font-bold leading-8">BESTSELLER PRODUCTS</h3>
                     <p className="text-sm text-gray leading-5">Problems trying to resolve the conflict between</p>
                 </div>
-                <div className="flex flex-wrap gap-x-7 gap-y-20 justify-center">
+                <div className="flex flex-wrap gap-x-7 gap-y-20 sm:gap-7 justify-center">
                     {bestseller.map((item, index) => {
                         return <ProductCard key={index} data={item} size={[240, 427]} />
                     })}
