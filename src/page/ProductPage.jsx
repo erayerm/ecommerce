@@ -51,25 +51,24 @@ export default function ProductPage() {
         <>
             <section className="width-screen bg-light-gray-1">
                 <div className="max-w-page-content mx-auto py-6">
-                    <div className="flex items-center gap-3.5 font-bold text-sm leading-6">
+                    <div className="flex items-center gap-3.5 font-bold text-sm leading-6 px-3">
                         <Link to="/" className="text-main">Home</Link>
                         <p className="text-muted-text-color font-thin text-4xl">{">"}</p>
                         <p className="text-muted-text-color">Shop</p>
                     </div>
                 </div>
-                <div className="max-w-page-content mx-auto flex gap-[30px] pb-12">
-                    <div>
-                        <div className="w-[506px] h-[450px]">
+                <div className="max-w-page-content mx-auto flex sm:flex-col gap-[30px] pb-12 lg:px-7 lg:items-center">
+                    <div className="flex-1 max-w-[506px] flex flex-col">
+                        <div className="w-full aspect-[10/9]">
                             <Carousel slides={thirdCarouselContent} setCurrIndex={setCurrIndex} haveText={false} />
                         </div>
-                        <div className="flex gap-[19px] pt-5">
-                            {/* when the redux or useContext implemented I'm gonna add onClick on images*/}
+                        <div className="flex basis-[18%] gap-[19px] pt-3 ">
                             {shownImages.map((item, index) => {
-                                return <img className={"w-[100px] h-[75px] object-cover" + (carouselIndex !== index ? " opacity-60" : "")} key={index} src={item} />
+                                return <div key={index} className="flex-1"><img className={"object-cover" + (carouselIndex !== index ? " opacity-60" : "")} src={item} /></div>
                             })}
                         </div>
                     </div>
-                    <div className="flex flex-col gap-4 pt-4 px-6">
+                    <div className="flex-1 flex flex-col gap-4 pt-4 ">
                         <p className="leading-7.5 text-xl text-main">Floating Phone</p>
                         <div className="flex gap-2">
                             <Rating name="read-only" value="4" readOnly />
@@ -89,7 +88,7 @@ export default function ProductPage() {
                         </div>
                         <div className="flex flex-wrap gap-2.5">
                             <div>
-                                <button className="rounded bg-primary-blue px-5 py-2.5 text-white text-sm leading-6">Select Options</button>
+                                <button className="rounded bg-primary-blue px-5 py-2.5 sm:px-0 text-white text-sm leading-6">Select Options</button>
                             </div>
                             <div className="flex gap-2.5">
                                 <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center"><FontAwesomeIcon icon="fa-regular fa-heart" /></button>
@@ -107,7 +106,7 @@ export default function ProductPage() {
                 <div className="mx-auto max-w-page-content flex flex-col items-center">
                     <h3 className="self-stretch pt-12 pb-6">BESTSELLER PRODUCTS</h3>
                     <hr className="h-[4px] border-0 mb-6 bg-[#ECECEC] self-stretch" />
-                    <div className="flex flex-wrap justify-between gap-y-6 pb-12">
+                    <div className="flex flex-wrap justify-center gap-x-7 gap-y-6 pb-12">
                         {bestseller.map((item, index) => {
                             return <ProductCardSecond key={index} data={item} />
                         })}

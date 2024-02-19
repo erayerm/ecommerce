@@ -1,4 +1,3 @@
-import { Route, Switch, NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import Description from "../layouts/Description";
 import AdditionalInformation from "../layouts/AdditionalInformation";
 import Reviews from "../layouts/Reviews";
@@ -15,7 +14,7 @@ export default function ProductDetails() {
     return (
         <section className='w-screen'>
             <div className="max-w-page-content mx-auto flex flex-col">
-                <div className='flex justify-center'>
+                <div className='flex justify-center text-center'>
                     <a id="description" className={"product-tabs " + (activeTab === 'description' ? 'text-primary-blue font-bold' : '')} onClick={handleTab}>
                         Description
                     </a>
