@@ -25,14 +25,14 @@ export default function Products() {
     return (
         <div className="w-screen flex flex-col">
             <div className="my-0 mx-auto max-w-page-content">
-                <div className="flex justify-between items-center py-6">
+                <div className="flex md:flex-col md:gap-6 justify-between items-center py-6">
                     <p className="text-gray font-bold text-sm leading-6">Showing all X! results</p>
                     <div className="flex items-center gap-3.5">
                         <p className="text-gray font-bold text-sm leading-6">Views: </p>
                         <button className="h-[46px] w-[46px] border-1 rounded"><FontAwesomeIcon icon="fa-solid fa-border-all" /></button>
                         <button className="h-[46px] w-[46px] border-1 rounded"><FontAwesomeIcon icon="fa-solid fa-list-check" /></button>
                     </div>
-                    <div className="flex gap-3.5">
+                    <div className="flex gap-3.5 flex-wrap justify-center">
                         <Dropdown onMouseEnter={handleHoverIn} onMouseLeave={handleHoverOut} isOpen={dropdownOpen} toggle={handleToggle} className="text-sm leading-7 text-secondary rounded ">
                             <DropdownToggle className="pl-3 py-2.5 border-1 text-gray border-[#DDDDDD] rounded hover:bg-gray-300 hover:text-black flex items-center justify-between min-w-[200px] gap-2"><p>{dropdownPick}</p> <FontAwesomeIcon icon="fa-solid fa-angle-down" /></DropdownToggle>
                             <DropdownMenu className="min-w-[200px]">

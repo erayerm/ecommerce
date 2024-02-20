@@ -1,5 +1,6 @@
 import BestSellerProducts from "../components/BestsellerProducts"
-import Carousel from "../components/Carousel"
+import CarouselMainFirst from "../components/CarouselMainFirst"
+import CarouselMainSecond from "../components/CarouselMainSecond"
 import EditorsPick from "../components/EditorsPick"
 import FeaturedPosts from "../components/FeaturedPosts"
 import PartOfTheNeuralUniverse from "../components/PartOfTheNeuralUniverse"
@@ -8,19 +9,23 @@ import { firstCarouselContent, secondCarouselContent } from "../mock/carouselCon
 export default function HomePage() {
     return (
         <>
-            <div className="w-screen bg-[#00B7DC]">
-                <div className="max-w-[1440px] mx-auto max-h-[852px]">
-                    <Carousel slides={firstCarouselContent} />
+            <section className='w-screen bg-primary-blue'>
+                <div className='max-w-[1440px] mx-auto'>
+                    <div className="w-full aspect-[144/85] sm:aspect-[41/75] mx-auto" >
+                        <CarouselMainFirst slides={firstCarouselContent} />
+                    </div>
                 </div>
-            </div>
+            </section>
 
             <EditorsPick />
             <BestSellerProducts />
-            <div className="w-screen bg-success-green">
-                <div className="max-w-[1440px] mx-auto">
-                    <Carousel slides={secondCarouselContent} />
+            <section className='w-screen bg-[#23856D]'>
+                <div className='max-w-[1440px] mx-auto'>
+                    <div className="w-full aspect-[144/85] sm:aspect-[41/75] mx-auto" >
+                        <CarouselMainSecond slides={secondCarouselContent} />
+                    </div>
                 </div>
-            </div>
+            </section>
             <PartOfTheNeuralUniverse />
             <FeaturedPosts />
         </>

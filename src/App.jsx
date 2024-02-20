@@ -4,12 +4,11 @@ import Footer from './layouts/Footer'
 import PageContent from './layouts/PageContent'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faInstagram, faFacebook, faTwitter, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { faMagnifyingGlass, faCartShopping, faPhone, faChartSimple, faLocationDot, faEye, faBorderAll, faListCheck, faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faCartShopping, faPhone, faChartSimple, faLocationDot, faEye, faBorderAll, faListCheck, faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons'
 import { faUser, faHeart, faEnvelope, faClock } from '@fortawesome/free-regular-svg-icons'
-library.add(faInstagram, faFacebook, faTwitter, faLinkedin, faYoutube, faMagnifyingGlass, faListCheck, faBorderAll, faAngleDown, faCartShopping, faLocationDot, faPhone, faChartSimple, faUser, faHeart, faEnvelope, faClock, faEye)
+library.add(faInstagram, faFacebook, faTwitter, faLinkedin, faYoutube, faMagnifyingGlass, faListCheck, faBorderAll, faAngleDown, faBars, faCartShopping, faLocationDot, faPhone, faChartSimple, faUser, faHeart, faEnvelope, faClock, faEye)
 
 function App() {
-
   return (
     <>
       <Header />

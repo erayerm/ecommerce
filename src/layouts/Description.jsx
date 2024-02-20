@@ -2,9 +2,9 @@ export default function Description() {
 
     return (
         <>
-            <div className="flex gap-10">
+            <div className="flex gap-10 md:flex-col md:px-2">
 
-                <div className="max-w-[316px] max-h-[372px] flex-[2] rounded shadow-[15px_15px_rgba(196,196,196,0.2)]">
+                <div className="max-w-[316px] max-h-[372px] flex-[2] mx-auto rounded shadow-[15px_15px_rgba(196,196,196,0.2)]">
                     <img src="./img/description-1.svg" className="w-full h-full" />
                 </div>
                 <div className="flex-1 flex flex-col gap-[30px]">

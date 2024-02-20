@@ -2,8 +2,8 @@
 export default function ProductCard({ data, size }) {
 
     return (
-        <div className="flex flex-col items-center">
-            <img src={data.img} className={`w-[240px] h-[${size[1]}px] object-cover object-top`} />
+        <div className="flex flex-col items-center sm:w-[80%]">
+            <img src={data.img} className={`w-[240px] sm:w-full sm:aspect-[34/42] sm:h-max h-[${size[1]}px] object-cover object-top`} />
             <div className="flex flex-col items-center gap-2.5 pt-6 pb-7">
                 <h4 className="text-main text-base font-bold leading-6">{data.productName}</h4>
                 <p className="text-gray text-sm font-bold leading-6">{data.secondTitle}</p>

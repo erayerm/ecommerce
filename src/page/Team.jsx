@@ -7,9 +7,9 @@ export default function Team() {
 
     return (
         <>
-            <section className="w-screen flex flex-col items-center py-[50px] gap-4">
+            <section className="w-screen flex flex-col items-center py-[50px] gap-4 px-2">
                 <p className="font-bold leading-6 text-gray">WHAT WE DO</p>
-                <h2 className="font-bold leading-20 text-6xl text-main">Innovation tailored for you</h2>
+                <h2 className="font-bold leading-20 text-6xl text-main text-center">Innovation tailored for you</h2>
                 <div className="flex items-center gap-4">
                     <p className="text-sm text-main">Home</p>
                     <p className="text-gray font-thin text-4xl">{">"}</p>
@@ -18,27 +18,30 @@ export default function Team() {
             </section>
 
             <section className="w-screen">
-                <div className="mx-auto max-w-[1440px] flex flex-wrap gap-3">
-                    <div className="flex-[2]">
+                <div className="mx-auto max-w-[1440px] flex md:flex-col gap-3">
+                    <div className="flex-1">
                         <img src="./img/team-3.svg" className="h-full w-full object-cover" />
                     </div>
-                    <div className="flex-1 flex justify-between flex-wrap gap-3">
-                        <img src="./img/team-1.svg" className="object-cover flex-1" />
-                        <img src="./img/team-4.svg" className="object-cover flex-1" />
+                    <div className="flex-1 flex gap-3">
+                        <div className="flex-1 flex justify-between flex-wrap gap-3">
+                            <img src="./img/team-1.svg" className="object-cover flex-1" />
+                            <img src="./img/team-4.svg" className="object-cover flex-1" />
+                        </div>
+                        <div className="flex-1 flex justify-between flex-wrap gap-3">
+                            <img src="./img/team-2.svg" className="object-cover flex-1" />
+                            <img src="./img/team-5.svg" className="object-cover flex-1" />
+                        </div>
                     </div>
-                    <div className="flex-1 flex justify-between flex-wrap gap-3">
-                        <img src="./img/team-2.svg" className="object-cover flex-1" />
-                        <img src="./img/team-5.svg" className="object-cover flex-1" />
-                    </div>
+
                 </div>
             </section>
 
             <section className="w-screen">
                 <div className="max-w-page-content mx-auto flex flex-col pb-[112px]">
                     <div className="py-[112px] text-center">
-                        <h2 className="font-bold text-[40px] leading-[50px]">Meet Our Team</h2>
+                        <h2 className="font-bold text-4.5xl leading-12.5">Meet Our Team</h2>
                     </div>
-                    <div className="flex flex-wrap gap-x-[30px] gap-y-[112px]">
+                    <div className="flex flex-wrap gap-x-[30px] gap-y-[112px] justify-center">
                         {memberDataBig.map((item, index) => {
                             return <TeamMemberCard key={index} data={item} />
                         })}
@@ -46,10 +49,10 @@ export default function Team() {
                 </div>
             </section>
 
-            <section className="w-screen py-[80px]">
+            <section className="w-screen py-[80px] px-3 text-center">
                 <div className="max-w-page-content mx-auto flex flex-col gap-[30px] items-center">
-                    <h4 className="text-main text-[40px] leading-[50px]">Start your 14 days free trial</h4>
-                    <p className="text-gray text-sm leading-5 text-center w-[406px]">Met minim Mollie non desert Alamo est sit cliquey dolor
+                    <h4 className="text-main text-4.5xl leading-12.5">Start your 14 days free trial</h4>
+                    <p className="text-gray text-sm leading-5 text-center max-w-[406px]">Met minim Mollie non desert Alamo est sit cliquey dolor
                         do met sent. RELIT official consequent.</p>
                     <div>
                         <button className="px-10 py-4 bg-primary-blue rounded text-white">Try it free now</button>
