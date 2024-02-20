@@ -5,6 +5,7 @@ import AboutUs from "../page/AboutUs";
 import Team from "../page/Team";
 import Contact from "../page/Contact";
 import ProductPage from "../page/ProductPage";
+import SignUp from "../page/SignUp";
 
 export default function PageContent() {
 
@@ -24,6 +25,9 @@ export default function PageContent() {
             </Route>
             <Route path="/contact">
                 <Contact />
+            </Route>
+            <Route path="/signup">
+                <SignUp />
             </Route>
             <Route exact path="/">
                 <HomePage />
