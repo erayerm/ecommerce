@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from 'react-hook-form';
 import { Spinner } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRoles } from '../store/actions/GlobalActions';
 
-export default function SignUpHookForm({ roles, submitFn, submitLoading, submitError }) {
+
+const passwordErrorsText = ["En az bir küçük harf", "En az bir büyük harf", "En az bir rakam", "En az bir özel karakter", "En az sekiz karakter"]
+
+export default function SignUpHookForm({ submitFn, submitLoading, submitError }) {
+    const dispatch = useDispatch()
+    const roles = useSelector((store) => store.global.roles);
+
+    useEffect(() => {
+        dispatch(fetchRoles());
+    }, [dispatch])
+
+
     const {
         register,
         handleSubmit,
@@ -36,7 +48,6 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
         boyut: false,
     })
 
-    const passwordErrorsText = ["En az bir küçük harf", "En az bir büyük harf", "En az bir rakam", "En az bir özel karakter", "En az sekiz karakter"]
 
     return (
         <>
@@ -290,9 +301,6 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
                     </div>
                 </div>
             </form>
-            <div>
-                <button className="bg-primary-blue text-white text-sm leading-7 py-2.5 px-12 rounded min-h-[50px] min-w-[150px] flex items-center justify-center" onClick={() => { console.log(errors) }}> Bana Bas</button>
-            </div>
         </>
     );
 }
