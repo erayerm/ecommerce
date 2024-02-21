@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from 'react-hook-form';
 import { Spinner } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function SignUpHookForm({ roles, submitFn, submitLoading, submitError }) {
     const {
@@ -26,6 +27,16 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
         },
         mode: 'all',
     });
+
+    let [passwordErrors, setPasswordErrors] = useState({
+        kucuk: false,
+        buyuk: false,
+        rakam: false,
+        special: false,
+        boyut: false,
+    })
+
+    const passwordErrorsText = ["En az bir küçük harf", "En az bir büyük harf", "En az bir rakam", "En az bir özel karakter", "En az sekiz karakter"]
 
     return (
         <>
@@ -76,7 +87,6 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
                         <p className="input-error">{errors.email.message}</p>
                     )}
                 </div>
-                {/* Şifrenin validasyonundaki her bir koşul için farklı bir mesaj yazdır tik Büyük çarpı küçük tik sayı */}
                 <div className="form-line">
                     <label className="input-label" htmlFor="password">
                         Password
@@ -89,20 +99,36 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
                             placeholder='Password'
                             {...register('password', {
                                 required: 'Şifrenizi girin',
-                                minLength: {
-                                    value: 8,
-                                    message: "Şifreniz en az sekiz karakter içermelidir",
-                                },
-                                pattern: {
-                                    value: /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s])/gm,
-                                    message: "Şifreniz en az bir küçük harf, bir büyük harf, bir rakam (0-9) ve bir özel karakter içermelidir"
+                                validate: (value) => {
+                                    setPasswordErrors({
+                                        ["kucuk"]: [/(?=.*[a-z])/].every((pattern) => pattern.test(value)),
+                                        ["buyuk"]: [/(?=.*[A-Z])/].every((pattern) => pattern.test(value)),
+                                        ["rakam"]: [/(?=.*\d)/].every((pattern) => pattern.test(value)),
+                                        ["special"]: [/(?=.*[@#$%^&+=.\-_*])/].every((pattern) => pattern.test(value)),
+                                        ["boyut"]: [/([a-zA-Z0-9@#$%^&+=*.\-_]){8,}$/].every((pattern) => pattern.test(value)),
+                                    });
+                                    return (
+                                        ""
+                                    );
                                 }
                             })}
                         />
                     </div>
 
                     {errors.password && (
-                        <p className="input-error">{errors.password.message}</p>
+                        <div className='input-error'>
+                            {!passwordErrors.boyut
+                                ? <p>{passwordErrorsText[4]}</p>
+                                : !(passwordErrors.kucuk && passwordErrors.buyuk && passwordErrors.rakam && passwordErrors.special)
+                                    ? <div>
+                                        <p className='text-gray'>{passwordErrors.kucuk ? <FontAwesomeIcon className='text-success-green w-5' icon="fa-solid fa-check" /> : <FontAwesomeIcon className='input-error w-5' icon="fa-solid fa-x" />} {passwordErrorsText[0]}</p>
+                                        <p className='text-gray'>{passwordErrors.buyuk ? <FontAwesomeIcon className='text-success-green w-5' icon="fa-solid fa-check" /> : <FontAwesomeIcon className='input-error w-5' icon="fa-solid fa-x" />} {passwordErrorsText[1]}</p>
+                                        <p className='text-gray'>{passwordErrors.rakam ? <FontAwesomeIcon className='text-success-green w-5' icon="fa-solid fa-check" /> : <FontAwesomeIcon className='input-error w-5' icon="fa-solid fa-x" />} {passwordErrorsText[2]}</p>
+                                        <p className='text-gray'>{passwordErrors.special ? <FontAwesomeIcon className='text-success-green w-5' icon="fa-solid fa-check" /> : <FontAwesomeIcon className='input-error w-5' icon="fa-solid fa-x" />} {passwordErrorsText[3]}</p>
+                                    </div>
+                                    : ""
+                            }
+                        </div>
                     )}
                 </div>
                 <div className="form-line">
@@ -219,7 +245,7 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
                                             required: 'Store Tax ID bilgisini yazmalısınız',
                                             pattern: {
                                                 value: /T\d{4}V\d{6}/gm,
-                                                message: "Store Tax ID geçerli değil"
+                                                message: "Store Tax ID geçerli değil (TXXXXTXXXXXX)"
                                             }
                                         })}
                                     />
