@@ -107,10 +107,9 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
                                         ["special"]: [/(?=.*[@#$%^&+=.\-_*])/].every((pattern) => pattern.test(value)),
                                         ["boyut"]: [/([a-zA-Z0-9@#$%^&+=*.\-_]){8,}$/].every((pattern) => pattern.test(value)),
                                     });
-                                    return (
-                                        ""
-                                    );
-                                }
+                                    if ([/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s])/gm].every((pattern) => pattern.test(value))) return delete errors.password
+                                    else return false;
+                                },
                             })}
                         />
                     </div>
