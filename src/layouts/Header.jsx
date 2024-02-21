@@ -57,7 +57,7 @@ export default function Header() {
                         </nav>
                     </div>
                     <div className='flex gap-4 text-sm leading-6 text-main'>
-                        <button><FontAwesomeIcon icon="fa-regular fa-user" /> <span className='md:hidden'>Login / Register</span></button>
+                        <Link to="/signup"><FontAwesomeIcon icon="fa-regular fa-user" /> <span className='md:hidden'>Login / Register</span></Link>
                         <button><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
                         <button><FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> 1</button>
                         <button className='md:hidden'><FontAwesomeIcon icon="fa-regular fa-heart" /> 1</button>
