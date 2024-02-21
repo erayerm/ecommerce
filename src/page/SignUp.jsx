@@ -29,7 +29,13 @@ export default function SignUp() {
         setSubmitError(false);
         instance.post("/signup", data)
             .then(() => setSubmitLoading(false))
-            .then(() => history.goBack())
+            .then(() => {
+                if (history.action === 'POP') {
+                    history.push('/');
+                } else {
+                    history.goBack();
+                }
+            })
             .then(() => toast.success('You need to click link in email to activate your account!', {
                 position: "top-right",
                 autoClose: 5000,
