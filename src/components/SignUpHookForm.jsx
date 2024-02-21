@@ -98,24 +98,24 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
                             type="password"
                             placeholder='Password'
                             {...register('password', {
-                                required: 'Şifrenizi girin',
+                                required: 'En az sekiz karakter',
                                 validate: (value) => {
                                     setPasswordErrors({
                                         ["kucuk"]: [/(?=.*[a-z])/].every((pattern) => pattern.test(value)),
                                         ["buyuk"]: [/(?=.*[A-Z])/].every((pattern) => pattern.test(value)),
                                         ["rakam"]: [/(?=.*\d)/].every((pattern) => pattern.test(value)),
                                         ["special"]: [/(?=.*[@#$%^&+=.\-_*])/].every((pattern) => pattern.test(value)),
-                                        ["boyut"]: [/([a-zA-Z0-9@#$%^&+=*.\-_]){8,}$/].every((pattern) => pattern.test(value)),
+                                        ["boyut"]: [/.{8,}$/].every((pattern) => pattern.test(value)),
                                     });
                                     if ([/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/gm].every((pattern) => pattern.test(value))) return delete errors.password
-                                    else return false;
+                                    else return "validate";
                                 },
                             })}
                         />
                     </div>
 
                     {errors.password && (
-                        <div className='input-error'>
+                        errors.password.message === "validate" ? <div className='input-error'>
                             {!passwordErrors.boyut
                                 ? <p>{passwordErrorsText[4]}</p>
                                 : !(passwordErrors.kucuk && passwordErrors.buyuk && passwordErrors.rakam && passwordErrors.special)
@@ -128,7 +128,9 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
                                     : ""
                             }
                         </div>
-                    )}
+                            : <p className='input-error'>{errors.password.message}</p>
+                    )
+                    }
                 </div>
                 <div className="form-line">
                     <label className="input-label" htmlFor="confirmPassword">
@@ -288,6 +290,9 @@ export default function SignUpHookForm({ roles, submitFn, submitLoading, submitE
                     </div>
                 </div>
             </form>
+            <div>
+                <button className="bg-primary-blue text-white text-sm leading-7 py-2.5 px-12 rounded min-h-[50px] min-w-[150px] flex items-center justify-center" onClick={() => { console.log(errors) }}> Bana Bas</button>
+            </div>
         </>
     );
 }
