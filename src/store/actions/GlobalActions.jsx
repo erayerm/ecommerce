@@ -20,3 +20,10 @@ export const fetchRoles = () => async (dispatch) => {
         .then((res) => dispatch(setRolesAction(res.data)))
         .catch((err) => console.error(err))
 };
+
+export const fetchCategories = () => async (dispatch) => {
+    await instance
+        .get("/categories")
+        .then((res) => dispatch(setCategoriesAction(res.data)))
+        .catch((err) => console.error(err))
+};

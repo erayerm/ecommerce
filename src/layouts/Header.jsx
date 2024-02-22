@@ -9,6 +9,7 @@ const navShopItems = [["Tab1", "tab1"], ["Tab2", "tab2"], ["Tab3", "tab3"]]
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const user = useSelector(store => store.user.user);
+    const categories = useSelector(store => store.global.categories);
 
     const handleToggle = () => setDropdownOpen(!dropdownOpen);
     const handleHoverIn = () => setDropdownOpen(true);
@@ -46,10 +47,19 @@ export default function Header() {
                             <Dropdown onMouseEnter={handleHoverIn} onMouseLeave={handleHoverOut} isOpen={dropdownOpen} toggle={handleToggle} className="text-sm text-secondary mr-[-8px]">
                                 <DropdownToggle className="text-sm leading-6 border-0 text-gray flex items-center justify-between gap-2"><Link to="/shop">Shop</Link> <FontAwesomeIcon icon="fa-solid fa-angle-down" /></DropdownToggle>
                                 <DropdownMenu className="min-w-[200px]">
-                                    <DropdownItem header>Shop</DropdownItem>
-                                    {navShopItems.map((item, index) => {
-                                        return <Link to={"/shop/" + item[1]} key={index}><DropdownItem name={item[1]}>{item[0]}</DropdownItem></Link>
+                                    <DropdownItem header className="text-lg font-bold">Kadın</DropdownItem>
+                                    {categories.map((item, index) => {
+                                        const gender = item.gender === "k" ? "kadin" : "erkek";
+                                        const itemCode = item["code"].split("").slice(2).join("");
+                                        if (item.gender === "k") return <Link to={"/shop/" + gender + "/" + itemCode} key={index}><DropdownItem name={item.code} className='text-sm'>{item.title}</DropdownItem></Link>
                                     })}
+                                    <DropdownItem header className="text-lg font-bold">Erkek</DropdownItem>
+                                    {categories.map((item, index) => {
+                                        const gender = item.gender === "k" ? "kadin" : "erkek";
+                                        const itemCode = item["code"].split("").slice(2).join("");
+                                        if (item.gender === "e") return <Link to={"/shop/" + gender + "/" + itemCode} key={index}><DropdownItem name={item.code} className='text-sm'>{item.title}</DropdownItem></Link>
+                                    })}
+
                                 </DropdownMenu>
                             </Dropdown>
                             <Link to="/about">About</Link>

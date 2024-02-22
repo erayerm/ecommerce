@@ -9,12 +9,14 @@ import { faUser, faHeart, faEnvelope, faClock } from '@fortawesome/free-regular-
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { autoLoginAction } from './store/actions/UserActions'
+import { fetchCategories } from './store/actions/GlobalActions'
 library.add(faInstagram, faFacebook, faTwitter, faLinkedin, faYoutube, faMagnifyingGlass, faListCheck, faBorderAll, faAngleDown, faBars, faCheck, faX, faCartShopping, faLocationDot, faPhone, faChartSimple, faUser, faHeart, faEnvelope, faClock, faEye)
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(autoLoginAction());
+    dispatch(fetchCategories());
   }, [])
 
   return (
