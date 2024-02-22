@@ -5,9 +5,10 @@ import { Spinner } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRoles } from '../store/actions/GlobalActions';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 
 
-const passwordErrorsText = ["En az bir küçük harf", "En az bir büyük harf", "En az bir rakam", "En az bir özel karakter", "En az sekiz karakter"]
+const passwordErrorsText = ["At least one lowercase letter", "At least one uppercase letter", "At least one digit", "At least one special character", "At least eight character"]
 
 export default function SignUpHookForm({ submitFn, submitLoading, submitError }) {
     const dispatch = useDispatch()
@@ -63,10 +64,10 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                             type="text"
                             placeholder='Name'
                             {...register('name', {
-                                required: 'Name bilgisini yazmalısınız',
+                                required: 'Name is required',
                                 minLength: {
                                     value: 3,
-                                    message: 'Name en az 3 karakter olmalı',
+                                    message: 'Name should be at least 3 character',
                                 },
                             })}
                         />
@@ -86,10 +87,10 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                             type="text"
                             placeholder='Email Address'
                             {...register('email', {
-                                required: 'Email address bilgisini yazmalısınız',
+                                required: 'Email address is required',
                                 pattern: {
                                     value: /\S+@\S+\.\S+/,
-                                    message: "invalid email address"
+                                    message: "Email address is invalid"
                                 }
                             })}
                         />
@@ -109,7 +110,7 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                             type="password"
                             placeholder='Password'
                             {...register('password', {
-                                required: 'En az sekiz karakter',
+                                required: 'At least eight character',
                                 validate: (value) => {
                                     setPasswordErrors({
                                         ["kucuk"]: [/(?=.*[a-z])/].every((pattern) => pattern.test(value)),
@@ -154,7 +155,7 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                             type="password"
                             placeholder='Confirm Password'
                             {...register('confirmPassword', {
-                                required: 'Şifrenizi girin',
+                                required: 'Password is required',
                                 validate: (val) => {
                                     if (watch('password') != val) {
                                         return "Your passwords do no match";
@@ -179,14 +180,6 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                                     value={p.id}
                                     checked={watch("role_id") === '' + p.id}
                                     className='mr-3'
-                                    {...register('role_id', {
-                                        validate: (a) => {
-                                            if (a.length < 1) {
-                                                return 'Lütfen seçim yapın';
-                                            }
-                                            return true;
-                                        },
-                                    })}
                                 />
                                 {p.name}
                             </label>
@@ -208,10 +201,10 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                                         type="text"
                                         placeholder='Name'
                                         {...register('store.name', {
-                                            required: 'Store Name bilgisini yazmalısınız',
+                                            required: 'Store Name is required',
                                             minLength: {
                                                 value: 3,
-                                                message: 'Store Name bilgisi en az 3 karakter olmalı',
+                                                message: 'Store Name should be at least 3 character',
                                             },
                                         })}
                                     />
@@ -231,10 +224,10 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                                         type="text"
                                         placeholder='Phone'
                                         {...register('store.phone', {
-                                            required: 'Store Phone bilgisini yazmalısınız',
+                                            required: 'Store Phone is required',
                                             pattern: {
                                                 value: /^(?:\+90.?5|0090.?5|905|0?5)(?:[01345][0-9])\s?(?:[0-9]{3})\s?(?:[0-9]{2})\s?(?:[0-9]{2})$/,
-                                                message: "Store Phone geçerli değil"
+                                                message: "Store Phone is invalid"
                                             }
                                         })}
                                     />
@@ -254,10 +247,10 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                                         type="text"
                                         placeholder='Tax'
                                         {...register('store.tax_no', {
-                                            required: 'Store Tax ID bilgisini yazmalısınız',
+                                            required: 'Store Tax ID is required',
                                             pattern: {
                                                 value: /T\d{4}V\d{6}/gm,
-                                                message: "Store Tax ID geçerli değil (TXXXXTXXXXXX)"
+                                                message: "Store Tax ID is invalid (TXXXXTXXXXXX)"
                                             }
                                         })}
                                     />
@@ -277,10 +270,10 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                                         type="text"
                                         placeholder='IBAN'
                                         {...register('store.bank_account', {
-                                            required: 'Store IBAN bilgisini yazmalısınız',
+                                            required: 'Store IBAN is required',
                                             pattern: {
                                                 value: /^AL\d{10}[0-9A-Z]{16}$|^AD\d{10}[0-9A-Z]{12}$|^AT\d{18}$|^BH\d{2}[A-Z]{4}[0-9A-Z]{14}$|^BE\d{14}$|^BA\d{18}$|^BG\d{2}[A-Z]{4}\d{6}[0-9A-Z]{8}$|^HR\d{19}$|^CY\d{10}[0-9A-Z]{16}$|^CZ\d{22}$|^DK\d{16}$|^FO\d{16}$|^GL\d{16}$|^DO\d{2}[0-9A-Z]{4}\d{20}$|^EE\d{18}$|^FI\d{16}$|^FR\d{12}[0-9A-Z]{11}\d{2}$|^GE\d{2}[A-Z]{2}\d{16}$|^DE\d{20}$|^GI\d{2}[A-Z]{4}[0-9A-Z]{15}$|^GR\d{9}[0-9A-Z]{16}$|^HU\d{26}$|^IS\d{24}$|^IE\d{2}[A-Z]{4}\d{14}$|^IL\d{21}$|^IT\d{2}[A-Z]\d{10}[0-9A-Z]{12}$|^[A-Z]{2}\d{5}[0-9A-Z]{13}$|^KW\d{2}[A-Z]{4}22!$|^LV\d{2}[A-Z]{4}[0-9A-Z]{13}$|^LB\d{6}[0-9A-Z]{20}$|^LI\d{7}[0-9A-Z]{12}$|^LT\d{18}$|^LU\d{5}[0-9A-Z]{13}$|^MK\d{5}[0-9A-Z]{10}\d{2}$|^MT\d{2}[A-Z]{4}\d{5}[0-9A-Z]{18}$|^MR13\d{23}$|^MU\d{2}[A-Z]{4}\d{19}[A-Z]{3}$|^MC\d{12}[0-9A-Z]{11}\d{2}$|^ME\d{20}$|^NL\d{2}[A-Z]{4}\d{10}$|^NO\d{13}$|^PL\d{10}[0-9A-Z]{,16}n$|^PT\d{23}$|^RO\d{2}[A-Z]{4}[0-9A-Z]{16}$|^SM\d{2}[A-Z]\d{10}[0-9A-Z]{12}$|^SA\d{4}[0-9A-Z]{18}$|^RS\d{20}$|^SK\d{22}$|^SI\d{17}$|^ES\d{22}$|^SE\d{22}$|^CH\d{7}[0-9A-Z]{12}$|^TN59\d{20}$|^TR\d{7}[0-9A-Z]{17}$|^AE\d{21}$|^GB\d{2}[A-Z]{4}\d{14}$/,
-                                                message: "Store IBAN geçerli değil"
+                                                message: "Store IBAN is invalid"
                                             }
                                         })}
                                     />
@@ -294,11 +287,14 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                 </div>
                 <div className="form-line">
                     <div>
-                        <button className="bg-primary-blue text-white text-sm leading-7 py-2.5 px-12 rounded min-h-[50px] min-w-[150px] flex items-center justify-center" type="submit" disabled={(!isValid || submitLoading)}>
-                            {submitLoading ? <Spinner className='w-5 h-5'>Loading...</Spinner> : "Kaydet"}
+                        <button className="bg-primary-blue disabled:bg-gray text-white text-sm leading-7 py-2.5 px-12 rounded min-h-[50px] min-w-[150px] flex items-center justify-center" type="submit" disabled={(!isValid || submitLoading)}>
+                            {submitLoading ? <Spinner className='w-5 h-5'>Loading...</Spinner> : "Sign Up"}
                         </button>
-                        {submitError && <p className='input-error pt-3'>Kayıt olma işlemi tamamlanamadı!</p>}
+                        {submitError && <p className='input-error pt-3'>Register failed</p>}
                     </div>
+                </div>
+                <div className="form-line">
+                    <div className='text-sm text-main'>Do you already have an account?<Link to="/login" className="text-primary-blue text-base">Login</Link></div>
                 </div>
             </form>
         </>

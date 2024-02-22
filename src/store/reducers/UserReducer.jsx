@@ -1,4 +1,5 @@
 export const UserActionTypes = {
+    setUser: "SET_USER",
     setProductList: "SET_PRODUCT_LIST",
     setTotalProductCount: "SET_TOTAL_PRODUCT_COUNT",
     setPageCount: "SET_PAGE_COUNT",
@@ -7,6 +8,7 @@ export const UserActionTypes = {
 }
 
 const initialState = {
+    user: {},
     productList: [],
     totalProductCount: 0,
     pageCount: 0,
@@ -16,6 +18,9 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case UserActionTypes.setUser:
+            localStorage.setItem("token", JSON.stringify(action.payload.token));
+            return { ...state, user: action.payload }
         case UserActionTypes.setProductList:
             return { ...state, productList: action.payload }
         case UserActionTypes.setTotalProductCount:

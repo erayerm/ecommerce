@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'
 
@@ -7,6 +8,7 @@ const navShopItems = [["Tab1", "tab1"], ["Tab2", "tab2"], ["Tab3", "tab3"]]
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const user = useSelector(store => store.user.user);
 
     const handleToggle = () => setDropdownOpen(!dropdownOpen);
     const handleHoverIn = () => setDropdownOpen(true);
@@ -57,7 +59,7 @@ export default function Header() {
                         </nav>
                     </div>
                     <div className='flex gap-4 text-sm leading-6 text-main'>
-                        <Link to="/signup"><FontAwesomeIcon icon="fa-regular fa-user" /> <span className='md:hidden'>Login / Register</span></Link>
+                        {Object.keys(user).length !== 0 ? <div className='flex gap-2 items-center'><img className='w-[35px] aspect-square' src={user.img} /><p className='text-main text-sm'>{user.name}</p></div> : <Link to="/signup"><FontAwesomeIcon icon="fa-regular fa-user" /> <span className='md:hidden'>Login / Register</span></Link>}
                         <button><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
                         <button><FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> 1</button>
                         <button className='md:hidden'><FontAwesomeIcon icon="fa-regular fa-heart" /> 1</button>
