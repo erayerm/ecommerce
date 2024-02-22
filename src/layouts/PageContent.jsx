@@ -12,7 +12,7 @@ export default function PageContent() {
 
     return (
         <Switch>
-            <Route path="/shop">
+            <Route path={["/shop/:gender/:category", "/shop"]}>
                 <ProductList />
             </Route>
             <Route path="/productPage">

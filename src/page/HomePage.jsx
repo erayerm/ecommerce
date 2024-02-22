@@ -18,7 +18,7 @@ export default function HomePage() {
             </section>
 
             <EditorsPick />
-            <BestSellerProducts />
+            {/*<BestSellerProducts />*/}
             <section className='w-screen bg-[#23856D]'>
                 <div className='max-w-[1440px] mx-auto'>
                     <div className="w-full aspect-[144/85] sm:aspect-[41/75] mx-auto" >
