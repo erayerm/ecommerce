@@ -14,7 +14,7 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
     const [category, setCategory] = useState("");
     const [filter, setFilter] = useState(""); //input?
     const [sort, setSort] = useState("");
-
+    const [canFetch, setCanFetch] = useState(genderParams ? false : true)
     const productsLoading = useSelector(store => store.productStore.loading);
     const products = useSelector(store => store.productStore.product);
     const categories = useSelector(store => store.global.categories)
@@ -37,22 +37,19 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
     }
 
     useEffect(() => {
-        console.log(categories)
         for (const cat of categories) {
             if (genderParams) {
-                console.log(genderParams[0] + ":" + categoryParams + " " + cat.code);
                 if (genderParams[0] + ":" + categoryParams == cat.code) {
                     setCategory(cat.id);
                     break;
                 }
             }
         }
-    }, [categories, categoryParams])
+        setCanFetch(true)
+    }, [categories, categoryParams, genderParams])
 
     useEffect(() => {
-        console.log(categoryParams);
-        console.log(category)
-        dispatch(fetchProducts(category, filter, sort))
+        if (canFetch) dispatch(fetchProducts(category, filter, sort))
     }, [category, filter, sort])
 
 
@@ -105,10 +102,7 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
                             </ButtonGroup>
                         </div>
                     </>
-
                 }
-
-
             </div>
         </div>
     )
