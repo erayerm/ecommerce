@@ -31,3 +31,19 @@ export const loginAction = (creds, history, setSubmitError) => async (dispatch) 
             setSubmitError(true);
         })
 };
+
+export const autoLoginAction = () => async (dispatch) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        await instance
+            .get("/verify", {
+                headers: {
+                    Authorization: JSON.parse(token)
+                }
+            })
+            .then((res) => dispatch(setUserAction({ ...res.data, img: "https://gravatar.com/avatar/" + SHA256(res.data.email) + "?d=mp" })))
+            .catch(() => localStorage.removeItem("token"))
+            .catch((err) => console.error(err))
+    }
+};
+
