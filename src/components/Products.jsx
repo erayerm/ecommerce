@@ -15,6 +15,8 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
     const [filter, setFilter] = useState(""); //input?
     const [sort, setSort] = useState("");
     const [canFetch, setCanFetch] = useState(genderParams ? false : true)
+    const [filterText, setFilterText] = useState("");
+
     const productsLoading = useSelector(store => store.productStore.loading);
     const products = useSelector(store => store.productStore.product);
     const categories = useSelector(store => store.global.categories)
@@ -25,6 +27,13 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
     const handleHoverIn = () => setDropdownOpen(true);
     const handleHoverOut = () => setDropdownOpen(false);
 
+    const handleChange = (element) => {
+        setFilterText(element.target.value);
+    }
+
+    const handleFilter = () => {
+        setFilter(filterText);
+    }
     const handleSort = async (element) => {
         for (const item of navItems) {
             if (item[1] === element.target.name) {
@@ -72,7 +81,10 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
                                 })}
                             </DropdownMenu>
                         </Dropdown>
-                        <button className="px-5 py-2.5 text-white bg-primary-blue rounded">Filter</button>
+                        <div className="flex flex-wrap gap-2 justify-center">
+                            <input type="text" onChange={handleChange} value={filterText} className="border border-[#DDDDDD] rounded pl-3 py-2.5" />
+                            <button onClick={handleFilter} className="px-5 py-2.5 text-white bg-primary-blue rounded">Filter</button>
+                        </div>
                     </div>
                 </div>
                 {productsLoading
