@@ -180,6 +180,7 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                                     value={p.id}
                                     checked={watch("role_id") === '' + p.id}
                                     className='mr-3'
+                                    {...register('role_id')}
                                 />
                                 {p.name}
                             </label>
