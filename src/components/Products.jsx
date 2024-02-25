@@ -1,24 +1,31 @@
-import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Spinner } from "reactstrap"
-import { bestseller } from "../mock/bestSellerData"
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Spinner } from "reactstrap"
 import ProductCard from "./ProductCard"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, setLoadingAction } from "../store/actions/ProductActions";
+import ReactPaginate from "react-paginate";
 
 const navItems = [["Default", ""], ["Price Low to High", "price:asc"], ["Price High to Low", "price:desc"], ["Rating Low to High", "rating:asc"], ["Rating High to Low", "rating:desc"]]
 
-export default function Products({ genderParams = "", categoryParams = "" }) {
+export default function Products({ genderParams = null, categoryParams = null }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownPick, setDropdownPick] = useState("Order By");
-    const [category, setCategory] = useState("");
-    const [filter, setFilter] = useState(""); //input?
-    const [sort, setSort] = useState("");
+    const [category, setCategory] = useState(null);
+    const [filter, setFilter] = useState(null);
+    const [sort, setSort] = useState(null);
+    const limit = 24;
+    const [offset, setOffset] = useState(null);
     const [canFetch, setCanFetch] = useState(genderParams ? false : true)
     const [filterText, setFilterText] = useState("");
+    const [pageCount, setPageCount] = useState(0);
+
+    const paginateRef = useRef(null);
+    const beginningRef = useRef(null);
 
     const productsLoading = useSelector(store => store.productStore.loading);
     const products = useSelector(store => store.productStore.product);
+    const productCount = useSelector(store => store.productStore.productCount);
     const categories = useSelector(store => store.global.categories)
 
     const dispatch = useDispatch();
@@ -27,6 +34,12 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
     const handleHoverIn = () => setDropdownOpen(true);
     const handleHoverOut = () => setDropdownOpen(false);
 
+    const handlePageClick = (event) => {
+        const newOffset = event.selected * limit % productCount;
+        setOffset(newOffset);
+        beginningRef.current.scrollIntoView({ behavior: 'instant' });
+    };
+
     const handleChange = (element) => {
         setFilterText(element.target.value);
     }
@@ -34,6 +47,7 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
     const handleFilter = () => {
         setFilter(filterText);
     }
+
     const handleSort = async (element) => {
         for (const item of navItems) {
             if (item[1] === element.target.name) {
@@ -58,15 +72,24 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
     }, [categories, categoryParams, genderParams])
 
     useEffect(() => {
-        if (canFetch) dispatch(fetchProducts(category, filter, sort))
+        setOffset(0);
+        paginateRef.current ? paginateRef.current.state.selected = 0 : "";
     }, [category, filter, sort])
 
+    useEffect(() => {
+        dispatch(setLoadingAction(true))
+        if (canFetch) dispatch(fetchProducts(category, filter, sort, limit, offset))
+    }, [category, filter, sort, offset])
+
+    useEffect(() => {
+        setPageCount(Math.ceil(productCount / limit));
+    }, [category, filter, sort, offset, productCount])
 
     return (
-        <div className="w-screen flex flex-col">
+        <div className="w-screen flex flex-col" ref={beginningRef}>
             <div className="my-0 mx-auto max-w-page-content">
-                <div className="flex md:flex-col md:gap-6 justify-between items-center py-6">
-                    <p className="text-gray font-bold text-sm leading-6">Showing all X! results</p>
+                <div className="w-full gap-20 flex md:flex-col md:gap-6 justify-between items-center py-6">
+                    <p className="text-gray font-bold text-sm leading-6">Showing all {productCount} results</p>
                     <div className="flex items-center gap-3.5">
                         <p className="text-gray font-bold text-sm leading-6">Views: </p>
                         <button className="h-[46px] w-[46px] border-1 rounded"><FontAwesomeIcon icon="fa-solid fa-border-all" /></button>
@@ -87,34 +110,35 @@ export default function Products({ genderParams = "", categoryParams = "" }) {
                         </div>
                     </div>
                 </div>
-                {productsLoading
-                    ? <div className="flex justify-center items-center h-[500px]"><Spinner className="w-[100px] h-[100px]">Loading...</Spinner></div>
-                    : <><div className="flex flex-wrap gap-x-7 gap-y-20 justify-center py-12">
-                        {products.map((item, index) => {
-                            return <ProductCard key={index} data={item} size={[240, 300]} />
-                        })}
-                    </div>
-                        <div className="w-full flex justify-center pb-12">
-                            <ButtonGroup className="me-2">
-                                <Button color="light" size="lg" className="border-2 border-inherit" >
-                                    First
-                                </Button>
-                                <Button color="light" size="lg" className="border-2 border-inherit">
-                                    1
-                                </Button>
-                                <Button color="primary" size="lg" className="border-2 border-inherit"  >
-                                    2
-                                </Button>
-                                <Button color="light" size="lg" className="border-2 border-inherit">
-                                    3
-                                </Button>
-                                <Button color="light" size="lg" className="border-2 border-inherit">
-                                    Next
-                                </Button>
-                            </ButtonGroup>
-                        </div>
-                    </>
-                }
+                <div className={"flex justify-center items-center h-[500px] " + (productsLoading ? "block" : "hidden")}><Spinner className="w-[100px] h-[100px]">Loading...</Spinner></div>
+                <div className={"flex flex-wrap gap-x-7 gap-y-20 justify-center py-12 " + (productsLoading ? "hidden" : "block")}>
+                    {products.map((item, index) => {
+                        return <ProductCard key={index} data={item} size={[240, 300]} />
+                    })}
+                </div>
+                <div className={"flex justify-center pb-5 " + (productsLoading ? "hidden" : "block")}>
+                    <ReactPaginate
+                        ref={paginateRef}
+                        nextLabel="Next >"
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={3}
+                        marginPagesDisplayed={2}
+                        pageCount={pageCount}
+                        previousLabel="< Previous"
+                        pageClassName="page-item text-main"
+                        pageLinkClassName="page-link text-main"
+                        previousClassName="page-item text-main"
+                        previousLinkClassName="page-link text-main"
+                        nextClassName="page-item text-main"
+                        nextLinkClassName="page-link text-main"
+                        breakLabel="..."
+                        breakClassName="page-item"
+                        breakLinkClassName="page-link"
+                        containerClassName="pagination"
+                        activeClassName="active"
+                        renderOnZeroPageCount={null}
+                    />
+                </div>
             </div>
         </div>
     )
