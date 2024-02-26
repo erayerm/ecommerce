@@ -8,15 +8,50 @@ import Carousel from "../components/Carousel";
 import { bestseller } from "../mock/bestSellerData";
 import ProductCardSecond from "../components/ProductCardSecond";
 import Clients from "../components/Clients";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../store/actions/ProductActions";
 
 const colors = ["[#23A6F0]", "success-green", "[#E77C40]", "[#252B42]"];
 
 
 
 export default function ProductPage() {
+    let { productId } = useParams();
+
+    const productData = useSelector(store => store.productStore.product);
+    const productDataCount = useSelector(store => store.productStore.productCount)
+    const [currentProductData, setCurrentProductData] = useState([]);
+
     const [currIndex, setCurrIndex] = useState(0);
     const [shownImages, setShownImages] = useState([]);
     const [carouselIndex, setCarouselIndex] = useState(0);
+
+    const dispatch = useDispatch()
+    const history = useHistory();
+
+    const handleBack = () => {
+        if (history.action === 'POP') {
+            history.push('/shop');
+        } else {
+            history.goBack();
+        }
+    }
+
+    useEffect(() => {
+        dispatch(fetchProducts("", "", "", productId))
+    }, [])
+
+    useEffect(() => {
+        for (const prod of productData) {
+            console.log(prod.id + " " + productId)
+            if (prod.id == productId) {
+                setCurrentProductData(prod);
+                break;
+            }
+        }
+    }, [productData])
+
     useEffect(() => {
         //change later
         if (currIndex === 0) {
@@ -50,11 +85,14 @@ export default function ProductPage() {
     return (
         <>
             <section className="width-screen bg-light-gray-1">
-                <div className="max-w-page-content mx-auto py-6">
-                    <div className="flex items-center gap-3.5 font-bold text-sm leading-6 px-3">
+                <div className="max-w-page-content mx-auto py-6 flex items-center justify-between font-bold text-sm leading-6">
+                    <div className="flex items-center gap-3.5 px-3">
                         <Link to="/" className="text-main">Home</Link>
                         <p className="text-muted-text-color font-thin text-4xl">{">"}</p>
                         <p className="text-muted-text-color">Shop</p>
+                    </div>
+                    <div>
+                        <button onClick={handleBack} className="flex items-center gap-2"><FontAwesomeIcon className="text-2xl" icon="fa-solid fa-left-long" /> Go Back</button>
                     </div>
                 </div>
                 <div className="max-w-page-content mx-auto flex sm:flex-col gap-[30px] pb-12 lg:px-7 lg:items-center">
@@ -69,17 +107,15 @@ export default function ProductPage() {
                         </div>
                     </div>
                     <div className="flex-1 flex flex-col gap-4 pt-4 ">
-                        <p className="leading-7.5 text-xl text-main">Floating Phone</p>
+                        <p className="leading-7.5 text-xl text-main">{currentProductData.name}</p>
                         <div className="flex gap-2">
-                            <Rating name="read-only" value="4" readOnly />
+                            <Rating name="read-only" value={Math.round(currentProductData.rating)} readOnly />
                             <p className="text-sm leading-6 font-bold">10 Reviews</p>
                         </div>
 
-                        <p className="text-main text-2xl leading-8">$1,139.33</p>
-                        <p className="text-sm leading-6 text-gray font-bold">Availability: <span className="text-primary-blue">In Stock </span></p>
-                        <p className="text-gray text-sm leading-5 max-w-[455]">Met minim Mollie non desert Alamo est sit cliquey dolor
-                            do met sent. RELIT official consequent door ENIM RELIT Mollie.
-                            Excitation venial consequent sent nostrum met.</p>
+                        <p className="text-main text-2xl leading-8">${currentProductData.price}</p>
+                        <p className="text-sm leading-6 text-gray font-bold">Availability: <span className="text-primary-blue">{currentProductData.stock > 0 ? "In Stock" : "Out of Stock"}</span></p>
+                        <p className="text-gray text-sm leading-5 max-w-[455]">{currentProductData.description}</p>
                         <hr />
                         <div className="flex gap-2.5">
                             {colors.map((item, index) => {
