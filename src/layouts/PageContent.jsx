@@ -15,9 +15,7 @@ export default function PageContent() {
             <Route path="/shop/:gender?/:category?">
                 <ProductList />
             </Route>
-            <Route path="/productPage">
-                <ProductPage />
-            </Route>
+
             <Route path="/about">
                 <AboutUs />
             </Route>
@@ -33,8 +31,12 @@ export default function PageContent() {
             <Route path="/login">
                 <Login />
             </Route>
+
             <Route exact path="/">
                 <HomePage />
+            </Route>
+            <Route path="/:category?/:productId?/:productNameSlug?">
+                <ProductPage />
             </Route>
         </Switch>
     )
