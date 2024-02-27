@@ -1,7 +1,10 @@
-import { ShoppingCartActionTypes } from "../reducers/ShoppingCartActionReducer";
+import { ShoppingCartActionTypes } from "../reducers/ShoppingCartReducer";
 
-export const setCartAction = (data) => {
-    return { type: ShoppingCartActionTypes.setCart, payload: data }
+export const addToCartAction = (data) => {
+    return { type: ShoppingCartActionTypes.addToCart, payload: data }
+}
+export const removeFromCartAction = (data) => {
+    return { type: ShoppingCartActionTypes.removeFromCart, payload: data }
 }
 export const setPaymentAction = (data) => {
     return { type: ShoppingCartActionTypes.setPayment, payload: data }

@@ -1,5 +1,6 @@
 export const ShoppingCartActionTypes = {
-    setCart: "SET_CART",
+    addToCart: "ADD_TO_CART",
+    removeFromCart: "REMOVE_FROM_CART",
     setPayment: "SET_PAYMENT",
     setAddress: "SET_ADDRESS",
 }
@@ -11,9 +12,43 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+    let isAlreadyExist = false;
+    let newCart = [...state.cart];
+
     switch (action.type) {
-        case ShoppingCartActionTypes.setCart:
-            return { ...state, cart: action.payload }
+        case ShoppingCartActionTypes.addToCart:
+            for (const item of state.cart) {
+                if (action.payload.id === item.product.id) {
+                    isAlreadyExist = true;
+                    break;
+                }
+            }
+            let itemAdd = { product: action.payload };
+            if (isAlreadyExist) {
+                for (let i = 0; i < newCart.length; i++) {
+                    if (newCart[i].product.id === action.payload.id) {
+
+                        itemAdd = { count: newCart[i].count + 1, checked: newCart[i].checked, ...itemAdd }
+                        newCart = [...newCart.slice(0, i), itemAdd, ...newCart.slice(i + 1)]
+                        break;
+                    }
+                }
+            } else {
+                itemAdd = { count: 1, checked: true, ...itemAdd };
+                newCart.unshift(itemAdd);
+            }
+            return { ...state, cart: [...newCart] }
+        case ShoppingCartActionTypes.removeFromCart:
+            for (let i = 0; i < newCart.length; i++) {
+                if (action.payload.id === newCart[i].product.id) {
+                    if (newCart[i].count > 1) {
+                        newCart = [...newCart.slice(0, i), { ...newCart[i], count: newCart[i].count - 1 }, ...newCart.slice(i + 1)]
+                    } else {
+                        newCart.splice(i, 1);
+                    }
+                }
+            }
+            return { ...state, cart: [...newCart] }
         case ShoppingCartActionTypes.setPayment:
             return { ...state, payment: action.payload }
         case ShoppingCartActionTypes.setAddress:

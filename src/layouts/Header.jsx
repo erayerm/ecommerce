@@ -1,17 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'
+import { addToCartAction, removeFromCartAction } from '../store/actions/ShoppingCartActions';
+import { fetchProducts } from '../store/actions/ProductActions';
 
 const navShopItems = [["Tab1", "tab1"], ["Tab2", "tab2"], ["Tab3", "tab3"]]
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [cartOpen, setCartOpen] = useState(false);
+
     const user = useSelector(store => store.user.user);
     const categories = useSelector(store => store.global.categories);
+    const cart = useSelector(store => store.shoppingCart.cart);
+
+    const dispatch = useDispatch()
 
     const handleToggle = () => setDropdownOpen(!dropdownOpen);
+    const handleCartToggle = () => setCartOpen(!cartOpen);
+
     const handleHoverIn = () => setDropdownOpen(true);
     const handleHoverOut = () => setDropdownOpen(false);
 
@@ -20,6 +29,22 @@ export default function Header() {
     const handleClick = () => {
         setPagesMenuOpen(!pagesMenuOpen);
     }
+    const handleCart = (id, type) => {
+        for (const product of cart) {
+            if (product.product.id == id) {
+                if (type === "add") {
+                    dispatch(addToCartAction(product.product))
+                } else {
+                    dispatch(removeFromCartAction(product.product));
+                }
+                break;
+            }
+        }
+    }
+
+    useEffect(() => {
+        dispatch(fetchProducts())
+    }, [])
     return (
         <>
             <div className='w-screen h-[60px] bg-main text-white px-5 lg:hidden'>
@@ -72,6 +97,33 @@ export default function Header() {
                         {Object.keys(user).length !== 0 ? <div className='flex gap-2 items-center'><img className='w-[35px] aspect-square' src={user.img} /><p className='text-main text-sm'>{user.name}</p></div> : <Link to="/signup"><FontAwesomeIcon icon="fa-regular fa-user" /> <span className='md:hidden'>Login / Register</span></Link>}
                         <button><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
                         <button><FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> 1</button>
+                        <Dropdown isOpen={cartOpen} toggle={handleCartToggle} className="text-sm text-secondary mr-[-8px]">
+                            <DropdownToggle className="text-sm leading-6 border-0 text-gray flex items-center justify-between gap-2"><FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> {cart.length}</DropdownToggle>
+                            <DropdownMenu className="w-[500px]">
+                                <DropdownItem header className="text-lg font-bold">Sepetim</DropdownItem>
+                                {cart.map((item, index) => {
+                                    return <div key={index} className={'flex justify-between p-2 ' + (index % 2 === 0 ? "bg-light-gray-1" : "")}>
+                                        <div className='flex gap-2 items-center'>
+                                            <div className='w-[20%] aspect-square' >
+                                                <img className='size-full object-cover object-center' src={item.product.images[0].url} />
+                                            </div>
+                                            <div className='max-w-[60%]'>
+                                                <p className='text-main'>{item.product.name}</p>
+                                                <p className='text-sm text-muted-text-color line-clamp-2'>{item.product.description}</p>
+                                            </div>
+                                        </div>
+                                        <div className='self-center flex flex-col items-center px-4 py-2 bg-white border rounded'>
+                                            <button onClick={() => handleCart(item.product.id, "add")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-up" /></button>
+                                            <p>{item.count}</p>
+                                            <button onClick={() => handleCart(item.product.id, "remove")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-down" /></button>
+                                        </div>
+                                    </div>
+                                })}
+                                <div className='flex justify-end py-4 px-2'>
+                                    <button className='bg-primary-blue text-white py-3 px-4 rounded'>Sepete Git</button>
+                                </div>
+                            </DropdownMenu>
+                        </Dropdown>
                         <button className='md:hidden'><FontAwesomeIcon icon="fa-regular fa-heart" /> 1</button>
                         <button className='hidden lg:block' onClick={handleClick}><FontAwesomeIcon icon="fa-solid fa-bars" /></button>
                     </div>
@@ -85,7 +137,8 @@ export default function Header() {
                         <div> <Link to="/contact">Contact</Link></div>
                         <div> <Link to="/">Pages</Link></div>
                     </nav>
-                </div>}
+                </div>
+                }
             </div>
         </>
     )

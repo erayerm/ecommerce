@@ -25,3 +25,4 @@ public/about-us-video.mp4
 *.sln
 *.sw?
 src/mock
+.vercel
