@@ -1,8 +1,10 @@
 export const ShoppingCartActionTypes = {
     addToCart: "ADD_TO_CART",
     removeFromCart: "REMOVE_FROM_CART",
+    deleteFromCart: "DELETE_FROM_CART",
     setPayment: "SET_PAYMENT",
     setAddress: "SET_ADDRESS",
+    toggleCheck: "TOGGLE_CHECK"
 }
 
 const initialState = {
@@ -46,6 +48,23 @@ const reducer = (state = initialState, action) => {
                     } else {
                         newCart.splice(i, 1);
                     }
+                    break;
+                }
+            }
+            return { ...state, cart: [...newCart] }
+        case ShoppingCartActionTypes.deleteFromCart:
+            for (let i = 0; i < newCart.length; i++) {
+                if (action.payload.id === newCart[i].product.id) {
+                    newCart.splice(i, 1);
+                    break;
+                }
+            }
+            return { ...state, cart: [...newCart] }
+        case ShoppingCartActionTypes.toggleCheck:
+            for (let i = 0; i < newCart.length; i++) {
+                if (action.payload.id === newCart[i].product.id) {
+                    newCart = [...newCart.slice(0, i), { ...newCart[i], checked: !newCart[i].checked }, ...newCart.slice(i + 1)]
+                    break;
                 }
             }
             return { ...state, cart: [...newCart] }

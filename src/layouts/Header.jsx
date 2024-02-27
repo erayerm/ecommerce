@@ -120,7 +120,7 @@ export default function Header() {
                                     </div>
                                 })}
                                 <div className='flex justify-end py-4 px-2'>
-                                    <button className='bg-primary-blue text-white py-3 px-4 rounded'>Sepete Git</button>
+                                    <Link to="/shoppingCart" className='bg-primary-blue text-white py-3 px-4 rounded'>Sepete Git</Link>
                                 </div>
                             </DropdownMenu>
                         </Dropdown>

@@ -7,6 +7,7 @@ import Contact from "../page/Contact";
 import ProductPage from "../page/ProductPage";
 import SignUp from "../page/SignUp";
 import Login from "../page/Login";
+import ShoppingCart from "../page/ShoppingCart";
 
 export default function PageContent() {
 
@@ -15,7 +16,9 @@ export default function PageContent() {
             <Route path="/shop/:gender?/:category?">
                 <ProductList />
             </Route>
-
+            <Route path="/shoppingCart">
+                <ShoppingCart />
+            </Route>
             <Route path="/about">
                 <AboutUs />
             </Route>
@@ -31,7 +34,6 @@ export default function PageContent() {
             <Route path="/login">
                 <Login />
             </Route>
-
             <Route exact path="/">
                 <HomePage />
             </Route>
