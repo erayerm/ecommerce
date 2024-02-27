@@ -10,7 +10,7 @@ import ProductCardSecond from "../components/ProductCardSecond";
 import Clients from "../components/Clients";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../store/actions/ProductActions";
+import { fetchProductsWithId } from "../store/actions/ProductActions";
 
 const colors = ["[#23A6F0]", "success-green", "[#E77C40]", "[#252B42]"];
 
@@ -19,10 +19,7 @@ const colors = ["[#23A6F0]", "success-green", "[#E77C40]", "[#252B42]"];
 export default function ProductPage() {
     let { productId } = useParams();
 
-    const productData = useSelector(store => store.productStore.product);
-    const productDataCount = useSelector(store => store.productStore.productCount)
-    const [currentProductData, setCurrentProductData] = useState([]);
-
+    const productData = useSelector(store => store.productStore.currentProduct);
     const [currIndex, setCurrIndex] = useState(0);
     const [shownImages, setShownImages] = useState([]);
     const [carouselIndex, setCarouselIndex] = useState(0);
@@ -39,18 +36,8 @@ export default function ProductPage() {
     }
 
     useEffect(() => {
-        dispatch(fetchProducts("", "", "", productId))
+        dispatch(fetchProductsWithId(productId))
     }, [])
-
-    useEffect(() => {
-        for (const prod of productData) {
-            console.log(prod.id + " " + productId)
-            if (prod.id == productId) {
-                setCurrentProductData(prod);
-                break;
-            }
-        }
-    }, [productData])
 
     useEffect(() => {
         //change later
@@ -107,15 +94,15 @@ export default function ProductPage() {
                         </div>
                     </div>
                     <div className="flex-1 flex flex-col gap-4 pt-4 ">
-                        <p className="leading-7.5 text-xl text-main">{currentProductData.name}</p>
+                        <p className="leading-7.5 text-xl text-main">{productData.name}</p>
                         <div className="flex gap-2">
-                            <Rating name="read-only" value={Math.round(currentProductData.rating)} readOnly />
+                            <Rating name="read-only" value={Math.round(productData.rating)} readOnly />
                             <p className="text-sm leading-6 font-bold">10 Reviews</p>
                         </div>
 
-                        <p className="text-main text-2xl leading-8">${currentProductData.price}</p>
-                        <p className="text-sm leading-6 text-gray font-bold">Availability: <span className="text-primary-blue">{currentProductData.stock > 0 ? "In Stock" : "Out of Stock"}</span></p>
-                        <p className="text-gray text-sm leading-5 max-w-[455]">{currentProductData.description}</p>
+                        <p className="text-main text-2xl leading-8">${productData.price}</p>
+                        <p className="text-sm leading-6 text-gray font-bold">Availability: <span className="text-primary-blue">{productData.stock > 0 ? "In Stock" : "Out of Stock"}</span></p>
+                        <p className="text-gray text-sm leading-5 max-w-[455]">{productData.description}</p>
                         <hr />
                         <div className="flex gap-2.5">
                             {colors.map((item, index) => {
@@ -133,7 +120,6 @@ export default function ProductPage() {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
             <ProductDetails />
