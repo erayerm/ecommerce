@@ -8,6 +8,7 @@ import ProductPage from "../page/ProductPage";
 import SignUp from "../page/SignUp";
 import Login from "../page/Login";
 import ShoppingCart from "../page/ShoppingCart";
+import ProtectedCreateOrder from "../components/ProtectedCreateOrder";
 
 export default function PageContent() {
 
@@ -18,6 +19,9 @@ export default function PageContent() {
             </Route>
             <Route path="/shoppingCart">
                 <ShoppingCart />
+            </Route>
+            <Route path="/createOrder">
+                <ProtectedCreateOrder />
             </Route>
             <Route path="/about">
                 <AboutUs />
