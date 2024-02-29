@@ -3,6 +3,8 @@ import { addToCartAction, deleteFromCartAction, removeFromCartAction, toggleChec
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom/cjs/react-router-dom";
+import OrderSummary from "../components/OrderSummary";
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export default function ShoppingCart() {
@@ -96,32 +98,15 @@ export default function ShoppingCart() {
                         })
                         }
                     </div>
-                    <div className="basis-[40%] px-5 text-main">
-                        <div className="w-full">
-                            <h2 className="text-3xl">Order Summary</h2>
-                            <div className="space-y-2 pt-4">
-                                <div className="flex justify-between">
-                                    <p>Total Price</p>
-                                    <p>{toFixed2(totalPriceProducts)}$</p>
-                                </div>
-                                <div className="flex justify-between">
-                                    <p>Shipping Payment Price</p>
-                                    <p>{toFixed2(shippingPaymentPrice)}$</p>
-                                </div>
-                                {totalPriceProducts > shippingDiscountLimit &&
-                                    <div className="flex justify-between">
-                                        <p>Shipping Discount</p>
-                                        <p className="text-primary-blue">-{toFixed2(shippingPaymentPrice)}$</p>
-                                    </div>
-                                }
-                            </div>
-                            <div className="flex justify-between text-xl pt-4">
-                                <p>Total</p>
-                                <p className="text-primary-blue">{toFixed2(totalPriceAll)}$</p>
-                            </div>
+                    <div className="basis-[40%]">
+                        <OrderSummary />
+                        <div className="px-10">
+                            <button className="w-full border py-2 mt-4 rounded text-sm"><FontAwesomeIcon icon="fa-solid fa-plus" className="text-primary-blue" /> Enter Discount Code</button>
+                            <Link to="/createOrder">
+                                <button className="w-full py-3 bg-primary-blue text-white mt-4 text-xl rounded text-center">Create Order</button>
+                            </Link>
                         </div>
-                        <button className="w-full border py-2 mt-4 rounded text-sm"><FontAwesomeIcon icon="fa-solid fa-plus" className="text-primary-blue" /> Enter Discount Code</button>
-                        <button className="w-full py-3 bg-primary-blue text-white mt-4 text-xl rounded">Create Order</button>
+
                     </div>
                 </div>
 
