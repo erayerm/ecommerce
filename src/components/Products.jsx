@@ -15,11 +15,11 @@ export default function Products({ genderParams = null, categoryParams = null })
     const [filter, setFilter] = useState(null);
     const [sort, setSort] = useState(null);
     const limit = 24;
-    const [offset, setOffset] = useState(null);
+    const [offset, setOffset] = useState(0);
     const [canFetch, setCanFetch] = useState(genderParams ? false : true)
     const [filterText, setFilterText] = useState("");
     const [pageCount, setPageCount] = useState(0);
-
+    const [prevOffset, setPrevOffset] = useState(0);
     const paginateRef = useRef(null);
     const beginningRef = useRef(null);
 
@@ -65,25 +65,38 @@ export default function Products({ genderParams = null, categoryParams = null })
     }
 
     useEffect(() => {
-        for (const cat of categories) {
-            if (genderParams) {
-                if (genderParams[0] + ":" + categoryParams == cat.code) {
-                    setCategory(cat.id);
-                    break;
+        if (categoryParams === null && genderParams === null) {
+            setCategory(null);
+            setFilter(null);
+            setOffset(0);
+            setSort(null);
+        } else {
+            for (const cat of categories) {
+                if (genderParams) {
+                    if (genderParams[0] + ":" + categoryParams == cat.code) {
+                        setCategory(cat.id);
+                        break;
+                    }
                 }
             }
         }
         setCanFetch(true)
     }, [categories, categoryParams, genderParams])
 
-    useEffect(() => {
-        setOffset(0);
-        paginateRef.current ? paginateRef.current.state.selected = 0 : "";
-    }, [category, filter, sort])
 
     useEffect(() => {
+        if (prevOffset !== offset) {
+            if (canFetch || offset !== 0) dispatch(fetchProducts(category, filter, sort, limit, offset))
+            setPrevOffset(offset);
+            setCanFetch(true);
+        } else {
+            setCanFetch(true);
+            paginateRef.current ? paginateRef.current.state.selected = 0 : "";
+            if (canFetch) dispatch(fetchProducts(category, filter, sort, limit, 0))
+            setCanFetch(false);
+            setOffset(0);
+        }
         dispatch(setLoadingAction(true))
-        if (canFetch) dispatch(fetchProducts(category, filter, sort, limit, offset))
     }, [category, filter, sort, offset])
 
     useEffect(() => {

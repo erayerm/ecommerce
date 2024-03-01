@@ -1,12 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'
 import { addToCartAction, removeFromCartAction } from '../store/actions/ShoppingCartActions';
-import { fetchProducts } from '../store/actions/ProductActions';
-
-const navShopItems = [["Tab1", "tab1"], ["Tab2", "tab2"], ["Tab3", "tab3"]]
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -42,9 +39,6 @@ export default function Header() {
         }
     }
 
-    useEffect(() => {
-        dispatch(fetchProducts())
-    }, [])
     return (
         <>
             <div className='w-screen h-[60px] bg-main text-white px-5 lg:hidden'>
