@@ -19,7 +19,7 @@ export default function ProductCard({ data, size }) {
     }
 
     return (
-        <div to={link} className="flex flex-col border items-center w-[240px] sm:w-[80%]">
+        <div to={link} className="flex flex-col border items-center flex-grow-1 basis-[240px]">
             <img src={data.images[0].url} className={`w-full border sm:aspect-[34/42] sm:h-max h-[${size[1]}px] object-cover object-center`} />
             <div className="flex flex-col items-center gap-2.5 pt-6 pb-7">
                 <h4 className="text-main text-base font-bold leading-6">{data.name}</h4>

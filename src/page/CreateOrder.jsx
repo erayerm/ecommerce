@@ -92,7 +92,7 @@ export default function CreateOrder() {
                                                 <p className="text-sm">Send receipt to same address</p>
                                             </div>
                                         </div>
-                                        <div className="w-full flex flex-wrap justify-around gap-y-10 gap-x-[10%]">
+                                        <div className="w-full flex flex-wrap gap-y-10 gap-x-[10%] md:justify-center">
                                             <div onClick={handleForm} className="w-[45%] md:w-[80%] min-w-[300px] cursor-pointer flex flex-col justify-center items-center rounded border-2 border-dotted border-primary-blue mt-4 py-3">
                                                 <div className="text-center" >
                                                     <FontAwesomeIcon icon="fa-solid fa-plus" className="text-primary-blue" />
@@ -109,7 +109,7 @@ export default function CreateOrder() {
                                                 <div className="flex items-center justify-between pt-5">
                                                     <h2 className="text-xl">Receipt Address</h2>
                                                 </div>
-                                                <div className="w-full flex flex-wrap justify-around gap-y-10 gap-x-[10%]">
+                                                <div className="w-full flex flex-wrap gap-y-10 gap-x-[10%] md:justify-center">
                                                     <div onClick={handleForm} className="w-[45%] md:w-[80%] min-w-[300px] cursor-pointer flex flex-col justify-center items-center rounded border-2 border-dotted border-primary-blue mt-4 py-3">
                                                         <div className="text-center" >
                                                             <FontAwesomeIcon icon="fa-solid fa-plus" className="text-primary-blue" />

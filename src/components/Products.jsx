@@ -105,7 +105,7 @@ export default function Products({ genderParams = null, categoryParams = null })
 
     return (
         <div className="w-screen flex flex-col" ref={beginningRef}>
-            <div className="my-0 mx-auto max-w-page-content">
+            <div className="my-0 mx-auto max-w-[1060px]">
                 <div className="w-full gap-20 flex md:flex-col md:gap-6 justify-between items-center py-6">
                     <p className="text-gray font-bold text-sm leading-6">Showing all {productCount} results</p>
                     <div className="flex items-center gap-3.5">
@@ -132,7 +132,7 @@ export default function Products({ genderParams = null, categoryParams = null })
                     </div>
                 </div>
                 <div className={"flex justify-center items-center h-[500px] " + (productsLoading ? "block" : "hidden")}><Spinner className="w-[100px] h-[100px]">Loading...</Spinner></div>
-                <div className={"flex flex-wrap gap-x-7 gap-y-20 justify-center py-12 " + (productsLoading ? "hidden" : "block")}>
+                <div className={"flex flex-wrap gap-x-7 gap-y-20 justify-center px-2 py-12 " + (productsLoading ? "hidden" : "block")}>
                     {products.map((item, index) => {
                         return <ProductCard key={index} data={item} size={[240, 300]} />
                     })}
