@@ -27,9 +27,10 @@ export const fetchProducts = (category = null, filter = null, sort = null, limit
         .catch((err) => console.error(err))
 };
 
-export const fetchProductsWithId = (id) => async (dispatch) => {
+export const fetchProductsWithId = (id, setLoading) => async (dispatch) => {
     await instance
         .get("/products/" + id)
         .then((res) => dispatch(setCurrentProductAction(res.data)))
+        .then(() => setLoading(false))
         .catch((err) => console.error(err))
 };

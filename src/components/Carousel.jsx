@@ -1,34 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     BsFillArrowRightCircleFill,
     BsFillArrowLeftCircleFill,
 } from "react-icons/bs";
 
-export default function Carousel({ slides, setCurrIndex = () => { return 0 }, haveText = true }) {
-    const ref = useRef(null);
-    const [width, setWidth] = useState();
-    const [height, setHeight] = useState();
-
-    const getCarouselSize = () => {
-        const newWidth = ref.current.clientWidth;
-        setWidth(newWidth);
-
-        const newHeight = ref.current.clientHeight;
-        setHeight(newHeight);
-    };
-    useEffect(() => {
-        window.addEventListener("resize", getCarouselSize);
-    }, []);
-    useEffect(() => {
-        setWidth(ref.current ? ref.current.offsetWidth : 0)
-        setHeight(ref.current ? ref.current.offsetHeight : 0)
-    }, [ref.current]);
-
+export default function Carousel({ slides }) {
     let [current, setCurrent] = useState(0);
-    useEffect(() => {
-        setCurrIndex(current);
-    }, [current])
-
+    const [shownImages, setShownImages] = useState([]);
+    const [colorIndex, setColorIndex] = useState(0);
     let previousSlide = () => {
         if (current === 0) setCurrent(slides.length - 1);
         else setCurrent(current - 1);
@@ -39,56 +18,68 @@ export default function Carousel({ slides, setCurrIndex = () => { return 0 }, ha
         else setCurrent(current + 1);
     };
 
+    useEffect(() => {
+        console.log(slides.length, current)
+        if (slides.length <= 5) {
+            setShownImages(slides)
+            setColorIndex(current)
+        } else if (current === 0) {
+            setShownImages(slides.slice(0, 5))
+            setColorIndex(0)
+        } else if (current > slides.length - 5) {
+            setShownImages(slides.slice(slides.length - 5, slides.length))
+            setColorIndex(5 - slides.length + current)
+        } else {
+            setShownImages(slides.slice(current - 1, current + 4));
+            setColorIndex(1);
+        }
+    }, [current])
+
+
+
+
     return (
-        <div ref={ref} className="overflow-hidden relative max-h-[800px]">
-            <div
-                className={`flex transition ease-out duration-1000 w-full relative z-20`}
-                style={{
-                    transform: `translateX(-${current * 100}%)`,
-                }}
-            >
-                {haveText && slides.map((s, index) => {
-                    return <div key={index} className={`absolute z-30`}
-                        style={{
-                            left: `${index === 0 ? width * 10 / 100 : index * width + (width * 10 / 100)}px`,
-                            top: `${height * 30 / 100}px`
-                        }}>
-                        <div className="text-white flex flex-col gap-4">
-                            <p className="text-sm">SUMMER 2020 - {index + 1}. Slide</p>
-                            <p className="text-6xl leading-[80px] font-bold w-[5000px]">NEW COLLECTION</p>
-                            <p className="text-lg max-w-[350px]">We know how large objects will act, but things on a small scale.</p>
-                            <div>
-                                <button className="px-3 py-2 bg-success-green rounded text-2xl relative">SHOP NOW</button>
-                            </div>
-                        </div>
-                    </div>;
-                })}
+        <>
+            <div className="overflow-hidden relative max-h-[500px] aspect-square">
+                <div
+                    className={`flex transition ease-out duration-1000 w-full h-full relative z-20`}
+                    style={{
+                        transform: `translateX(-${current * 100}%)`,
+                    }}
+                >
+                    {slides.map((s, index) => {
+                        return <img key={index} src={s.url} className="w-full h-full object-cover object-center" />
+                    })}
+                </div>
+                <button className="absolute top-[50%] left-0 z-50 text-white px-10 text-3xl" onClick={previousSlide}>
+                    <BsFillArrowLeftCircleFill />
+                </button>
+                <button className="absolute top-[50%] right-0 z-50 text-white px-10 text-3xl" onClick={nextSlide}>
+                    <BsFillArrowRightCircleFill />
+                </button>
 
-                {slides.map((s, index) => {
-                    return <img key={index} src={s} className="object-cover" />
+                <div className="absolute bottom-0 py-4 flex justify-center gap-1 w-full z-20">
+                    {slides.map((s, i) => {
+                        return (
+                            <div
+                                onClick={() => {
+                                    setCurrent(i);
+                                }}
+                                key={"rectangle" + i}
+                                className={`w-10 h-2 cursor-pointer  ${i == current ? "bg-white" : "bg-muted-text-color"
+                                    }`}
+                            ></div>
+                        );
+                    })}
+                </div>
+            </div>
+            <div className="flex justify-between mt-4">
+                {shownImages.map((s, i) => {
+                    return <div key={i} className={"basis-[18%] aspect-square" + " " + (colorIndex !== i ? "grayscale-[100%]" : "")}>
+                        <img src={s.url} className="w-full aspect-square object-cover object-top" />
+                    </div>
                 })}
             </div>
-            <button className="absolute top-[50%] left-0 z-50 text-white px-10 text-3xl" onClick={previousSlide}>
-                <BsFillArrowLeftCircleFill />
-            </button>
-            <button className="absolute top-[50%] right-0 z-50 text-white px-10 text-3xl" onClick={nextSlide}>
-                <BsFillArrowRightCircleFill />
-            </button>
-
-            <div className="absolute bottom-0 py-4 flex justify-center gap-1 w-full z-20">
-                {slides.map((s, i) => {
-                    return (
-                        <div
-                            onClick={() => {
-                                setCurrent(i);
-                            }}
-                            key={"rectangle" + i}
-                            className={`w-10 h-2 cursor-pointer  ${i == current ? "bg-white" : "bg-muted-text-color"
-                                }`}
-                        ></div>
-                    );
-                })}
-            </div>
-        </div>
+        </>
     );
 }

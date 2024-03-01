@@ -19,11 +19,8 @@ const colors = ["[#23A6F0]", "success-green", "[#E77C40]", "[#252B42]"];
 export default function ProductPage() {
     let { productId } = useParams();
 
-    const productData = useSelector(store => store.productStore.currentProduct);
-    const [currIndex, setCurrIndex] = useState(0);
-    const [shownImages, setShownImages] = useState([]);
-    const [carouselIndex, setCarouselIndex] = useState(0);
-
+    let productData = useSelector(store => store.productStore.currentProduct);
+    const [productLoading, setProductLoading] = useState(true);
     const dispatch = useDispatch()
     const history = useHistory();
 
@@ -36,39 +33,11 @@ export default function ProductPage() {
     }
 
     useEffect(() => {
-        dispatch(fetchProductsWithId(productId))
+        dispatch(fetchProductsWithId(productId, setProductLoading))
     }, [])
 
-    useEffect(() => {
-        //change later
-        if (currIndex === 0) {
-            setShownImages(
-                thirdCarouselContent.slice(currIndex, currIndex + 5)
-            );
-            setCarouselIndex(0);
-        } else if (currIndex === thirdCarouselContent.length - 1) {
-            setShownImages(
-                thirdCarouselContent.slice(currIndex - 4, currIndex + 1)
-            );
-            setCarouselIndex(4);
-        } else if (currIndex === thirdCarouselContent.length - 2) {
-            setShownImages(
-                thirdCarouselContent.slice(currIndex - 3, currIndex + 2)
-            );
-            setCarouselIndex(3);
-        } else if (currIndex === thirdCarouselContent.length - 3) {
-            setShownImages(
-                thirdCarouselContent.slice(currIndex - 2, currIndex + 3)
-            );
-            setCarouselIndex(2);
-        } else {
-            setShownImages(
-                thirdCarouselContent.slice(currIndex - 1, currIndex + 4)
-            );
-            setCarouselIndex(1)
-        }
-    }, [currIndex]);
-
+    if (productLoading) return "";
+    //productData = { ...productData, images: [...productData.images, ...productData.images] };
     return (
         <>
             <section className="width-screen bg-light-gray-1">
@@ -85,12 +54,7 @@ export default function ProductPage() {
                 <div className="max-w-page-content mx-auto flex sm:flex-col gap-[30px] pb-12 lg:px-7 lg:items-center">
                     <div className="flex-1 max-w-[506px] flex flex-col">
                         <div className="w-full aspect-[10/9]">
-                            <Carousel slides={thirdCarouselContent} setCurrIndex={setCurrIndex} haveText={false} />
-                        </div>
-                        <div className="flex basis-[18%] gap-[19px] pt-3 ">
-                            {shownImages.map((item, index) => {
-                                return <div key={index} className="flex-1"><img className={"object-cover" + (carouselIndex !== index ? " opacity-60" : "")} src={item} /></div>
-                            })}
+                            <Carousel slides={productData.images} />
                         </div>
                     </div>
                     <div className="flex-1 flex flex-col gap-4 pt-4 ">
