@@ -16,6 +16,8 @@ export default function CreateOrder() {
     const token = useSelector(store => store.user.user.token)
     const [formOpen, setFormOpen] = useState(false);
     const [allAddress, setAllAddress] = useState([]);
+    const [addressEdit, setAddressEdit] = useState({});
+
     const handlePage = (page) => {
         setPage(page);
     }
@@ -24,6 +26,28 @@ export default function CreateOrder() {
     }
     const handleForm = () => {
         setFormOpen(!formOpen)
+    }
+    const handleEdit = (element) => {
+        if (element.target.id) {
+            for (const addr of allAddress) {
+                if (addr.id == element.target.id) {
+                    let cityCode = getCities().find(o => o.name == addr.city).code;
+                    let districtCode = getDistrictsByCityCode(cityCode).indexOf(getDistrictsByCityCode(cityCode).find(o => o == addr.district))
+                    setAddressEdit({ ...addr, city: cityCode, district: districtCode });
+                    break;
+                }
+            }
+        }
+        handleForm();
+    }
+    const handleDelete = (element) => {
+        instance.delete("/user/address/" + element.target.id, {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then(() => setAddressEdit({}))
+            .catch((err) => console.error(err))
     }
     const handleSubmit = (formData) => {
         formData = {
@@ -43,6 +67,25 @@ export default function CreateOrder() {
             .then(() => getAddress())
             .then(() => setFormOpen(false))
             .catch(err => console.error(err))
+    }
+    const handleEditSubmit = (formData) => {
+        formData = {
+            ...formData, district: getDistrictsByCityCode(formData.city)[formData.district]
+        }
+        for (const city of getCities()) {
+            if (city.code === formData.city) {
+                formData = { ...formData, city: city.name }
+                break;
+            }
+        }
+        instance.put("/user/address/" + addressEdit.id, formData, {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then(() => setAddressEdit({}))
+            .catch((err) => console.error(err))
+
     }
     const getAddress = () => {
         instance.get("/user/address", {
@@ -82,7 +125,7 @@ export default function CreateOrder() {
                                         <div className="flex justify-end">
                                             <button onClick={handleForm} className="flex items-center gap-2"><FontAwesomeIcon className="text-2xl" icon="fa-solid fa-left-long" /> Go Back</button>
                                         </div>
-                                        <AddressHookForm submitFn={handleSubmit} />
+                                        <AddressHookForm submitFn={handleSubmit} editFn={handleEditSubmit} initialData={addressEdit} />
                                     </div>
                                     : <div className="flex flex-col px-3">
                                         <div className="flex items-center justify-between">
@@ -100,7 +143,7 @@ export default function CreateOrder() {
                                                 </div>
                                             </div>
                                             {allAddress.map((item, index) => {
-                                                return <AddressBox item={item} type="shipping" key={index} />
+                                                return <AddressBox item={item} type="shipping" key={index} handleEdit={handleEdit} handleDelete={handleDelete} />
                                             })}
 
                                         </div>
@@ -117,7 +160,7 @@ export default function CreateOrder() {
                                                         </div>
                                                     </div>
                                                     {allAddress.map((item, index) => {
-                                                        return <AddressBox item={item} type="receipt" key={index} />
+                                                        return <AddressBox item={item} type="receipt" key={index} handleEdit={handleEdit} handleDelete={handleDelete} />
                                                     })}
                                                 </div>
 

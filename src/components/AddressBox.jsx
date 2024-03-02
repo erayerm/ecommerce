@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-export default function AddressBox({ item, type }) {
+export default function AddressBox({ item, type, handleEdit, handleDelete }) {
     return (
         <div className="w-[45%] md:w-[80%] min-w-[320px]">
             <div className="flex justify-between text-sm">
@@ -9,8 +9,9 @@ export default function AddressBox({ item, type }) {
                     <input type="radio" id={type + item.id} name={type + "Address"} value={item.id} />
                     <label htmlFor={type + item.id}>{item.title}</label><br />
                 </div>
-                <div>
-                    <a>Edit</a>
+                <div className="flex gap-4">
+                    <button id={item.id} onClick={handleEdit} className="hover:text-primary-blue">Edit</button>
+                    <button id={item.id} onClick={handleDelete} className="hover:text-[#800000]">Delete</button>
                 </div>
             </div>
             <div className="">

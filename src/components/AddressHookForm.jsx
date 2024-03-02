@@ -2,7 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from 'react-hook-form';
 import { getCities, getDistrictsByCityCode } from 'turkey-neighbourhoods'
 
-export default function AddressHookForm({ submitFn }) {
+export default function AddressHookForm({ submitFn, editFn, initialData }) {
 
     //diğer adresleri alıp başlıklarının aynı olmamasını sağlaman gerek
     const {
@@ -11,7 +11,7 @@ export default function AddressHookForm({ submitFn }) {
         watch,
         formState: { errors, isValid },
     } = useForm({
-        defaultValues: {
+        defaultValues: initialData ? initialData : {
             title: '',
             name: "",
             surname: "",
@@ -29,7 +29,7 @@ export default function AddressHookForm({ submitFn }) {
     const districts = getDistrictsByCityCode(citySelected)
     return (
         <>
-            <form className="flex flex-col gap-6 mx-auto items-center p-5 bg-light-gray-1 rounded-3xl" onSubmit={handleSubmit(submitFn)}>
+            <form className="flex flex-col gap-6 mx-auto items-center p-5 bg-light-gray-1 rounded-3xl" onSubmit={initialData ? handleSubmit(editFn) : handleSubmit(submitFn)}>
                 <div className="form-line w-full">
                     <label className="input-label" htmlFor="title">
                         Address Title
