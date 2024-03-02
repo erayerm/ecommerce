@@ -80,7 +80,7 @@ export default function Products({ genderParams = null, categoryParams = null })
                 }
             }
         }
-        setCanFetch(true)
+        setCanFetch(true);
     }, [categories, categoryParams, genderParams])
 
 
@@ -90,10 +90,9 @@ export default function Products({ genderParams = null, categoryParams = null })
             setPrevOffset(offset);
             setCanFetch(true);
         } else {
-            setCanFetch(true);
             paginateRef.current ? paginateRef.current.state.selected = 0 : "";
             if (canFetch) dispatch(fetchProducts(category, filter, sort, limit, 0))
-            setCanFetch(false);
+            setCanFetch(true);
             setOffset(0);
         }
         dispatch(setLoadingAction(true))
