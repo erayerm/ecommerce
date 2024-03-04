@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { getCities, getDistrictsByCityCode } from 'turkey-neighbourhoods'
 import OrderSummary from "../components/OrderSummary";
 import AddressBox from "../components/AddressBox";
+import CardHookForm from "../components/CardHookForm";
+import CreditCardCard from "../components/CreditCardCard";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -15,8 +17,10 @@ export default function CreateOrder() {
     const [paymentReceipt, setPaymentReceipt] = useState(true);
     const token = useSelector(store => store.user.user.token)
     const [formOpen, setFormOpen] = useState(false);
+    const [cardOpen, setCardOpen] = useState(false);
     const [allAddress, setAllAddress] = useState([]);
     const [addressEdit, setAddressEdit] = useState({});
+    const [allCards, setAllCards] = useState([]);
 
     const handlePage = (page) => {
         setPage(page);
@@ -26,6 +30,9 @@ export default function CreateOrder() {
     }
     const handleForm = () => {
         setFormOpen(!formOpen)
+    }
+    const handleAddCardForm = () => {
+        setCardOpen(!cardOpen)
     }
     const handleEdit = (element) => {
         if (element.target.id) {
@@ -68,6 +75,17 @@ export default function CreateOrder() {
             .then(() => setFormOpen(false))
             .catch(err => console.error(err))
     }
+    const handleCardSubmit = (formData) => {
+        delete formData.cvv;
+        instance.post("/user/card", formData, {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then(() => getCard())
+            .then(() => setCardOpen(false))
+            .catch(err => console.error(err))
+    }
     const handleEditSubmit = (formData) => {
         formData = {
             ...formData, district: getDistrictsByCityCode(formData.city)[formData.district]
@@ -96,9 +114,19 @@ export default function CreateOrder() {
             .then((res) => setAllAddress(res.data))
             .catch(err => console.error(err));
     }
+    const getCard = () => {
+        instance.get("/user/card", {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then((res) => setAllCards(res.data))
+            .catch(err => console.error(err));
+    }
 
     useEffect(() => {
         getAddress();
+        getCard();
     }, [])
 
     return (
@@ -152,7 +180,7 @@ export default function CreateOrder() {
                                                 <div className="flex items-center justify-between pt-5">
                                                     <h2 className="text-xl">Receipt Address</h2>
                                                 </div>
-                                                <div className="w-full flex flex-wrap gap-y-10 gap-x-[10%] md:justify-center">
+                                                <div className="w-full flex flex-wrap gap-y-10 gap-x-[10%]">
                                                     <div onClick={handleForm} className="w-[45%] md:w-[80%] min-w-[300px] cursor-pointer flex flex-col justify-center items-center rounded border-2 border-dotted border-primary-blue mt-4 py-3">
                                                         <div className="text-center" >
                                                             <FontAwesomeIcon icon="fa-solid fa-plus" className="text-primary-blue" />
@@ -167,7 +195,24 @@ export default function CreateOrder() {
                                             </>
                                         }
                                     </div>
-                                : <div>Payment</div>
+                                : <div className="px-3">
+                                    <div className="flex justify-between items-center mb-3">
+                                        <h2>Card Details</h2>
+                                        <button onClick={handleAddCardForm}>{!cardOpen ? "Add another card" : <div className="flex items-center gap-2"><p>Close form </p><FontAwesomeIcon className="text-xs" icon="fa-solid fa-x" /></div>}</button>
+                                    </div>
+                                    <div>
+                                        {
+                                            cardOpen
+                                                ? <CardHookForm submitFn={handleCardSubmit} />
+                                                : ""
+                                        }
+                                    </div>
+                                    <div className="w-full flex flex-wrap gap-y-10 gap-x-[10%]">
+                                        {allCards.map((item, index) => {
+                                            return <CreditCardCard key={index} data={item} />
+                                        })}
+                                    </div>
+                                </div>
                         }
                     </div>
                 </div>
