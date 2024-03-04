@@ -11,7 +11,7 @@ export default function AddressHookForm({ submitFn, editFn, initialData }) {
         watch,
         formState: { errors, isValid },
     } = useForm({
-        defaultValues: initialData ? initialData : {
+        defaultValues: Object.keys(initialData).length ? initialData : {
             title: '',
             name: "",
             surname: "",
@@ -29,7 +29,7 @@ export default function AddressHookForm({ submitFn, editFn, initialData }) {
     const districts = getDistrictsByCityCode(citySelected)
     return (
         <>
-            <form className="flex flex-col gap-6 mx-auto items-center p-5 bg-light-gray-1 rounded-3xl" onSubmit={initialData ? handleSubmit(editFn) : handleSubmit(submitFn)}>
+            <form className="flex flex-col gap-6 mx-auto items-center p-5 bg-light-gray-1 rounded-3xl" onSubmit={Object.keys(initialData).length ? handleSubmit(editFn) : handleSubmit(submitFn)}>
                 <div className="form-line w-full">
                     <label className="input-label" htmlFor="title">
                         Address Title
