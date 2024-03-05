@@ -207,7 +207,7 @@ export default function CreateOrder() {
                                                 : ""
                                         }
                                     </div>
-                                    <div className="w-full flex flex-wrap gap-y-10 gap-x-[10%]">
+                                    <div className="w-full flex flex-wrap md:justify-center gap-y-10 gap-x-[10%]">
                                         {allCards.map((item, index) => {
                                             return <CreditCardCard key={index} data={item} />
                                         })}

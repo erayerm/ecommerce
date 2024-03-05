@@ -34,8 +34,11 @@ export default function CreditCardCard({ data }) {
             </div>
             <div className="w-full">
                 <label className="w-full" htmlFor={data.id}>
-                    <div className="border rounded w-full aspect-[3.37/2.125] flex justify-end items-end">
-                        <div className="text-right">
+                    <div className="border rounded w-full aspect-[3.37/2.125] flex flex-col justify-between bg-gray text-white px-4 py-5">
+                        <div className="w-[15%]">
+                            <img src="/img/creditCardChip.png" className="w-full" />
+                        </div>
+                        <div className="text-right text-2xl flex flex-col justify-end items-end">
                             <p>{cencoredCardNumber}</p>
                             <p>{data.expire_month}/{data.expire_year}</p>
                         </div>
