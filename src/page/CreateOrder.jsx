@@ -21,6 +21,8 @@ export default function CreateOrder() {
     const [allAddress, setAllAddress] = useState([]);
     const [addressEdit, setAddressEdit] = useState({});
     const [allCards, setAllCards] = useState([]);
+    const [selectedCard, setSelectedCard] = useState({});
+    const [selectedShippingAddress, setSelectedShippingAddress] = useState({})
 
     const handlePage = (page) => {
         setPage(page);
@@ -96,11 +98,13 @@ export default function CreateOrder() {
                 break;
             }
         }
-        instance.put("/user/address/" + addressEdit.id, formData, {
+        instance.put("/user/address/", formData, {
             headers: {
                 Authorization: token
             }
         })
+            .then(() => getAddress())
+            .then(() => setFormOpen(false))
             .then(() => setAddressEdit({}))
             .catch((err) => console.error(err))
 
@@ -126,8 +130,30 @@ export default function CreateOrder() {
 
     useEffect(() => {
         getAddress();
+        setSelectedShippingAddress(allAddress[0]);
         getCard();
     }, [])
+
+
+    const handleCardRadio = (event) => {
+        const cardId = event.target.value;
+        for (const card of allCards) {
+            if (cardId == card.id) {
+                setSelectedCard(card);
+                break;
+            }
+        }
+    }
+
+    const handleShippingAddressRadio = (event) => {
+        const addressId = event.target.value;
+        for (const address of allAddress) {
+            if (addressId == address.id) {
+                setSelectedShippingAddress(address);
+                break;
+            }
+        }
+    }
 
     return (
         <div className="w-screen text-main">
@@ -136,9 +162,9 @@ export default function CreateOrder() {
                     <div className="flex mb-3">
                         <div onClick={() => handlePage("address")} className={"basis-[50%] border-b-8 px-3 py-2 cursor-pointer" + " " + (page === "address" ? "border-primary-blue text-primary-blue" : "")}>
                             <h2 className="text-2xl">Adres Bilgileri</h2>
-                            <p className="text-gray text-sm">Adres Adı</p>
-                            <p className="text-gray text-sm">Adres itself</p>
-                            <p className="text-gray text-sm">posta kodu - il/ilçe</p>
+                            <p className="text-gray text-sm">{selectedShippingAddress?.title ? selectedShippingAddress.title : allAddress[0]?.title ? allAddress[0].title : ""}</p>
+                            <p className="text-gray text-sm">{selectedShippingAddress?.address ? selectedShippingAddress.address : allAddress[0]?.address ? allAddress[0].address : ""}</p>
+                            <p className="text-gray text-sm">{selectedShippingAddress?.city ? selectedShippingAddress.city + "/" : allAddress[0]?.city ? allAddress[0].city + "/" : ""}{selectedShippingAddress?.district ? selectedShippingAddress.district : allAddress[0]?.district ? allAddress[0].district : ""}</p>
                         </div>
                         <div onClick={() => handlePage("payment")} className={"basis-[50%] border-b-8 px-3 py-2 cursor-pointer" + " " + (page === "payment" ? "border-primary-blue text-primary-blue" : "")}>
                             <h2 className="text-2xl">Ödeme Seçenekleri</h2>
@@ -163,7 +189,7 @@ export default function CreateOrder() {
                                                 <p className="text-sm">Send receipt to same address</p>
                                             </div>
                                         </div>
-                                        <div className="w-full flex flex-wrap gap-y-10 gap-x-[10%] md:justify-center">
+                                        <div onChange={handleShippingAddressRadio} className="w-full flex flex-wrap gap-y-10 gap-x-[10%] md:justify-center">
                                             <div onClick={handleForm} className="w-[45%] md:w-[80%] min-w-[300px] cursor-pointer flex flex-col justify-center items-center rounded border-2 border-dotted border-primary-blue mt-4 py-3">
                                                 <div className="text-center" >
                                                     <FontAwesomeIcon icon="fa-solid fa-plus" className="text-primary-blue" />
@@ -207,7 +233,7 @@ export default function CreateOrder() {
                                                 : ""
                                         }
                                     </div>
-                                    <div className="w-full flex flex-wrap md:justify-center gap-y-10 gap-x-[10%]">
+                                    <div onChange={handleCardRadio} className="w-full flex flex-wrap md:justify-center gap-y-10 gap-x-[10%]">
                                         {allCards.map((item, index) => {
                                             return <CreditCardCard key={index} data={item} />
                                         })}
