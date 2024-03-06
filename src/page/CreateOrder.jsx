@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddressHookForm from "../components/AddressHookForm";
-import { instance } from "../instance";
+import { ecommerceAPI } from "../instance";
 import { useSelector } from "react-redux";
 import { getCities, getDistrictsByCityCode } from 'turkey-neighbourhoods'
 import OrderSummary from "../components/OrderSummary";
@@ -51,7 +51,7 @@ export default function CreateOrder() {
         handleForm();
     }
     const handleDelete = (element) => {
-        instance.delete("/user/address/" + element.target.id, {
+        ecommerceAPI.delete("/user/address/" + element.target.id, {
             headers: {
                 Authorization: token
             }
@@ -69,7 +69,7 @@ export default function CreateOrder() {
                 break;
             }
         }
-        instance.post("/user/address", formData, {
+        ecommerceAPI.post("/user/address", formData, {
             headers: {
                 Authorization: token
             }
@@ -80,7 +80,7 @@ export default function CreateOrder() {
     }
     const handleCardSubmit = (formData) => {
         delete formData.cvv;
-        instance.post("/user/card", formData, {
+        ecommerceAPI.post("/user/card", formData, {
             headers: {
                 Authorization: token
             }
@@ -99,7 +99,7 @@ export default function CreateOrder() {
                 break;
             }
         }
-        instance.put("/user/address/", formData, {
+        ecommerceAPI.put("/user/address/", formData, {
             headers: {
                 Authorization: token
             }
@@ -111,7 +111,7 @@ export default function CreateOrder() {
 
     }
     const getAddress = () => {
-        instance.get("/user/address", {
+        ecommerceAPI.get("/user/address", {
             headers: {
                 Authorization: token
             }
@@ -120,7 +120,7 @@ export default function CreateOrder() {
             .catch(err => console.error(err));
     }
     const getCard = () => {
-        instance.get("/user/card", {
+        ecommerceAPI.get("/user/card", {
             headers: {
                 Authorization: token
             }
@@ -178,7 +178,7 @@ export default function CreateOrder() {
         }
         console.log(productsBought)
 
-        instance.post("/order", {
+        ecommerceAPI.post("/order", {
             "address_id": selectedShippingAddress.id,
             "order_date": new Date().toISOString().slice(0, 19),
             "card_no": selectedCard.card_no,
@@ -194,7 +194,7 @@ export default function CreateOrder() {
             }
         }).then(res => console.log(res)).catch(err => console.error(err))
 
-        instance.get("/order", {
+        ecommerceAPI.get("/order", {
             headers: {
                 Authorization: token
             }

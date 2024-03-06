@@ -2,7 +2,7 @@ import { useState } from "react";
 import SignUpHookForm from "../components/SignUpHookForm";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Slide, toast } from "react-toastify";
-import { instance } from "../instance";
+import { ecommerceAPI } from "../instance";
 
 export default function SignUp() {
     const [submitLoading, setSubmitLoading] = useState(false);
@@ -14,7 +14,7 @@ export default function SignUp() {
         delete data.confirmPassword;
         setSubmitLoading(true);
         setSubmitError(false);
-        instance.post("/signup", data)
+        ecommerceAPI.post("/signup", data)
             .then(() => setSubmitLoading(false))
             .then(() => {
                 if (history.action === 'POP') {

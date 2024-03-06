@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, setLoadingAction } from "../store/actions/ProductActions";
 import ReactPaginate from "react-paginate";
+import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 const navItems = [["Default", ""], ["Price Low to High", "price:asc"], ["Price High to Low", "price:desc"], ["Rating Low to High", "rating:asc"], ["Rating High to Low", "rating:desc"]]
 
@@ -29,6 +30,8 @@ export default function Products({ genderParams = null, categoryParams = null })
     const categories = useSelector(store => store.global.categories)
 
     const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
 
     const handleToggle = () => setDropdownOpen(!dropdownOpen);
     const handleHoverIn = () => setDropdownOpen(true);
@@ -87,11 +90,13 @@ export default function Products({ genderParams = null, categoryParams = null })
     useEffect(() => {
         if (prevOffset !== offset) {
             if (canFetch || offset !== 0) dispatch(fetchProducts(category, filter, sort, limit, offset))
+            history.push(location.pathname + "?" + (filter ? "filter=" + filter + "&" : "") + (sort ? "sort=" + sort + "&" : "") + ("offset=" + offset))
             setPrevOffset(offset);
             setCanFetch(true);
         } else {
             paginateRef.current ? paginateRef.current.state.selected = 0 : "";
             if (canFetch) dispatch(fetchProducts(category, filter, sort, limit, 0))
+            if (canFetch) history.push(location.pathname + "?" + (filter ? "filter=" + filter + "&" : "") + (sort ? "sort=" + sort + "&" : "") + ("offset=" + 0))
             setCanFetch(true);
             setOffset(0);
         }

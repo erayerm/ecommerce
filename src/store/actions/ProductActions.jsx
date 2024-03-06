@@ -1,4 +1,4 @@
-import { instance } from "../../instance";
+import { ecommerceAPI } from "../../instance";
 import { ProductActionTypes } from "../reducers/ProductReducer";
 
 export const setProductsAction = (data) => {
@@ -12,7 +12,7 @@ export const setLoadingAction = (bool) => {
 }
 
 export const fetchProducts = (category = null, filter = null, sort = null, limit = null, offset = null) => async (dispatch) => {
-    await instance
+    await ecommerceAPI
         .get(("/products"), {
             params: {
                 "category": category,
@@ -28,7 +28,7 @@ export const fetchProducts = (category = null, filter = null, sort = null, limit
 };
 
 export const fetchProductsWithId = (id, setLoading) => async (dispatch) => {
-    await instance
+    await ecommerceAPI
         .get("/products/" + id)
         .then((res) => dispatch(setCurrentProductAction(res.data)))
         .then(() => setLoading(false))

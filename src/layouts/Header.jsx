@@ -78,7 +78,6 @@ export default function Header() {
                                         const itemCode = item["code"].split("").slice(2).join("");
                                         if (item.gender === "e") return <Link to={"/shop/" + gender + "/" + itemCode} key={index}><DropdownItem name={item.code} className='text-sm'>{item.title}</DropdownItem></Link>
                                     })}
-
                                 </DropdownMenu>
                             </Dropdown>
                             <Link to="/about">About</Link>
@@ -87,36 +86,37 @@ export default function Header() {
                             <Link to="/">Pages</Link>
                         </nav>
                     </div>
-                    <div className='flex gap-4 text-sm leading-6 text-main'>
+                    <div className='flex gap-4 text-sm leading-6 text-main items-center'>
                         {Object.keys(user).length !== 0 ? <div className='flex gap-2 items-center'><img className='w-[35px] aspect-square' src={user.img} /><p className='text-main text-sm'>{user.name}</p></div> : <Link to="/signup"><FontAwesomeIcon icon="fa-regular fa-user" /> <span className='md:hidden'>Login / Register</span></Link>}
                         <button><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
-                        <button><FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> 1</button>
                         <Dropdown isOpen={cartOpen} toggle={handleCartToggle} className="text-sm text-secondary mr-[-8px]">
-                            <DropdownToggle className="text-sm leading-6 border-0 text-gray flex items-center justify-between gap-2"><FontAwesomeIcon icon="fa-solid fa-cart-shopping" /> {cart.length}</DropdownToggle>
-                            <DropdownMenu className="w-[500px]">
-                                <DropdownItem header className="text-lg font-bold">Sepetim</DropdownItem>
-                                {cart.map((item, index) => {
-                                    return <div key={index} className={'flex justify-between p-2 ' + (index % 2 === 0 ? "bg-light-gray-1" : "")}>
-                                        <div className='flex gap-2 items-center'>
-                                            <div className='w-[20%] aspect-square' >
-                                                <img className='size-full object-cover object-center' src={item.product.images[0].url} />
+                            <DropdownToggle className="text-sm leading-6 border-0 text-main hover:bg-main hover:text-white flex items-center justify-between gap-2"><FontAwesomeIcon icon="fa-solid fa-cart-shopping" className='' /> {cart.length}</DropdownToggle>
+                            {cart.length === 0
+                                ? <DropdownMenu className="w-[500px]"><div className='text-center py-5 text-2xl text-main'>Your Cart is Empty</div></DropdownMenu>
+                                : <DropdownMenu className="w-[500px]">
+                                    <DropdownItem header className="text-lg font-bold">Sepetim</DropdownItem>
+                                    {cart.map((item, index) => {
+                                        return <div key={index} className={'flex justify-between p-2 ' + (index % 2 === 0 ? "bg-light-gray-1" : "")}>
+                                            <div className='flex gap-2 items-center'>
+                                                <div className='w-[20%] aspect-square' >
+                                                    <img className='size-full object-cover object-center' src={item.product.images[0].url} />
+                                                </div>
+                                                <div className='max-w-[60%]'>
+                                                    <p className='text-main'>{item.product.name}</p>
+                                                    <p className='text-sm text-muted-text-color line-clamp-2'>{item.product.description}</p>
+                                                </div>
                                             </div>
-                                            <div className='max-w-[60%]'>
-                                                <p className='text-main'>{item.product.name}</p>
-                                                <p className='text-sm text-muted-text-color line-clamp-2'>{item.product.description}</p>
+                                            <div className='self-center flex flex-col items-center px-4 py-2 bg-white border rounded'>
+                                                <button onClick={() => handleCart(item.product.id, "add")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-up" /></button>
+                                                <p>{item.count}</p>
+                                                <button onClick={() => handleCart(item.product.id, "remove")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-down" /></button>
                                             </div>
                                         </div>
-                                        <div className='self-center flex flex-col items-center px-4 py-2 bg-white border rounded'>
-                                            <button onClick={() => handleCart(item.product.id, "add")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-up" /></button>
-                                            <p>{item.count}</p>
-                                            <button onClick={() => handleCart(item.product.id, "remove")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-down" /></button>
-                                        </div>
+                                    })}
+                                    <div className='flex justify-end py-4 px-2'>
+                                        <Link onClick={handleCartToggle} to="/shoppingCart" className='bg-primary-blue text-white py-3 px-4 rounded'>Sepete Git</Link>
                                     </div>
-                                })}
-                                <div className='flex justify-end py-4 px-2'>
-                                    <Link to="/shoppingCart" className='bg-primary-blue text-white py-3 px-4 rounded'>Sepete Git</Link>
-                                </div>
-                            </DropdownMenu>
+                                </DropdownMenu>}
                         </Dropdown>
                         <button className='md:hidden'><FontAwesomeIcon icon="fa-regular fa-heart" /> 1</button>
                         <button className='hidden lg:block' onClick={handleClick}><FontAwesomeIcon icon="fa-solid fa-bars" /></button>
@@ -124,12 +124,12 @@ export default function Header() {
                 </div>
                 {pagesMenuOpen && <div className=''> {/* transition */}
                     <nav className='flex-col pt-[90px] pb-[70px] gap-3 text-[30px] leading-11 items-center justify-center text-center hidden lg:block'>
-                        <div> <Link to="/">Home</Link></div>
-                        <div> <Link to="/shop">Shop</Link></div>
-                        <div> <Link to="/about">About</Link></div>
-                        <div> <Link to="/team">Team</Link></div>
-                        <div> <Link to="/contact">Contact</Link></div>
-                        <div> <Link to="/">Pages</Link></div>
+                        <div> <Link onClick={handleClick} to="/">Home</Link></div>
+                        <div> <Link onClick={handleClick} to="/shop">Shop</Link></div>
+                        <div> <Link onClick={handleClick} to="/about">About</Link></div>
+                        <div> <Link onClick={handleClick} to="/team">Team</Link></div>
+                        <div> <Link onClick={handleClick} to="/contact">Contact</Link></div>
+                        <div> <Link onClick={handleClick} to="/">Pages</Link></div>
                     </nav>
                 </div>
                 }

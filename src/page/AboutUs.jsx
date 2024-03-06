@@ -83,18 +83,21 @@ export default function AboutUs() {
                 <Clients />
             </section>
 
-            <section className="w-screen bg-[#2A7CC7] h-[637px] flex gap-5 justify-between items-center pl-[10%] md:pl-0 md:text-center md:justify-center">
-                <div className="text-white flex flex-col gap-6 my-[195px]">
-                    <p className="font-bold leading-6">WORK WITH US</p>
-                    <h3 className="font-bold leading-12.5 text-4.5xl">Now Let’s grow Yours</h3>
-                    <p className="text-sm leading-5 max-w-[450px]">The gradual accumulation of information about atomic and small-scale behavior during the first quarter of the 20th </p>
-                    <div>
-                        <button className="px-[38px] py-[14px] border border-white rounded">Button</button>
+            <section className="w-screen bg-[#2A7CC7] ">
+                <div className="max-w-[1440px] mx-auto flex h-[637px] gap-5 justify-between items-center pl-[10%] md:pl-0 md:text-center md:justify-center">
+                    <div className="text-white flex flex-col gap-6 my-[195px]">
+                        <p className="font-bold leading-6">WORK WITH US</p>
+                        <h3 className="font-bold leading-12.5 text-4.5xl">Now Let’s grow Yours</h3>
+                        <p className="text-sm leading-5 max-w-[450px]">The gradual accumulation of information about atomic and small-scale behavior during the first quarter of the 20th </p>
+                        <div>
+                            <button className="px-[38px] py-[14px] border border-white rounded">Button</button>
+                        </div>
+                    </div>
+                    <div className="h-full md:hidden">
+                        <img src="./img/about-us-1.svg" className="h-full object-cover" />
                     </div>
                 </div>
-                <div className="h-full md:hidden">
-                    <img src="./img/about-us-1.svg" className="h-full object-cover" />
-                </div>
+
             </section>
 
 

@@ -1,4 +1,4 @@
-import { instance } from "../../instance";
+import { ecommerceAPI } from "../../instance";
 import { GlobalActionTypes } from "../reducers/GlobalReducer";
 
 export const setRolesAction = (data) => {
@@ -15,14 +15,14 @@ export const setLanguageAction = (data) => {
 }
 
 export const fetchRoles = () => async (dispatch) => {
-    await instance
+    await ecommerceAPI
         .get("/roles")
         .then((res) => dispatch(setRolesAction(res.data)))
         .catch((err) => console.error(err))
 };
 
 export const fetchCategories = () => async (dispatch) => {
-    await instance
+    await ecommerceAPI
         .get("/categories")
         .then((res) => dispatch(setCategoriesAction(res.data)))
         .catch((err) => console.error(err))

@@ -1,5 +1,5 @@
 import { SHA256 } from "crypto-js";
-import { instance } from "../../instance";
+import { ecommerceAPI } from "../../instance";
 import { UserActionTypes } from "../reducers/UserReducer";
 
 export const setUserAction = (data) => {
@@ -22,7 +22,7 @@ export const setFetchStateAction = (data) => {
 }
 
 export const loginAction = (creds, history, setSubmitError) => async (dispatch) => {
-    await instance
+    await ecommerceAPI
         .post("/login", creds)
         .then((res) => dispatch(setUserAction({ ...res.data, img: "https://gravatar.com/avatar/" + SHA256(res.data.email) + "?d=mp" })))
         .then(() => history.push("/"))
@@ -32,18 +32,20 @@ export const loginAction = (creds, history, setSubmitError) => async (dispatch) 
         })
 };
 
-export const autoLoginAction = () => async (dispatch) => {
+export const autoLoginAction = (setAutoLoginLoading) => async (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
-        await instance
+        await ecommerceAPI
             .get("/verify", {
                 headers: {
-                    Authorization: JSON.parse(token)
+                    Authorization: token
                 }
             })
             .then((res) => dispatch(setUserAction({ ...res.data, img: "https://gravatar.com/avatar/" + SHA256(res.data.email) + "?d=mp" })))
             .catch(() => localStorage.removeItem("token"))
             .catch((err) => console.error(err))
     }
+    await setAutoLoginLoading(false);
+
 };
 

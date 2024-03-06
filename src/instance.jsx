@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const instance = axios.create({
+export const ecommerceAPI = axios.create({
     baseURL: "https://workintech-fe-ecommerce.onrender.com"
 });
