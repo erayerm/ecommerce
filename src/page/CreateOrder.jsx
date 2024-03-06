@@ -16,6 +16,7 @@ export default function CreateOrder() {
     const [page, setPage] = useState("address");
     const [paymentReceipt, setPaymentReceipt] = useState(true);
     const token = useSelector(store => store.user.user.token)
+    const cart = useSelector(store => store.shoppingCart.cart);
     const [formOpen, setFormOpen] = useState(false);
     const [cardOpen, setCardOpen] = useState(false);
     const [allAddress, setAllAddress] = useState([]);
@@ -139,6 +140,7 @@ export default function CreateOrder() {
         const cardId = event.target.value;
         for (const card of allCards) {
             if (cardId == card.id) {
+                console.log(card)
                 setSelectedCard(card);
                 break;
             }
@@ -153,6 +155,51 @@ export default function CreateOrder() {
                 break;
             }
         }
+    }
+    console.log(cart)
+    const completeOrder = () => {
+        const totalPriceProducts = cart.reduce((accumulator, currentValue) => {
+            if (currentValue.checked) {
+                return accumulator + currentValue.count * currentValue.product.price;
+            }
+            return accumulator;
+        },
+            0
+        )
+        const shippingPaymentPrice = 29.90;
+        const shippingDiscountLimit = 150;
+        let totalPriceAll = totalPriceProducts + shippingPaymentPrice - (totalPriceProducts >= shippingDiscountLimit ? shippingPaymentPrice : 0)
+        totalPriceAll = (Math.round(totalPriceAll * 100) / 100).toFixed(2)
+        const productsBought = [];
+        for (const product of cart) {
+            if (product.checked) {
+                productsBought.push({ product_id: product.product.id, count: product.count, detail: product.product.name })
+            }
+        }
+        console.log(productsBought)
+
+        instance.post("/order", {
+            "address_id": selectedShippingAddress.id,
+            "order_date": new Date().toISOString().slice(0, 19),
+            "card_no": selectedCard.card_no,
+            "card_name": selectedCard.name_on_card,
+            "card_expire_month": selectedCard.expire_month,
+            "card_expire_year": selectedCard.expire_year,
+            "card_ccv": 111,
+            "price": totalPriceAll,
+            "products": [...productsBought]
+        }, {
+            headers: {
+                Authorization: token
+            }
+        }).then(res => console.log(res)).catch(err => console.error(err))
+
+        instance.get("/order", {
+            headers: {
+                Authorization: token
+            }
+        }).then(res => console.log(res.data))
+
     }
 
     return (
@@ -244,7 +291,11 @@ export default function CreateOrder() {
                 </div>
                 <div className="basis-[40%]">
                     <OrderSummary />
-
+                    <div className="px-10">
+                        <div>
+                            <button className="w-full py-3 bg-primary-blue text-white mt-4 text-xl rounded text-center" onClick={completeOrder}>Complete Order</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
