@@ -10,15 +10,17 @@ import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.m
 const navItems = [["Default", ""], ["Price Low to High", "price:asc"], ["Price High to Low", "price:desc"], ["Rating Low to High", "rating:asc"], ["Rating High to Low", "rating:desc"]]
 
 export default function Products({ genderParams = null, categoryParams = null }) {
+    const search = useLocation().search;
+
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [dropdownPick, setDropdownPick] = useState("Order By");
+    const [dropdownPick, setDropdownPick] = useState(new URLSearchParams(search).get('sort') ? navItems[navItems.findIndex(item => item[1] === new URLSearchParams(search).get('sort'))][0] : "Order By");
     const [category, setCategory] = useState(null);
-    const [filter, setFilter] = useState(null);
-    const [sort, setSort] = useState(null);
+    const [filter, setFilter] = useState(new URLSearchParams(search).get('filter'));
+    const [sort, setSort] = useState(new URLSearchParams(search).get('sort'));
     const limit = 24;
-    const [offset, setOffset] = useState(0);
+    const [offset, setOffset] = useState(new URLSearchParams(search).get('offset'));
     const [canFetch, setCanFetch] = useState(genderParams ? false : true)
-    const [filterText, setFilterText] = useState("");
+    const [filterText, setFilterText] = useState(new URLSearchParams(search).get('filter') ? new URLSearchParams(search).get('filter') : "");
     const [pageCount, setPageCount] = useState(0);
     const [prevOffset, setPrevOffset] = useState(0);
     const paginateRef = useRef(null);
