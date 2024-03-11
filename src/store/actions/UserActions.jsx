@@ -20,6 +20,9 @@ export const setActivePageAction = (data) => {
 export const setFetchStateAction = (data) => {
     return { type: UserActionTypes.setFetchState, payload: data }
 }
+export const logoutAction = () => {
+    return { type: UserActionTypes.logout }
+}
 
 export const loginAction = (creds, history, setSubmitError) => async (dispatch) => {
     await ecommerceAPI
@@ -38,7 +41,7 @@ export const autoLoginAction = (setAutoLoginLoading) => async (dispatch) => {
         await ecommerceAPI
             .get("/verify", {
                 headers: {
-                    Authorization: token
+                    Authorization: JSON.parse(token)
                 }
             })
             .then((res) => dispatch(setUserAction({ ...res.data, img: "https://gravatar.com/avatar/" + SHA256(res.data.email) + "?d=mp" })))
@@ -48,4 +51,3 @@ export const autoLoginAction = (setAutoLoginLoading) => async (dispatch) => {
     await setAutoLoginLoading(false);
 
 };
-

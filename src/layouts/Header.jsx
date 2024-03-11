@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'
 import { addToCartAction, removeFromCartAction } from '../store/actions/ShoppingCartActions';
+import { logoutAction } from '../store/actions/UserActions';
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -38,7 +39,9 @@ export default function Header() {
             }
         }
     }
-
+    const handleLogout = () => {
+        dispatch(logoutAction())
+    }
     return (
         <>
             <div className='w-screen h-[60px] bg-main text-white px-5 lg:hidden'>
@@ -87,7 +90,17 @@ export default function Header() {
                         </nav>
                     </div>
                     <div className='flex gap-4 text-sm leading-6 text-main items-center'>
-                        {Object.keys(user).length !== 0 ? <div className='flex gap-2 items-center'><img className='w-[35px] aspect-square' src={user.img} /><p className='text-main text-sm'>{user.name}</p></div> : <Link to="/signup"><FontAwesomeIcon icon="fa-regular fa-user" /> <span className='md:hidden'>Login / Register</span></Link>}
+                        {Object.keys(user).length !== 0
+                            ? <div className='flex gap-2 items-center'>
+                                <img className='w-[35px] aspect-square' src={user.img} />
+                                <p className='text-main text-sm'>{user.name}</p>
+                                <button className='size-10' onClick={handleLogout}>
+                                    <FontAwesomeIcon icon="fa-solid fa-right-from-bracket" />
+                                </button>
+                            </div>
+                            : <Link to="/signup">
+                                <FontAwesomeIcon icon="fa-regular fa-user" /> <span className='md:hidden'>Login / Register</span>
+                            </Link>}
                         <button><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
                         <Dropdown isOpen={cartOpen} toggle={handleCartToggle} className="text-sm text-secondary mr-[-8px]">
                             <DropdownToggle className="text-sm leading-6 border-0 text-main hover:bg-main hover:text-white flex items-center justify-between gap-2"><FontAwesomeIcon icon="fa-solid fa-cart-shopping" className='' /> {cart.length}</DropdownToggle>

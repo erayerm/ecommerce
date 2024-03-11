@@ -4,7 +4,8 @@ export const UserActionTypes = {
     setTotalProductCount: "SET_TOTAL_PRODUCT_COUNT",
     setPageCount: "SET_PAGE_COUNT",
     setActivePage: "SET_ACTIVE_PAGE",
-    setFetchState: "SET_FETCH_STATE"
+    setFetchState: "SET_FETCH_STATE",
+    logout: "LOGOUT"
 }
 
 const initialState = {
@@ -31,6 +32,9 @@ const reducer = (state = initialState, action) => {
             return { ...state, activePage: action.payload }
         case UserActionTypes.setFetchState:
             return { ...state, fetchState: action.payload }
+        case UserActionTypes.logout:
+            window.localStorage.removeItem("token");
+            return { ...state, user: {} }
         default:
             return state;
     }
