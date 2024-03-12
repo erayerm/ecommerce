@@ -17,10 +17,11 @@ export default function CreateOrder() {
     const [paymentReceipt, setPaymentReceipt] = useState(true);
     const token = useSelector(store => store.user.user.token)
     const cart = useSelector(store => store.shoppingCart.cart);
-    const [formOpen, setFormOpen] = useState(false);
-    const [cardOpen, setCardOpen] = useState(false);
+    const [addressFormOpen, setAddressFormOpen] = useState(false);
+    const [cardFormOpen, setCardFormOpen] = useState(false);
     const [allAddress, setAllAddress] = useState([]);
     const [addressEdit, setAddressEdit] = useState({});
+    const [cardEdit, setCardEdit] = useState({});
     const [allCards, setAllCards] = useState([]);
     const [selectedCard, setSelectedCard] = useState({});
     const [selectedShippingAddress, setSelectedShippingAddress] = useState({})
@@ -28,16 +29,24 @@ export default function CreateOrder() {
     const handlePage = (page) => {
         setPage(page);
     }
-    const handleCheck = () => {
+    const handleReceiptCheck = () => {
         setPaymentReceipt(!paymentReceipt);
     }
-    const handleForm = () => {
-        setFormOpen(!formOpen)
+    const handleAddressForm = () => {
+        setAddressFormOpen(!addressFormOpen)
     }
-    const handleAddCardForm = () => {
-        setCardOpen(!cardOpen)
+    const handleAddressGoBack = () => {
+        setAddressFormOpen(!addressFormOpen)
+        setAddressEdit({});
     }
-    const handleEdit = (element) => {
+    const handleCardForm = () => {
+        setCardFormOpen(!cardFormOpen)
+    }
+    const handleCardGoBack = () => {
+        setCardFormOpen(!cardFormOpen)
+        setCardEdit({});
+    }
+    const handleAddressEdit = (element) => {
         if (element.target.id) {
             for (const addr of allAddress) {
                 if (addr.id == element.target.id) {
@@ -48,9 +57,9 @@ export default function CreateOrder() {
                 }
             }
         }
-        handleForm();
+        handleAddressForm();
     }
-    const handleDelete = (element) => {
+    const handleAddressDelete = (element) => {
         ecommerceAPI.delete("/user/address/" + element.target.id, {
             headers: {
                 Authorization: token
@@ -59,7 +68,28 @@ export default function CreateOrder() {
             .then(() => setAddressEdit({}))
             .catch((err) => console.error(err))
     }
-    const handleSubmit = (formData) => {
+    const handleCardDelete = (element) => {
+        ecommerceAPI.delete("/user/card/" + element.target.id, {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then(() => setCardEdit({}))
+            .catch((err) => console.error(err))
+    }
+    const handleCardEdit = (element) => {
+        if (element.target.id) {
+            for (const car of allCards) {
+                if (car.id == element.target.id) {
+                    const expireMonthTwoDigit = car.expire_month < 10 ? "0" + car.expire_month : car.expire_month
+                    setCardEdit({ ...car, expire_month: expireMonthTwoDigit });
+                    break;
+                }
+            }
+        }
+        handleCardForm();
+    }
+    const handleAddressSubmit = (formData) => {
         formData = {
             ...formData, district: getDistrictsByCityCode(formData.city)[formData.district]
         }
@@ -75,7 +105,7 @@ export default function CreateOrder() {
             }
         })
             .then(() => getAddress())
-            .then(() => setFormOpen(false))
+            .then(() => setAddressFormOpen(false))
             .catch(err => console.error(err))
     }
     const handleCardSubmit = (formData) => {
@@ -86,10 +116,10 @@ export default function CreateOrder() {
             }
         })
             .then(() => getCard())
-            .then(() => setCardOpen(false))
+            .then(() => setCardFormOpen(false))
             .catch(err => console.error(err))
     }
-    const handleEditSubmit = (formData) => {
+    const handleAddressEditSubmit = (formData) => {
         formData = {
             ...formData, district: getDistrictsByCityCode(formData.city)[formData.district]
         }
@@ -105,10 +135,22 @@ export default function CreateOrder() {
             }
         })
             .then(() => getAddress())
-            .then(() => setFormOpen(false))
+            .then(() => setAddressFormOpen(false))
             .then(() => setAddressEdit({}))
             .catch((err) => console.error(err))
 
+    }
+    const handleCardEditSubmit = (formData) => {
+        delete formData.cvv
+        ecommerceAPI.put("/user/card/", formData, {
+            headers: {
+                Authorization: token
+            }
+        })
+            .then(() => getCard())
+            .then(() => setCardFormOpen(false))
+            .then(() => setCardEdit({}))
+            .catch((err) => console.error(err))
     }
     const getAddress = () => {
         ecommerceAPI.get("/user/address", {
@@ -140,7 +182,6 @@ export default function CreateOrder() {
         const cardId = event.target.value;
         for (const card of allCards) {
             if (cardId == card.id) {
-                console.log(card)
                 setSelectedCard(card);
                 break;
             }
@@ -156,7 +197,7 @@ export default function CreateOrder() {
             }
         }
     }
-    console.log(cart)
+
     const completeOrder = () => {
         const totalPriceProducts = cart.reduce((accumulator, currentValue) => {
             if (currentValue.checked) {
@@ -221,30 +262,30 @@ export default function CreateOrder() {
                     <div>
                         {
                             page === "address"
-                                ? formOpen
+                                ? addressFormOpen
                                     ? <div>
                                         <div className="flex justify-end">
-                                            <button onClick={handleForm} className="flex items-center gap-2"><FontAwesomeIcon className="text-2xl" icon="fa-solid fa-left-long" /> Go Back</button>
+                                            <button onClick={handleAddressGoBack} className="flex items-center gap-2"><FontAwesomeIcon className="text-2xl" icon="fa-solid fa-left-long" /> Go Back</button>
                                         </div>
-                                        <AddressHookForm submitFn={handleSubmit} editFn={handleEditSubmit} initialData={addressEdit} />
+                                        <AddressHookForm submitFn={handleAddressSubmit} editFn={handleAddressEditSubmit} initialData={addressEdit} />
                                     </div>
                                     : <div className="flex flex-col px-3">
                                         <div className="flex items-center justify-between">
                                             <h2 className="text-xl">Shipping Address</h2>
                                             <div className="flex items-center">
-                                                <Checkbox {...label} checked={paymentReceipt} onClick={handleCheck} size="small" />
+                                                <Checkbox {...label} checked={paymentReceipt} onClick={handleReceiptCheck} size="small" />
                                                 <p className="text-sm">Send receipt to same address</p>
                                             </div>
                                         </div>
                                         <div onChange={handleShippingAddressRadio} className="w-full flex flex-wrap gap-y-10 gap-x-[10%] md:justify-center">
-                                            <div onClick={handleForm} className="w-[45%] md:w-[80%] min-w-[300px] cursor-pointer flex flex-col justify-center items-center rounded border-2 border-dotted border-primary-blue mt-4 py-3">
+                                            <div onClick={handleAddressForm} className="w-[45%] md:w-[80%] min-w-[300px] cursor-pointer flex flex-col justify-center items-center rounded border-2 border-dotted border-primary-blue mt-4 py-3">
                                                 <div className="text-center" >
                                                     <FontAwesomeIcon icon="fa-solid fa-plus" className="text-primary-blue" />
                                                     <p>Add New Address</p>
                                                 </div>
                                             </div>
                                             {allAddress.map((item, index) => {
-                                                return <AddressBox item={item} type="shipping" key={index} handleEdit={handleEdit} handleDelete={handleDelete} />
+                                                return <AddressBox item={item} type="shipping" key={index} handleEdit={handleAddressEdit} handleDelete={handleAddressDelete} />
                                             })}
 
                                         </div>
@@ -254,14 +295,14 @@ export default function CreateOrder() {
                                                     <h2 className="text-xl">Receipt Address</h2>
                                                 </div>
                                                 <div className="w-full flex flex-wrap gap-y-10 gap-x-[10%]">
-                                                    <div onClick={handleForm} className="w-[45%] md:w-[80%] min-w-[300px] cursor-pointer flex flex-col justify-center items-center rounded border-2 border-dotted border-primary-blue mt-4 py-3">
+                                                    <div onClick={handleAddressForm} className="w-[45%] md:w-[80%] min-w-[300px] cursor-pointer flex flex-col justify-center items-center rounded border-2 border-dotted border-primary-blue mt-4 py-3">
                                                         <div className="text-center" >
                                                             <FontAwesomeIcon icon="fa-solid fa-plus" className="text-primary-blue" />
                                                             <p>Add New Address</p>
                                                         </div>
                                                     </div>
                                                     {allAddress.map((item, index) => {
-                                                        return <AddressBox item={item} type="receipt" key={index} handleEdit={handleEdit} handleDelete={handleDelete} />
+                                                        return <AddressBox item={item} type="receipt" key={index} handleEdit={handleAddressEdit} handleDelete={handleAddressDelete} />
                                                     })}
                                                 </div>
 
@@ -271,18 +312,21 @@ export default function CreateOrder() {
                                 : <div className="px-3">
                                     <div className="flex justify-between items-center mb-3">
                                         <h2>Card Details</h2>
-                                        <button onClick={handleAddCardForm}>{!cardOpen ? "Add another card" : <div className="flex items-center gap-2"><p>Close form </p><FontAwesomeIcon className="text-xs" icon="fa-solid fa-x" /></div>}</button>
+                                        {!cardFormOpen
+                                            ? <button onClick={handleCardForm}>Add another card</button>
+                                            : <button onClick={handleCardGoBack}><div className="flex items-center gap-2"><p>Close form </p><FontAwesomeIcon className="text-xs" icon="fa-solid fa-x" /></div></button>
+                                        }
                                     </div>
                                     <div>
                                         {
-                                            cardOpen
-                                                ? <CardHookForm submitFn={handleCardSubmit} />
+                                            cardFormOpen
+                                                ? <CardHookForm submitFn={handleCardSubmit} editFn={handleCardEditSubmit} initialData={cardEdit} />
                                                 : ""
                                         }
                                     </div>
                                     <div onChange={handleCardRadio} className="w-full flex flex-wrap md:justify-center gap-y-10 gap-x-[10%]">
                                         {allCards.map((item, index) => {
-                                            return <CreditCardCard key={index} data={item} />
+                                            return <CreditCardCard key={index} data={item} handleEdit={handleCardEdit} handleDelete={handleCardDelete} />
                                         })}
                                     </div>
                                 </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 
-export default function CreditCardCard({ data }) {
+export default function CreditCardCard({ data, handleEdit, handleDelete }) {
     /*
     useEffect(() => {
         axios.get(("https://neutrinoapi.net/bin-lookup"), {
@@ -28,9 +28,15 @@ export default function CreditCardCard({ data }) {
 
     return (
         <div className="w-[45%] md:w-[80%] min-w-[320px]">
-            <div className="flex items-center gap-1">
-                <input type="radio" id={data.id} name={"Card"} value={data.id} />
-                <label htmlFor={data.id}>{"Card " + data.id}</label><br />
+            <div className="flex justify-between text-sm">
+                <div className="flex items-center gap-1">
+                    <input type="radio" id={data.id} name={"Card"} value={data.id} />
+                    <label htmlFor={data.id}>{"Card " + data.id}</label><br />
+                </div>
+                <div className="flex gap-4">
+                    <button id={data.id} onClick={handleEdit} className="hover:text-primary-blue">Edit</button>
+                    <button id={data.id} onClick={handleDelete} className="hover:text-[#800000]">Delete</button>
+                </div>
             </div>
             <div className="w-full">
                 <label className="w-full" htmlFor={data.id}>

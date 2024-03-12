@@ -8,7 +8,7 @@ for (let i = 0; i < 15; i++) {
     yearList.push(currentYear + i);
 }
 
-export default function CardHookForm({ submitFn }) {
+export default function CardHookForm({ submitFn, editFn, initialData }) {
 
     const {
         register,
@@ -16,7 +16,7 @@ export default function CardHookForm({ submitFn }) {
         watch,
         formState: { errors, isValid },
     } = useForm({
-        defaultValues: {
+        defaultValues: Object.keys(initialData).length ? initialData : {
             card_no: '',
             expire_month: "",
             expire_year: "",
@@ -30,7 +30,7 @@ export default function CardHookForm({ submitFn }) {
 
     return (
         <>
-            <form className="flex flex-col gap-6 mx-auto items-center p-5 bg-light-gray-1 rounded-3xl" onSubmit={handleSubmit(submitFn)}>
+            <form className="flex flex-col gap-6 mx-auto items-center p-5 bg-light-gray-1 rounded-3xl" onSubmit={Object.keys(initialData).length ? handleSubmit(editFn) : handleSubmit(submitFn)}>
                 <div className="form-line w-full">
                     <label className="input-label" htmlFor="card_no">
                         Card No
