@@ -9,6 +9,7 @@ import OrderSummary from "../components/OrderSummary";
 import AddressBox from "../components/AddressBox";
 import CardHookForm from "../components/CardHookForm";
 import CreditCardCard from "../components/CreditCardCard";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -25,6 +26,8 @@ export default function CreateOrder() {
     const [allCards, setAllCards] = useState([]);
     const [selectedCard, setSelectedCard] = useState({});
     const [selectedShippingAddress, setSelectedShippingAddress] = useState({})
+
+    const history = useHistory();
 
     const handlePage = (page) => {
         setPage(page);
@@ -217,7 +220,6 @@ export default function CreateOrder() {
                 productsBought.push({ product_id: product.product.id, count: product.count, detail: product.product.name })
             }
         }
-        console.log(productsBought)
 
         ecommerceAPI.post("/order", {
             "address_id": selectedShippingAddress.id,
@@ -233,14 +235,7 @@ export default function CreateOrder() {
             headers: {
                 Authorization: token
             }
-        }).then(res => console.log(res)).catch(err => console.error(err))
-
-        ecommerceAPI.get("/order", {
-            headers: {
-                Authorization: token
-            }
-        }).then(res => console.log(res.data))
-
+        }).then(() => history.push("/orderCompleted")).catch(err => console.error(err))
     }
 
     return (

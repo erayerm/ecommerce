@@ -9,9 +9,9 @@ import SignUp from "../page/SignUp";
 import Login from "../page/Login";
 import ShoppingCart from "../page/ShoppingCart";
 import ProtectedCreateOrder from "../components/ProtectedCreateOrder";
+import OlderOrders from "../page/OlderOrders";
 
 export default function PageContent() {
-
     return (
         <Switch>
             <Route path="/shop/:gender?/:category?">
@@ -19,6 +19,9 @@ export default function PageContent() {
             </Route>
             <Route path="/shoppingCart">
                 <ShoppingCart />
+            </Route>
+            <Route path="/orderCompleted">
+                <OlderOrders />
             </Route>
             <Route path="/createOrder">
                 <ProtectedCreateOrder />
