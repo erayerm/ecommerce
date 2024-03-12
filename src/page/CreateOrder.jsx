@@ -69,7 +69,9 @@ export default function CreateOrder() {
             }
         })
             .then(() => setAddressEdit({}))
+            .then(() => getAddress())
             .catch((err) => console.error(err))
+
     }
     const handleCardDelete = (element) => {
         ecommerceAPI.delete("/user/card/" + element.target.id, {
@@ -78,6 +80,7 @@ export default function CreateOrder() {
             }
         })
             .then(() => setCardEdit({}))
+            .then(() => getCard())
             .catch((err) => console.error(err))
     }
     const handleCardEdit = (element) => {
