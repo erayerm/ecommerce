@@ -3,13 +3,14 @@ import { Checkbox } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddressHookForm from "../components/AddressHookForm";
 import { ecommerceAPI } from "../instance";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCities, getDistrictsByCityCode } from 'turkey-neighbourhoods'
 import OrderSummary from "../components/OrderSummary";
 import AddressBox from "../components/AddressBox";
 import CardHookForm from "../components/CardHookForm";
 import CreditCardCard from "../components/CreditCardCard";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { cleanCartAction } from "../store/actions/ShoppingCartActions";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -28,6 +29,7 @@ export default function CreateOrder() {
     const [selectedShippingAddress, setSelectedShippingAddress] = useState({})
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const handlePage = (page) => {
         setPage(page);
@@ -238,7 +240,9 @@ export default function CreateOrder() {
             headers: {
                 Authorization: token
             }
-        }).then(() => history.push("/orderCompleted")).catch(err => console.error(err))
+        }).then(() => dispatch(cleanCartAction()))
+            .then(() => history.push("/orderCompleted"))
+            .catch(err => console.error(err))
     }
 
     return (

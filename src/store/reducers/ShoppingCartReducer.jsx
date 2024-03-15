@@ -2,6 +2,7 @@ export const ShoppingCartActionTypes = {
     addToCart: "ADD_TO_CART",
     removeFromCart: "REMOVE_FROM_CART",
     deleteFromCart: "DELETE_FROM_CART",
+    cleanCart: "CLEAN_CART",
     setPayment: "SET_PAYMENT",
     setAddress: "SET_ADDRESS",
     toggleCheck: "TOGGLE_CHECK"
@@ -60,6 +61,8 @@ const reducer = (state = initialState, action) => {
                 }
             }
             return { ...state, cart: [...newCart] }
+        case ShoppingCartActionTypes.cleanCart:
+            return { ...state, cart: [] };
         case ShoppingCartActionTypes.toggleCheck:
             for (let i = 0; i < newCart.length; i++) {
                 if (action.payload.id === newCart[i].product.id) {

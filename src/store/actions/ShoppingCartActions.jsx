@@ -9,6 +9,9 @@ export const removeFromCartAction = (data) => {
 export const deleteFromCartAction = (data) => {
     return { type: ShoppingCartActionTypes.deleteFromCart, payload: data }
 }
+export const cleanCartAction = () => {
+    return { type: ShoppingCartActionTypes.cleanCart }
+}
 export const setPaymentAction = (data) => {
     return { type: ShoppingCartActionTypes.setPayment, payload: data }
 }
