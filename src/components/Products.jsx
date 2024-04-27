@@ -57,7 +57,11 @@ export default function Products({ genderParams = null, categoryParams = null })
         setFilterText("");
         setFilter("");
     }
-
+    function handleKeyPress(event) {
+        if (event.key == 'Enter') {
+            handleFilter();
+        }
+    }
     const handleSort = async (element) => {
         for (const item of navItems) {
             if (item[1] === element.target.name) {
@@ -68,6 +72,7 @@ export default function Products({ genderParams = null, categoryParams = null })
             }
         }
     }
+
 
     useEffect(() => {
         if (categoryParams === null && genderParams === null) {
@@ -130,7 +135,7 @@ export default function Products({ genderParams = null, categoryParams = null })
                         </Dropdown>
                         <div className="flex flex-wrap gap-2 justify-center">
                             <div className="relative">
-                                <input type="text" onChange={handleChange} value={filterText} className="border border-[#DDDDDD] rounded pl-3 py-2.5" />
+                                <input type="text" onKeyDown={handleKeyPress} onChange={handleChange} value={filterText} className="border border-[#DDDDDD] rounded pl-3 py-2.5" />
                                 <button onClick={cleanFilter} className="absolute right-3 top-0 bottom-0 my-auto"><FontAwesomeIcon className="text-gray" icon="fa-solid fa-xmark" /></button>
                             </div>
                             <button onClick={handleFilter} className="px-5 py-2.5 text-white bg-primary-blue rounded">Filter</button>
