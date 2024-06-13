@@ -33,6 +33,7 @@ or
 yarn dev
 ```
 
+Use them for login: `customer@commerce.com` - `123456`
 
 </p>
 
