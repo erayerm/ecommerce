@@ -7,7 +7,7 @@ export default function ProductCategoriesCard({ data }) {
 
     return (
 
-        <Link to={"/shop/" + gender + "/" + itemCode} className={`w-[205px] sm:w-[80%] bg-cover bg-center aspect-square flex flex-col gap-2.5 justify-center items-center text-white grayscale-[60%]`} style={{
+        <Link to={"/shop/" + gender + "/" + itemCode} className={`w-[205px] sm:w-[80%] border border-muted-text-color rounded-[16px] bg-cover bg-center aspect-square flex flex-col gap-2.5 justify-center items-center text-white grayscale-[60%]`} style={{
             backgroundImage: `url(${data.img})`,
             textShadow: "1px 1px 2px black"
         }}>

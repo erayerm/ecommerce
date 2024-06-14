@@ -3,10 +3,11 @@ import {
     BsFillArrowRightCircleFill,
     BsFillArrowLeftCircleFill,
 } from "react-icons/bs";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function CarouselMainFirst({ slides }) {
     const ref = useRef(null);
-
+    const history = useHistory();
     const [width, setWidth] = useState();
     const [height, setHeight] = useState();
     let [current, setCurrent] = useState(0);
@@ -59,7 +60,7 @@ export default function CarouselMainFirst({ slides }) {
                             <p className="text-6xl leading-20 font-bold w-[5000px] lg:max-w-[300px] lg:text-4xl">NEW COLLECTION</p>
                             <p className="text-lg max-w-[300px] md:max-w-[300px]">We know how large objects will act, but things on a small scale.</p>
                             <div>
-                                <button className="md:px-1.5 md:py-0.5 px-3 py-2 bg-success-green rounded text-2xl lg:text-xl relative">SHOP NOW</button>
+                                <button onClick={() => history.push("/shop")} className="md:px-1.5 md:py-0.5 px-3 py-2 bg-success-green rounded text-2xl lg:text-xl relative">SHOP NOW</button>
                             </div>
                         </div>
                     </div>;

@@ -5,7 +5,7 @@ export default function AdditionalInformation() {
             <div className="flex gap-10">
 
                 <div className="max-w-[316px] max-h-[372px] flex-[2] rounded shadow-[15px_15px_rgba(196,196,196,0.2)]">
-                    <img src="./img/description-1.svg" className="w-full h-full" />
+                    <img src="/img/description-1.svg" className="w-full h-full" />
                 </div>
                 <div className="flex-1 flex flex-col gap-[30px]">
                     <h4 className="text-main font-bold leading-8 text-2xl">burası Additional Information</h4>

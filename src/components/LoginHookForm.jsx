@@ -16,8 +16,8 @@ export default function LoginHookForm() {
         formState: { errors, isValid },
     } = useForm({
         defaultValues: {
-            email: '',
-            password: '',
+            email: 'customer@commerce.com',
+            password: '123456',
         },
         mode: 'all',
     });

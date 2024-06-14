@@ -72,27 +72,29 @@ export default function ShoppingCart() {
                 <div className="flex max-w-[1450px] mx-auto lg:flex-col lg:gap-10">
                     <div className="basis-[60%]">
                         {cart.map((item, index) => {
-                            return <div key={index} className={'flex justify-between py-2 pl-10 pr-10 ' + (index % 2 === 0 ? "bg-light-gray-1" : "")}>
-                                <div className='flex items-center w-full gap-3'>
-                                    <Checkbox {...label} checked={item.checked} onClick={() => handleCheck(item.product.id)} />
-                                    <div className='w-[15%] aspect-[3/4]' >
-                                        <img className='w-full h-full object-cover object-center' src={item.product.images[0].url} />
+                            return <div key={index} className={'flex justify-between py-2 pl-8 pr-8 sm:pr-4 sm:pl-2 gap-1 ' + (index % 2 === 0 ? "bg-light-gray-1" : "")}>
+                                <div className='flex-[3] flex items-center w-full gap-3 sm:gap-1'>
+                                    <Checkbox className="flex-1 size-2" {...label} checked={item.checked} onClick={() => handleCheck(item.product.id)} />
+                                    <div className='flex-[3] aspect-[3/4]' >
+                                        <img className='min-w-[70px] w-full object-cover object-center sm:none' src={item.product.images[0].url} />
                                     </div>
-                                    <div className='max-w-[60%]'>
-                                        <p className='text-main'>{item.product.name}</p>
-                                        <p className='text-sm text-muted-text-color line-clamp-2'>{item.product.description}</p>
+                                    <div className="flex-[15]">
+                                        <p className='text-main sm:text-[14px]'>{item.product.name}</p>
+                                        <p className='text-sm sm:text-[12px] max-w-[350px] sm:max-w-[200px] text-muted-text-color line-clamp-2'>{item.product.description}</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center pr-10">
-                                    <p>{toFixed2(item.product.price * item.count)}$</p>
-                                </div>
-                                <div className='self-center flex flex-col items-center px-4 py-2 bg-white border rounded'>
-                                    <button onClick={() => handleCart(item.product.id, "add")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-up" /></button>
-                                    <p>{item.count}</p>
-                                    <button onClick={() => handleCart(item.product.id, "remove")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-down" /></button>
-                                </div>
-                                <div className="flex items-center ml-10">
-                                    <button onClick={() => handleCart(item.product.id, "delete")} className="text-xl hover:text-[#800000]"><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
+                                <div className="flex-1 flex flex-row justify-between gap-1">
+                                    <div className="flex-1 flex items-center sm:text-[14px] min-w-[70px]">
+                                        <p className=" w-full">{toFixed2(item.product.price * item.count)}$</p>
+                                    </div>
+                                    <div className="flex-1 justify-center flex flex-col items-center bg-white border rounded text-[14px] min-w-[60px] sm:min-w-[40px]">
+                                        <button className="w-full" onClick={() => handleCart(item.product.id, "add")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-up" /></button>
+                                        <p>{item.count}</p>
+                                        <button className="w-full" onClick={() => handleCart(item.product.id, "remove")}><FontAwesomeIcon name={"" + item.product.id} icon="fa-solid fa-angle-down" /></button>
+                                    </div>
+                                    <div className="flex-1 flex items-center min-w-[50px]">
+                                        <button onClick={() => handleCart(item.product.id, "delete")} className="text-xl hover:text-[#800000] sm:text-[16px] w-full"><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
+                                    </div>
                                 </div>
                             </div>
                         })
@@ -106,7 +108,6 @@ export default function ShoppingCart() {
                                 <button className="w-full py-3 bg-primary-blue text-white mt-4 text-xl rounded text-center">Create Order</button>
                             </Link>
                         </div>
-
                     </div>
                 </div>
 

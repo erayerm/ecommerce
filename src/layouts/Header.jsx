@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'
 import { addToCartAction, removeFromCartAction } from '../store/actions/ShoppingCartActions';
 import { logoutAction } from '../store/actions/UserActions';
@@ -42,6 +42,9 @@ export default function Header() {
     const handleLogout = () => {
         dispatch(logoutAction())
     }
+
+    const history = useHistory();
+
     return (
         <>
             <div className='w-screen h-[60px] bg-main text-white px-5 lg:hidden'>
@@ -63,24 +66,30 @@ export default function Header() {
             <div className='w-screen py-[30px] px-5 text-gray'>
                 <div className='max-w-[1440px] flex justify-between my-0 mx-auto h-full items-center '>
                     <div className='flex items-center gap-5'>
-                        <p className='font-bold text-2xl leading-8 text-main' >Bandage</p>
+                        <div onClick={() => history.push("/")}><p className='font-bold text-2xl leading-8 text-main cursor-pointer' >Bandage</p></div>
                         <nav className='flex gap-3 text-sm leading-6 items-center lg:hidden'>
                             <Link to="/">Home</Link>
                             <Dropdown onMouseEnter={handleHoverIn} onMouseLeave={handleHoverOut} isOpen={dropdownOpen} toggle={handleToggle} className="text-sm text-secondary mr-[-8px]">
                                 <DropdownToggle className="text-sm leading-6 border-0 text-gray flex items-center justify-between gap-2"><Link to="/shop">Shop</Link> <FontAwesomeIcon icon="fa-solid fa-angle-down" /></DropdownToggle>
                                 <DropdownMenu className="min-w-[200px]">
-                                    <DropdownItem header className="text-lg font-bold">Kadın</DropdownItem>
-                                    {categories.map((item, index) => {
-                                        const gender = item.gender === "k" ? "kadin" : "erkek";
-                                        const itemCode = item["code"].split("").slice(2).join("");
-                                        if (item.gender === "k") return <Link to={"/shop/" + gender + "/" + itemCode} key={index}><DropdownItem name={item.code} className='text-sm'>{item.title}</DropdownItem></Link>
-                                    })}
-                                    <DropdownItem header className="text-lg font-bold">Erkek</DropdownItem>
-                                    {categories.map((item, index) => {
-                                        const gender = item.gender === "k" ? "kadin" : "erkek";
-                                        const itemCode = item["code"].split("").slice(2).join("");
-                                        if (item.gender === "e") return <Link to={"/shop/" + gender + "/" + itemCode} key={index}><DropdownItem name={item.code} className='text-sm'>{item.title}</DropdownItem></Link>
-                                    })}
+                                    <div className='flex gap-6 px-2'>
+                                        <div>
+                                            <DropdownItem header className="text-lg font-bold">Kadın</DropdownItem>
+                                            {categories.map((item, index) => {
+                                                const gender = item.gender === "k" ? "kadin" : "erkek";
+                                                const itemCode = item["code"].split("").slice(2).join("");
+                                                if (item.gender === "k") return <Link to={"/shop/" + gender + "/" + itemCode} key={index}><DropdownItem name={item.code} className='text-sm'>{item.title}</DropdownItem></Link>
+                                            })}
+                                        </div>
+                                        <div>
+                                            <DropdownItem header className="text-lg font-bold">Erkek</DropdownItem>
+                                            {categories.map((item, index) => {
+                                                const gender = item.gender === "k" ? "kadin" : "erkek";
+                                                const itemCode = item["code"].split("").slice(2).join("");
+                                                if (item.gender === "e") return <Link to={"/shop/" + gender + "/" + itemCode} key={index}><DropdownItem name={item.code} className='text-sm'>{item.title}</DropdownItem></Link>
+                                            })}
+                                        </div>
+                                    </div>
                                 </DropdownMenu>
                             </Dropdown>
                             <Link to="/about">About</Link>

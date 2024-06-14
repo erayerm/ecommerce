@@ -16,7 +16,7 @@ export default function Products({ genderParams = null, categoryParams = null })
     const [dropdownPick, setDropdownPick] = useState(new URLSearchParams(search).get('sort') ? navItems[navItems.findIndex(item => item[1] === new URLSearchParams(search).get('sort'))][0] : "Order By");
     const [category, setCategory] = useState(null);
     const [filter, setFilter] = useState(new URLSearchParams(search).get('filter'));
-    const [sort, setSort] = useState(new URLSearchParams(search).get('sort'));
+    const [sort, setSort] = useState(new URLSearchParams(search).get('sort') ? new URLSearchParams(search).get('sort') : "price:asc");
     const limit = 24;
     const [offset, setOffset] = useState(new URLSearchParams(search).get('offset'));
     const [canFetch, setCanFetch] = useState(genderParams ? false : true)
@@ -117,13 +117,8 @@ export default function Products({ genderParams = null, categoryParams = null })
     return (
         <div className="w-screen flex flex-col" ref={beginningRef}>
             <div className="my-0 mx-auto max-w-[1060px]">
-                <div className="w-full gap-20 flex md:flex-col md:gap-6 justify-between items-center py-6">
+                <div className="w-full gap-20 flex md:flex-col md:gap-6 justify-between items-center py-6 px-2">
                     <p className="text-gray font-bold text-sm leading-6">Showing all {productCount} results</p>
-                    <div className="flex items-center gap-3.5">
-                        <p className="text-gray font-bold text-sm leading-6">Views: </p>
-                        <button className="h-[46px] w-[46px] border-1 rounded"><FontAwesomeIcon icon="fa-solid fa-border-all" /></button>
-                        <button className="h-[46px] w-[46px] border-1 rounded"><FontAwesomeIcon icon="fa-solid fa-list-check" /></button>
-                    </div>
                     <div className="flex gap-3.5 flex-wrap justify-center">
                         <Dropdown onMouseEnter={handleHoverIn} onMouseLeave={handleHoverOut} isOpen={dropdownOpen} toggle={handleToggle} className="text-sm leading-7 text-secondary rounded ">
                             <DropdownToggle className="pl-3 py-2.5 border-1 text-gray border-[#DDDDDD] rounded hover:bg-gray-300 hover:text-black flex items-center justify-between min-w-[200px] gap-2"><p>{dropdownPick}</p> <FontAwesomeIcon icon="fa-solid fa-angle-down" /></DropdownToggle>
@@ -143,34 +138,38 @@ export default function Products({ genderParams = null, categoryParams = null })
                     </div>
                 </div>
                 <div className={"flex justify-center items-center h-[500px] " + (productsLoading ? "block" : "hidden")}><Spinner className="w-[100px] h-[100px]">Loading...</Spinner></div>
-                <div className={"flex flex-wrap gap-x-7 gap-y-20 justify-center px-2 py-12 " + (productsLoading ? "hidden" : "block")}>
-                    {products.map((item, index) => {
-                        return <ProductCard key={index} data={item} size={[240, 300]} />
-                    })}
-                </div>
-                <div className={"flex justify-center pb-5 " + (productsLoading ? "hidden" : "block")}>
-                    <ReactPaginate
-                        ref={paginateRef}
-                        nextLabel="Next >"
-                        onPageChange={handlePageClick}
-                        pageRangeDisplayed={3}
-                        marginPagesDisplayed={2}
-                        pageCount={pageCount}
-                        previousLabel="< Previous"
-                        pageClassName="page-item text-main"
-                        pageLinkClassName="page-link text-main"
-                        previousClassName="page-item text-main"
-                        previousLinkClassName="page-link text-main"
-                        nextClassName="page-item text-main"
-                        nextLinkClassName="page-link text-main"
-                        breakLabel="..."
-                        breakClassName="page-item"
-                        breakLinkClassName="page-link"
-                        containerClassName="pagination"
-                        activeClassName="active"
-                        renderOnZeroPageCount={null}
-                    />
-                </div>
+                {products.length == 0 ? <p className="w-full text-center text-2xl pt-12 font-bold">Product Not Founded!</p> :
+                    <>
+                        <div className={"flex flex-wrap gap-x-7 gap-y-20 justify-center px-2 py-12 " + (productsLoading ? "hidden" : "block")}>
+                            {products.map((item, index) => {
+                                return <ProductCard key={index} data={item} size={[240, 300]} />
+                            })}
+                        </div>
+                        <div className={"flex justify-center pb-5 " + (productsLoading ? "hidden" : "block")}>
+                            <ReactPaginate
+                                ref={paginateRef}
+                                nextLabel="Next >"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={3}
+                                marginPagesDisplayed={2}
+                                pageCount={pageCount}
+                                previousLabel="< Previous"
+                                pageClassName="page-item text-main"
+                                pageLinkClassName="page-link text-main"
+                                previousClassName="page-item text-main"
+                                previousLinkClassName="page-link text-main"
+                                nextClassName="page-item text-main"
+                                nextLinkClassName="page-link text-main"
+                                breakLabel="..."
+                                breakClassName="page-item"
+                                breakLinkClassName="page-link"
+                                containerClassName="pagination"
+                                activeClassName="active"
+                                renderOnZeroPageCount={null}
+                            />
+                        </div>
+                    </>
+                }
             </div>
         </div>
     )

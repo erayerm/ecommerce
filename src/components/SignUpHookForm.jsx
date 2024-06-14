@@ -295,7 +295,7 @@ export default function SignUpHookForm({ submitFn, submitLoading, submitError })
                     </div>
                 </div>
                 <div className="form-line">
-                    <div className='text-sm text-main'>Do you already have an account?<Link to="/login" className="text-primary-blue text-base">Login</Link></div>
+                    <div className='text-sm text-main'>Do you already have an account?<Link to="/login" className="text-primary-blue text-base"> Login</Link></div>
                 </div>
             </form>
         </>
