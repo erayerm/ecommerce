@@ -21,6 +21,9 @@ export default function CarouselMainFirst({ slides }) {
     };
     useEffect(() => {
         window.addEventListener("resize", getCarouselSize);
+        return () => {
+            window.removeEventListener('resize', getCarouselSize);
+        };
     }, []);
     useEffect(() => {
         setWidth(ref.current ? ref.current.offsetWidth : 0)
