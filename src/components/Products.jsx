@@ -16,7 +16,7 @@ export default function Products({ genderParams = null, categoryParams = null })
     const [dropdownPick, setDropdownPick] = useState(new URLSearchParams(search).get('sort') ? navItems[navItems.findIndex(item => item[1] === new URLSearchParams(search).get('sort'))][0] : "Order By");
     const [category, setCategory] = useState(null);
     const [filter, setFilter] = useState(new URLSearchParams(search).get('filter'));
-    const [sort, setSort] = useState(new URLSearchParams(search).get('sort') ? new URLSearchParams(search).get('sort') : "price:asc");
+    const [sort, setSort] = useState(new URLSearchParams(search).get('sort'));
     const limit = 24;
     const [offset, setOffset] = useState(new URLSearchParams(search).get('offset'));
     const [canFetch, setCanFetch] = useState(genderParams ? false : true)
@@ -96,7 +96,7 @@ export default function Products({ genderParams = null, categoryParams = null })
 
     useEffect(() => {
         if (prevOffset !== offset) {
-            if (canFetch || offset !== 0) dispatch(fetchProducts(category, filter, sort, limit, offset))
+            if (canFetch || (offset !== 0 && offset !== null)) dispatch(fetchProducts(category, filter, sort, limit, offset))
             history.push(location.pathname + "?" + (filter ? "filter=" + filter + "&" : "") + (sort ? "sort=" + sort + "&" : "") + ("offset=" + offset))
             setPrevOffset(offset);
             setCanFetch(true);
